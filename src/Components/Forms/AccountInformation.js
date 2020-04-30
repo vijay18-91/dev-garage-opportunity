@@ -1,8 +1,5 @@
 import React, { Component } from 'react';
 import _ from 'lodash';
-import HOC from '../../Utility/HOC';
-import InputText from '../Elements/InputText';
-import SelectElement from '../Elements/SelectElement';
 import { TextInput, Select, SelectItem } from 'carbon-components-react';
 
 class AccountInformation extends Component {
@@ -40,7 +37,7 @@ class AccountInformation extends Component {
 
     render() {
         return (
-            <div className="AccountInformation">
+            <div className="accountInformation">
                 <div className="accountInformation__header">
                     <h3>1. Account Information</h3>
                     <p>More information needs to be added to this part.</p>

@@ -1,0 +1,36 @@
+.forms {
+    margin: 60px 200px;
+
+    &__header {
+        margin-bottom: 50px;
+    }
+}
+
+.accountInformation {
+    
+    &__header {
+        margin-bottom: 30px;;
+    }
+
+    &__inputField {
+        display: inline-block;
+        width: 270px;
+        margin: 0 30px 35px 0;
+    }
+}
+
+.PeopleCultureOrg {
+    &__header {
+        margin-bottom: 30px;
+    }
+
+    &__field {
+        display: inline-block;
+        width: 310px;
+    }
+
+    & input[type='text'] {
+        margin-top: 20px;
+        width: 270px;
+    }
+}
