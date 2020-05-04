@@ -1,18 +1,14 @@
 import React, { Component } from 'react';
-import { TextInput, NumberInput } from 'carbon-components-react';
+import { NumberInput } from 'carbon-components-react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import {mvpDetails} from '../../Redux/actions/mvpDetails';
+
 
 class TeamStructure extends Component {
 
-    state = {
-        geoFTEs: 0,
-        cicFTEs: 0,
-        cicOffshoreFTEs: 0
-    };
-
     onTextChange = event => {
-        this.setState({
-            [event.target.name]: event.target.value
-        })
+        this.props.mvpDetails({name: event.target.name, value: event.target.value})
     };
 
     render() {
@@ -27,7 +23,7 @@ class TeamStructure extends Component {
                             label="No of Geo FTEs"
                             name="geoFTEs"
                             type="number"
-                            value={this.state.geoFTEs}
+                            value={this.props.mvpDetails.geoFTEs}
                             min={0}
                             onChange={event => this.onTextChange(event)}
                             onKeyPress={this.onKeyPress}
@@ -41,7 +37,7 @@ class TeamStructure extends Component {
                             label="No of CIClanded FTEs"
                             name="cicFTEs"
                             type="number"
-                            value={this.state.cicFTEs}
+                            value={this.props.mvpDetails.cicFTEs}
                             min={0}
                             onChange={event => this.onTextChange(event)}
                             onKeyPress={this.onKeyPress}
@@ -55,7 +51,7 @@ class TeamStructure extends Component {
                             label="No of CIC offshore FTEs"
                             name="cicOffshoreFTEs"
                             type="number"
-                            value={this.state.cicOffshoreFTEs}
+                            value={this.props.mvpDetails.cicOffshoreFTEs}
                             min={0}
                             onChange={event => this.onTextChange(event)}
                             onKeyPress={this.onKeyPress}
@@ -67,4 +63,16 @@ class TeamStructure extends Component {
     }
 }
 
-export default TeamStructure;
+const mapStateToProps = state => ({
+    mvpDetails: state.MvpDetails
+});
+
+const mapDispatchToProps = dispatch =>
+    bindActionCreators(
+        {
+            mvpDetails,
+        },
+        dispatch,
+    );
+
+export default connect(mapStateToProps, mapDispatchToProps)(TeamStructure);

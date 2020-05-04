@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { ProgressIndicator, ProgressStep, Button } from 'carbon-components-react';
+import { ProgressIndicator, ProgressStep } from 'carbon-components-react';
 import ScenarioInformation from '../Components/Forms/ScenarioInformation';
 import TeamStrucuter from '../Components/Forms/TeamStructure';
 import PeopleCultureOrganisation from '../Components/Forms/PeopleCultureOrg';
@@ -12,7 +12,6 @@ class AddMVPModal extends Component {
     }
 
     static getDerivedStateFromProps(nextProps, prevState) {
-        console.log(nextProps, prevState);
         if (nextProps.currentIndex !== prevState.currentIndex) {
             return { currentIndex: nextProps.currentIndex }
         }
@@ -21,7 +20,6 @@ class AddMVPModal extends Component {
     }
 
     componentDidUpdate(prevProps, prevState) {
-        console.log(prevProps, prevState);
         if (prevProps.currentIndex !== this.props.currentIndex) {
             const currentIndex = this.props.currentIndex,
                 currentContent = [<ScenarioInformation />, <TeamStrucuter />, <PeopleCultureOrganisation />];

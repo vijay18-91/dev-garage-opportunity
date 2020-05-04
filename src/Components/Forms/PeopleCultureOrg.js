@@ -1,26 +1,14 @@
 import React, { Component } from 'react';
 import { FormGroup, RadioButtonGroup, RadioButton, TextInput } from 'carbon-components-react';
 import _ from 'lodash';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import {mvpDetails} from '../../Redux/actions/mvpDetails';
 
 class PeopleCultureOrg extends Component {
 
     state = {
-        designThinkingApplied: '',
-        devOps: '',
-        hypothesisDrivenDevelopment: '',
-        leanStartup: '',
-        SRE: '',
-        investmentBoard: '',
-        leveragingTShape: '',
-        valuePartner: '',
-        designThinkingAppliedOthers: '',
-        devOpsOthers: '',
-        hypothesisDrivenDevelopmentOthers: '',
-        leanStartupOthers: '',
-        SREOthers: '',
-        investmentBoardOthers: '',
-        leveragingTShapeOthers: '',
-        valuePartnerOthers: '',
+        
         radioOptions: [
             { name: 'Yes', value: 'yes' },
             { name: 'No', value: 'no' },
@@ -34,20 +22,14 @@ class PeopleCultureOrg extends Component {
     }
 
     onChangeRadio = (event, name) => {
-        console.log('radio event', event, name);
-        this.setState({
-            [name]: event
-        })
+        this.props.mvpDetails({name: name, value: event})
     }
 
     onTextChange = event => {
-        this.setState({
-            [event.target.name]: event.target.value
-        })
+        this.props.mvpDetails({name: event.target.name, value: event.target.value})
     };
 
     render() {
-        console.log('in scenarioInformation', this.state);
         return (
             <div className="PeopleCultureOrg">
                 <div className="PeopleCultureOrg__fields">
@@ -59,7 +41,7 @@ class PeopleCultureOrg extends Component {
                                     legend="designThinkingApplied"
                                     defaultSelected=""
                                     name="designThinkingApplied"
-                                    valueSelected={this.state.designThinkingApplied}
+                                    valueSelected={this.props.mvpDetails.designThinkingApplied}
                                     onChange={event => this.onChangeRadio(event, "designThinkingApplied")}
                                 >
                                     {_.map(this.state.radioOptions, option => {
@@ -76,7 +58,7 @@ class PeopleCultureOrg extends Component {
                                     invalid={false}
                                     invalidText="A value is required"
                                     labelText=""
-                                    disabled={this.state.designThinkingApplied === 'others' ? false : true}
+                                    disabled={this.props.mvpDetails.designThinkingApplied === 'others' ? false : true}
                                     name="designThinkingAppliedOthers"
                                     onChange={event => this.onTextChange(event)} />
                             </FormGroup>
@@ -88,7 +70,7 @@ class PeopleCultureOrg extends Component {
                                     defaultSelected=""
                                     legend="devOps"
                                     name="devOps"
-                                    valueSelected={this.state.devOps}
+                                    valueSelected={this.props.mvpDetails.devOps}
                                     onChange={event => this.onChangeRadio(event, "devOps")}
                                 >
                                     {_.map(this.state.radioOptions, option => {
@@ -105,7 +87,7 @@ class PeopleCultureOrg extends Component {
                                     invalid={false}
                                     invalidText="A value is required"
                                     labelText=""
-                                    disabled={this.state.devOps === 'others' ? false : true}
+                                    disabled={this.props.mvpDetails.devOps === 'others' ? false : true}
                                     name="devOpsOthers"
                                     onChange={event => this.onTextChange(event)} />
                             </FormGroup>
@@ -119,7 +101,7 @@ class PeopleCultureOrg extends Component {
                                 <RadioButtonGroup orientation='vertical'
                                     legend="Group Legend"
                                     name="hypothesisDrivenDevelopment"
-                                    valueSelected={this.state.hypothesisDrivenDevelopment}
+                                    valueSelected={this.props.mvpDetails.hypothesisDrivenDevelopment}
                                     onChange={event => this.onChangeRadio(event, "hypothesisDrivenDevelopment")}
                                 >
                                     {_.map(this.state.radioOptions, option => {
@@ -136,7 +118,7 @@ class PeopleCultureOrg extends Component {
                                     invalid={false}
                                     invalidText="A value is required"
                                     labelText=""
-                                    disabled={this.state.hypothesisDrivenDevelopment === 'others' ? false : true}
+                                    disabled={this.props.mvpDetails.hypothesisDrivenDevelopment === 'others' ? false : true}
                                     name="hypothesisDrivenDevelopmentOthers"
                                     onChange={event => this.onTextChange(event)} />
                             </FormGroup>
@@ -148,7 +130,7 @@ class PeopleCultureOrg extends Component {
                                 <RadioButtonGroup orientation='vertical'
                                     legend="Group Legend"
                                     name="leanStartup"
-                                    valueSelected={this.state.leanStartup}
+                                    valueSelected={this.props.mvpDetails.leanStartup}
                                     onChange={event => this.onChangeRadio(event, "leanStartup")}
                                 >
                                     {_.map(this.state.radioOptions, option => {
@@ -165,7 +147,7 @@ class PeopleCultureOrg extends Component {
                                     invalid={false}
                                     invalidText="A value is required"
                                     labelText=""
-                                    disabled={this.state.leanStartup === 'others' ? false : true}
+                                    disabled={this.props.mvpDetails.leanStartup === 'others' ? false : true}
                                     name="leanStartupOthers"
                                     onChange={event => this.onTextChange(event)} />
                             </FormGroup>
@@ -179,7 +161,7 @@ class PeopleCultureOrg extends Component {
                                 <RadioButtonGroup orientation='vertical'
                                     legend="Group Legend"
                                     name="SRE"
-                                    valueSelected={this.state.SRE}
+                                    valueSelected={this.props.mvpDetails.SRE}
                                     onChange={event => this.onChangeRadio(event, "SRE")}
                                 >
                                     {_.map(this.state.radioOptions, option => {
@@ -196,7 +178,7 @@ class PeopleCultureOrg extends Component {
                                     invalid={false}
                                     invalidText="A value is required"
                                     labelText=""
-                                    disabled={this.state.SRE === 'others' ? false : true}
+                                    disabled={this.props.mvpDetails.SRE === 'others' ? false : true}
                                     name="SREOthers"
                                     onChange={event => this.onTextChange(event)} />
                             </FormGroup>
@@ -208,7 +190,7 @@ class PeopleCultureOrg extends Component {
                                 <RadioButtonGroup orientation='vertical'
                                     legend="Group Legend"
                                     name="investmentBoard"
-                                    valueSelected={this.state.investmentBoard}
+                                    valueSelected={this.props.mvpDetails.investmentBoard}
                                     onChange={event => this.onChangeRadio(event, "investmentBoard")}
                                 >
                                     {_.map(this.state.radioOptions, option => {
@@ -225,7 +207,7 @@ class PeopleCultureOrg extends Component {
                                     invalid={false}
                                     invalidText="A value is required"
                                     labelText=""
-                                    disabled={this.state.investmentBoard === 'others' ? false : true}
+                                    disabled={this.props.mvpDetails.investmentBoard === 'others' ? false : true}
                                     name="investmentBoardOthers"
                                     onChange={event => this.onTextChange(event)} />
                             </FormGroup>
@@ -239,7 +221,7 @@ class PeopleCultureOrg extends Component {
                                 <RadioButtonGroup orientation='vertical'
                                     legend="Group Legend"
                                     name="leveragingTShape"
-                                    valueSelected={this.state.leveragingTShape}
+                                    valueSelected={this.props.mvpDetails.leveragingTShape}
                                     onChange={event => this.onChangeRadio(event, "leveragingTShape")}
                                 >
                                     {_.map(this.state.radioOptions, option => {
@@ -256,7 +238,7 @@ class PeopleCultureOrg extends Component {
                                     invalid={false}
                                     invalidText="A value is required"
                                     labelText=""
-                                    disabled={this.state.leveragingTShape === 'others' ? false : true}
+                                    disabled={this.props.mvpDetails.leveragingTShape === 'others' ? false : true}
                                     name="leveragingTShapeOthers"
                                     onChange={event => this.onTextChange(event)} />
                             </FormGroup>
@@ -268,7 +250,7 @@ class PeopleCultureOrg extends Component {
                                 <RadioButtonGroup orientation='vertical'
                                     legend="Group Legend"
                                     name="valuePartner"
-                                    valueSelected={this.state.valuePartner}
+                                    valueSelected={this.props.mvpDetails.valuePartner}
                                     onChange={event => this.onChangeRadio(event, "valuePartner")}
                                 >
                                     {_.map(this.state.radioOptionsValuePartner, option => {
@@ -285,7 +267,7 @@ class PeopleCultureOrg extends Component {
                                     invalid={false}
                                     invalidText="A value is required"
                                     labelText=""
-                                    disabled={this.state.valuePartner === 'others' ? false : true}
+                                    disabled={this.props.mvpDetails.valuePartner === 'others' ? false : true}
                                     name="valuePartnerOthers"
                                     onChange={event => this.onTextChange(event)} />
                             </FormGroup>
@@ -297,4 +279,16 @@ class PeopleCultureOrg extends Component {
     }
 }
 
-export default PeopleCultureOrg;
+const mapStateToProps = state => ({
+    mvpDetails: state.MvpDetails
+});
+
+const mapDispatchToProps = dispatch =>
+    bindActionCreators(
+        {
+            mvpDetails,
+        },
+        dispatch,
+    );
+
+export default connect(mapStateToProps, mapDispatchToProps)(PeopleCultureOrg);

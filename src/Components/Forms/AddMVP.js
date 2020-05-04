@@ -24,6 +24,10 @@ class AddMVP extends Component {
         }
     }
 
+    handleOpen = event => {
+        console.log('modal open');
+    }
+
     render() {
         return (
             <div className="addMVP">

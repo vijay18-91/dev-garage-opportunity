@@ -1,25 +1,13 @@
 import React, { Component } from 'react';
 import { TextInput, FormGroup, RadioButtonGroup, RadioButton, Select, SelectItem } from 'carbon-components-react';
 import _ from 'lodash';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import {mvpDetails} from '../../Redux/actions/mvpDetails';
 
 class ScenarioInformation extends Component {
 
     state = {
-        mvpName: '',
-        emergingTechnologies: '',
-        weeksRequired: '',
-        parallelSquads: '',
-        transformationType: '',
-        transformationTypeOthers: '',
-        isMVPHardned: '',
-        isMVPHardnedOthers: '',
-        isMVPReliability: '',
-        isMVPReliabilityOthers: '',
-        isMVPMonitored: '',
-        isMVPMonitoredOthers: '',
-        isMVPDevopsed: '',
-        isMVPDevopsedOthers: '',
-        mvpStage: '',
         radioOptions: [
             { name: 'Yes', value: 'yes' },
             { name: 'No', value: 'no' },
@@ -39,26 +27,19 @@ class ScenarioInformation extends Component {
     }
 
     onTextChange = event => {
-        this.setState({
-            [event.target.name]: event.target.value
-        })
+        this.props.mvpDetails({name: event.target.name, value: event.target.value})
     };
 
     onChangeSelect = event => {
-        this.setState({
-            [event.target.id]: event.target.value
-        })
+        this.props.mvpDetails({name: event.target.id, value: event.target.value})
     }
 
     onChangeRadio = (event, name) => {
-        console.log('radio event', event, name);
-        this.setState({
-            [name]: event
-        })
+        this.props.mvpDetails({name: name, value: event})
     }
 
     render() {
-        // console.log('in scenarioInformation', this.state);
+        // console.log('in transformationType', this.props.mvpDetails.transformationType);
         return (
             <div className="scenarioInformation">
                 <div className="scenarioInformation__fields">
@@ -70,7 +51,7 @@ class ScenarioInformation extends Component {
                             labelText="MVP Name"
                             placeholder="Placeholder text"
                             name="mvpName"
-                            defaultValue={this.state.mvpName}
+                            defaultValue={this.props.mvpDetails.mvpName}
                             onChange={event => this.onTextChange(event)}
                             onKeyPress={this.onKeyPress}
                         />
@@ -83,7 +64,7 @@ class ScenarioInformation extends Component {
                             labelText="What are the emerging technologies that are being used in this MVPs?"
                             placeholder="Placeholder text"
                             name="emergingTechnologies"
-                            defaultValue={this.state.emergingTechnologies}
+                            defaultValue={this.props.mvpDetails.emergingTechnologies}
                             onChange={event => this.onTextChange(event)}
                             onKeyPress={this.onKeyPress}
                         />
@@ -96,7 +77,7 @@ class ScenarioInformation extends Component {
                             labelText="How long does it take to deliver this MVP?(in weeks)"
                             placeholder="Placeholder text"
                             name="weeksRequired"
-                            defaultValue={this.state.weeksRequired}
+                            defaultValue={this.props.mvpDetails.weeksRequired}
                             onChange={event => this.onTextChange(event)}
                             onKeyPress={this.onKeyPress}
                         />
@@ -109,7 +90,7 @@ class ScenarioInformation extends Component {
                             labelText="How many squads are running in parallel?"
                             placeholder="Placeholder text"
                             name="parallelSquads"
-                            defaultValue={this.state.parallelSquads}
+                            defaultValue={this.props.mvpDetails.parallelSquads}
                             onChange={event => this.onTextChange(event)}
                             onKeyPress={this.onKeyPress}
                         />
@@ -121,7 +102,7 @@ class ScenarioInformation extends Component {
                                 legend="transformationType"
                                 defaultSelected=""
                                 name="transformationType"
-                                valueSelected={this.state.transformationType}
+                                valueSelected={this.props.mvpDetails.transformationType}
                                 onChange={event => this.onChangeRadio(event, "transformationType")}
                             >
                                 {_.map(this.state.mvpTransformation, option => {
@@ -139,13 +120,13 @@ class ScenarioInformation extends Component {
                                 invalid={false}
                                 invalidText="A value is required"
                                 labelText=""
-                                disabled={this.state.transformationType === 'others' ? false : true}
+                                disabled={this.props.mvpDetails.transformationType === 'others' ? false : true}
                                 name="transformationTypeOthers"
                                 onChange={event => this.onTextChange(event)} />
                         </FormGroup>
                     </div>
                     <div className="scenarioInformation__inputField">
-                        <Select id="mvpStage" onChange={event => this.onChangeSelect(event)} defaultValue={this.state.mvpStage} labelText="What stage is this MVP in currently">
+                        <Select id="mvpStage" onChange={event => this.onChangeSelect(event)} defaultValue={this.props.mvpDetails.mvpStage} labelText="What stage is this MVP in currently">
                             <SelectItem text="Choose an option" value="" disabled={true} />
                             {_.map(this.state.selectOptions, option => {
                                 return (
@@ -165,7 +146,7 @@ class ScenarioInformation extends Component {
                                 legend="isMVPHardned"
                                 defaultSelected=""
                                 name="isMVPHardned"
-                                valueSelected={this.state.isMVPHardned}
+                                valueSelected={this.props.mvpDetails.isMVPHardned}
                                 onChange={event => this.onChangeRadio(event, "isMVPHardned")}
                             >
                                 {_.map(this.state.radioOptions, option => {
@@ -183,7 +164,7 @@ class ScenarioInformation extends Component {
                                 invalid={false}
                                 invalidText="A value is required"
                                 labelText=""
-                                disabled={this.state.isMVPHardned === 'others' ? false : true}
+                                disabled={this.props.mvpDetails.isMVPHardned === 'others' ? false : true}
                                 name="isMVPHardnedOthers"
                                 onChange={event => this.onTextChange(event)} />
                         </FormGroup>
@@ -195,7 +176,7 @@ class ScenarioInformation extends Component {
                                 legend="isMVPReliability"
                                 defaultSelected=""
                                 name="isMVPReliability"
-                                valueSelected={this.state.isMVPReliability}
+                                valueSelected={this.props.mvpDetails.isMVPReliability}
                                 onChange={event => this.onChangeRadio(event, "isMVPReliability")}
                             >
                                 {_.map(this.state.radioOptions, option => {
@@ -213,7 +194,7 @@ class ScenarioInformation extends Component {
                                 invalid={false}
                                 invalidText="A value is required"
                                 labelText=""
-                                disabled={this.state.isMVPReliability === 'others' ? false : true}
+                                disabled={this.props.mvpDetails.isMVPReliability === 'others' ? false : true}
                                 name="isMVPReliabilityOthers"
                                 onChange={event => this.onTextChange(event)} />
                         </FormGroup>
@@ -225,7 +206,7 @@ class ScenarioInformation extends Component {
                                 legend="isMVPMonitored"
                                 defaultSelected=""
                                 name="isMVPMonitored"
-                                valueSelected={this.state.isMVPMonitored}
+                                valueSelected={this.props.mvpDetails.isMVPMonitored}
                                 onChange={event => this.onChangeRadio(event, "isMVPMonitored")}
                             >
                                 {_.map(this.state.radioOptions, option => {
@@ -243,7 +224,7 @@ class ScenarioInformation extends Component {
                                 invalid={false}
                                 invalidText="A value is required"
                                 labelText=""
-                                disabled={this.state.isMVPMonitored === 'others' ? false : true}
+                                disabled={this.props.mvpDetails.isMVPMonitored === 'others' ? false : true}
                                 name="isMVPMonitoredOthers"
                                 onChange={event => this.onTextChange(event)} />
                         </FormGroup>
@@ -255,7 +236,7 @@ class ScenarioInformation extends Component {
                                 legend="isMVPDevopsed"
                                 defaultSelected=""
                                 name="isMVPDevopsed"
-                                valueSelected={this.state.isMVPDevopsed}
+                                valueSelected={this.props.mvpDetails.isMVPDevopsed}
                                 onChange={event => this.onChangeRadio(event, "isMVPDevopsed")}
                             >
                                 {_.map(this.state.radioOptions, option => {
@@ -273,7 +254,7 @@ class ScenarioInformation extends Component {
                                 invalid={false}
                                 invalidText="A value is required"
                                 labelText=""
-                                disabled={this.state.isMVPDevopsed === 'others' ? false : true}
+                                disabled={this.props.mvpDetails.isMVPDevopsed === 'others' ? false : true}
                                 name="isMVPDevopsedOthers"
                                 onChange={event => this.onTextChange(event)} />
                         </FormGroup>
@@ -284,4 +265,16 @@ class ScenarioInformation extends Component {
     }
 }
 
-export default ScenarioInformation;
+const mapStateToProps = state => ({
+    mvpDetails: state.MvpDetails
+});
+
+const mapDispatchToProps = dispatch =>
+    bindActionCreators(
+        {
+            mvpDetails,
+        },
+        dispatch,
+    );
+
+export default connect(mapStateToProps, mapDispatchToProps)(ScenarioInformation);
