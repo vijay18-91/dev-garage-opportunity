@@ -52,12 +52,13 @@ class AccountInformation extends Component {
                                 labelText="Account Name"
                                 placeholder="Placeholder text"
                                 name="accountName"
+                                defaultValue={this.state.accountName}
                                 onChange={event => this.onTextChange(event)}
                                 onKeyPress={this.onKeyPress}
                             />
                         </div>
                         <div className="accountInformation__inputField">
-                            <Select id="sector" onChange={event => this.onChangeSelect(event)} defaultValue="" labelText="Sector" >
+                            <Select id="sector" onChange={event => this.onChangeSelect(event)} defaultValue={this.state.sector} labelText="Sector" >
                                 <SelectItem text="Choose an option" value="" disabled={true} />
                                 {_.map(this.state.options, option => {
                                     return (
@@ -73,7 +74,7 @@ class AccountInformation extends Component {
                     </div>
                     <div className="accountInformation__inputRow">
                         <div className="accountInformation__inputField">
-                            <Select id="industry" onChange={event => this.onChangeSelect(event)} defaultValue="" labelText="Industry">
+                            <Select id="industry" onChange={event => this.onChangeSelect(event)} defaultValue={this.state.industry} labelText="Industry">
                                 <SelectItem text="Choose an option" value="" disabled={true} />
                                 {_.map(this.state.options, option => {
                                     return (
@@ -87,7 +88,7 @@ class AccountInformation extends Component {
                             </Select>
                         </div>
                         <div className="accountInformation__inputField">
-                            <Select id="practice" onChange={event => this.onChangeSelect(event)} defaultValue="" labelText="Practice">
+                            <Select id="practice" onChange={event => this.onChangeSelect(event)} defaultValue={this.state.practice} labelText="Practice">
                                 <SelectItem text="Choose an option" value="" disabled={true} />
                                 {_.map(this.state.options, option => {
                                     return (
@@ -110,12 +111,13 @@ class AccountInformation extends Component {
                                 labelText="Delivered By"
                                 placeholder="Placeholder text"
                                 name="deliveredBy"
+                                defaultValue={this.state.deliveredBy}
                                 onChange={event => this.onTextChange(event)}
                                 onKeyPress={this.onKeyPress}
                             />
                         </div>
                         <div className="accountInformation__inputField">
-                            <Select id="practice" onChange={event => this.onChangeSelect(event)} defaultValue="" labelText="IOT">
+                            <Select id="practice" onChange={event => this.onChangeSelect(event)} defaultValue={this.state.practice} labelText="IOT">
                                 <SelectItem text="Choose an option" value="" disabled={true} />
                                 {_.map(this.state.options, option => {
                                     return (

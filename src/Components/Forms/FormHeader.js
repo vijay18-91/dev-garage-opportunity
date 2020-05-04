@@ -1,5 +1,4 @@
-import React, { Component } from 'react';
-import HOC from '../../Utility/HOC';
+import React from 'react';
 
 const FormHeader = props => {
     return (

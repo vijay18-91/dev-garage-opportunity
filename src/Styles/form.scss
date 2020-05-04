@@ -1,36 +1,86 @@
 .forms {
-    margin: 60px 200px;
+  margin: 60px 200px;
 
-    &__header {
-        margin-bottom: 50px;
-    }
+  &__header {
+    margin-bottom: 50px;
+  }
 }
 
 .accountInformation {
-    
-    &__header {
-        margin-bottom: 30px;;
-    }
+  &__header {
+    margin-bottom: 30px;
+  }
 
-    &__inputField {
-        display: inline-block;
-        width: 270px;
-        margin: 0 30px 35px 0;
+  &__inputField {
+    display: inline-block;
+    width: 270px;
+    margin: 0 30px 35px 0;
+  }
+}
+
+.addMVP {
+  &__header {
+    margin-bottom: 30px;
+  }
+}
+
+.addMVPModal {
+    &__progress-bar {
+        margin-bottom: 30px;
     }
 }
 
 .PeopleCultureOrg {
-    &__header {
-        margin-bottom: 30px;
-    }
+  &__header {
+    margin-bottom: 30px;
+  }
 
-    &__field {
-        display: inline-block;
-        width: 310px;
-    }
+  &__field {
+    display: inline-block;
+    width: 310px;
+  }
 
-    & input[type='text'] {
-        margin-top: 20px;
-        width: 270px;
+  & input[type="text"] {
+    margin-top: 20px;
+    width: 270px;
+  }
+}
+
+.teamStructure {
+  &__fields {
+    margin-top: 10px;
+  }
+
+  &__inputField {
+    margin-bottom: 25px;
+    width: 300px;
+  }
+}
+
+.scenarioInformation {
+  &__header {
+    margin-bottom: 30px;
+  }
+
+  &__field {
+    display: inline-block;
+    width: 310px;
+  }
+
+  &__inputField {
+    display: inline-block;
+    margin: 0 30px 35px 0;
+  }
+
+  &__radioField {
+    
+    & input[type="text"] {
+      margin-top: 20px;
+      width: 270px;
     }
+  }
+
+  &__inputField input {
+    width: 270px;
+  }
 }

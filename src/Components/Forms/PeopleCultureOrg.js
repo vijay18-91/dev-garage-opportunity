@@ -5,7 +5,7 @@ import _ from 'lodash';
 class PeopleCultureOrg extends Component {
 
     state = {
-        leveragingTShapedesignThinkingApplied: '',
+        designThinkingApplied: '',
         devOps: '',
         hypothesisDrivenDevelopment: '',
         leanStartup: '',
@@ -13,6 +13,14 @@ class PeopleCultureOrg extends Component {
         investmentBoard: '',
         leveragingTShape: '',
         valuePartner: '',
+        designThinkingAppliedOthers: '',
+        devOpsOthers: '',
+        hypothesisDrivenDevelopmentOthers: '',
+        leanStartupOthers: '',
+        SREOthers: '',
+        investmentBoardOthers: '',
+        leveragingTShapeOthers: '',
+        valuePartnerOthers: '',
         radioOptions: [
             { name: 'Yes', value: 'yes' },
             { name: 'No', value: 'no' },
@@ -32,13 +40,16 @@ class PeopleCultureOrg extends Component {
         })
     }
 
+    onTextChange = event => {
+        this.setState({
+            [event.target.name]: event.target.value
+        })
+    };
+
     render() {
+        console.log('in scenarioInformation', this.state);
         return (
             <div className="PeopleCultureOrg">
-                <div className="PeopleCultureOrg__header">
-                    <h3>3. People, Culture & Organisation</h3>
-                    <p> Some details about this form section</p>
-                </div>
                 <div className="PeopleCultureOrg__fields">
                     <div className="PeopleCultureOrg__fieldRow">
                         <div className="PeopleCultureOrg__field">
@@ -64,6 +75,7 @@ class PeopleCultureOrg extends Component {
                                     id='designThinkingAppliedOthers'
                                     invalid={false}
                                     invalidText="A value is required"
+                                    labelText=""
                                     disabled={this.state.designThinkingApplied === 'others' ? false : true}
                                     name="designThinkingAppliedOthers"
                                     onChange={event => this.onTextChange(event)} />
@@ -89,11 +101,12 @@ class PeopleCultureOrg extends Component {
                                     })}
                                 </RadioButtonGroup>
                                 <TextInput
-                                    id='designThinkingAppliedOthers'
+                                    id='devOpsOthers'
                                     invalid={false}
                                     invalidText="A value is required"
+                                    labelText=""
                                     disabled={this.state.devOps === 'others' ? false : true}
-                                    name="designThinkingAppliedOthers"
+                                    name="devOpsOthers"
                                     onChange={event => this.onTextChange(event)} />
                             </FormGroup>
                         </div>
@@ -119,11 +132,12 @@ class PeopleCultureOrg extends Component {
                                     })}
                                 </RadioButtonGroup>
                                 <TextInput
-                                    id='designThinkingAppliedOthers'
+                                    id='hypothesisDrivenDevelopmentOthers'
                                     invalid={false}
                                     invalidText="A value is required"
+                                    labelText=""
                                     disabled={this.state.hypothesisDrivenDevelopment === 'others' ? false : true}
-                                    name="designThinkingAppliedOthers"
+                                    name="hypothesisDrivenDevelopmentOthers"
                                     onChange={event => this.onTextChange(event)} />
                             </FormGroup>
                         </div>
@@ -147,11 +161,12 @@ class PeopleCultureOrg extends Component {
                                     })}
                                 </RadioButtonGroup>
                                 <TextInput
-                                    id='designThinkingAppliedOthers'
+                                    id='leanStartupOthers'
                                     invalid={false}
                                     invalidText="A value is required"
+                                    labelText=""
                                     disabled={this.state.leanStartup === 'others' ? false : true}
-                                    name="designThinkingAppliedOthers"
+                                    name="leanStartupOthers"
                                     onChange={event => this.onTextChange(event)} />
                             </FormGroup>
                         </div>
@@ -177,11 +192,12 @@ class PeopleCultureOrg extends Component {
                                     })}
                                 </RadioButtonGroup>
                                 <TextInput
-                                    id='designThinkingAppliedOthers'
+                                    id='SREOthers'
                                     invalid={false}
                                     invalidText="A value is required"
+                                    labelText=""
                                     disabled={this.state.SRE === 'others' ? false : true}
-                                    name="designThinkingAppliedOthers"
+                                    name="SREOthers"
                                     onChange={event => this.onTextChange(event)} />
                             </FormGroup>
                         </div>
@@ -205,11 +221,12 @@ class PeopleCultureOrg extends Component {
                                     })}
                                 </RadioButtonGroup>
                                 <TextInput
-                                    id='designThinkingAppliedOthers'
+                                    id='investmentBoardOthers'
                                     invalid={false}
                                     invalidText="A value is required"
+                                    labelText=""
                                     disabled={this.state.investmentBoard === 'others' ? false : true}
-                                    name="designThinkingAppliedOthers"
+                                    name="investmentBoardOthers"
                                     onChange={event => this.onTextChange(event)} />
                             </FormGroup>
                         </div>
@@ -235,11 +252,12 @@ class PeopleCultureOrg extends Component {
                                     })}
                                 </RadioButtonGroup>
                                 <TextInput
-                                    id='designThinkingAppliedOthers'
+                                    id='leveragingTShapeOthers'
                                     invalid={false}
                                     invalidText="A value is required"
+                                    labelText=""
                                     disabled={this.state.leveragingTShape === 'others' ? false : true}
-                                    name="designThinkingAppliedOthers"
+                                    name="leveragingTShapeOthers"
                                     onChange={event => this.onTextChange(event)} />
                             </FormGroup>
                         </div>
@@ -263,11 +281,12 @@ class PeopleCultureOrg extends Component {
                                     })}
                                 </RadioButtonGroup>
                                 <TextInput
-                                    id='designThinkingAppliedOthers'
+                                    id='valuePartnerOthers'
                                     invalid={false}
                                     invalidText="A value is required"
+                                    labelText=""
                                     disabled={this.state.valuePartner === 'others' ? false : true}
-                                    name="designThinkingAppliedOthers"
+                                    name="valuePartnerOthers"
                                     onChange={event => this.onTextChange(event)} />
                             </FormGroup>
                         </div>
