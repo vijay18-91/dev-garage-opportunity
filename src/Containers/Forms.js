@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { Loading } from 'carbon-components-react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import FormHeader from '../Components/Forms/FormHeader';
 import AccountInformation from '../Components/Forms/AccountInformation';
 import AddMVP from '../Components/Forms/AddMVP';
@@ -12,7 +14,7 @@ class Forms extends Component {
     render() {
         return (
             <div className='forms'>
-                <Loading small description="Active loading indicator" withOverlay={true} />
+                {this.props.isSubmitting ? <Loading small description="Active loading indicator" withOverlay={true} /> : ''}
                 <FormHeader />
                <AccountInformation />
                <AddMVP />
@@ -23,4 +25,16 @@ class Forms extends Component {
 
 }
 
-export default Forms;
+const mapStateToProps = state => ({
+    isSubmitting: state.SubmitOpportunity.isSubmitting
+});
+
+const mapDispatchToProps = dispatch =>
+    bindActionCreators(
+        {
+            
+        },
+        dispatch,
+    );
+
+export default connect(mapStateToProps, mapDispatchToProps)(Forms);

@@ -1,0 +1,46 @@
+.home {
+    &__sideNav {
+        background-color: blue;
+        max-width: 25rem !important;
+        width: 25rem !important;
+        padding-left: 50px;
+        padding-top: 100px;
+    }
+
+    &__sideNav h1 {
+        color: white;
+        margin-bottom: 20px;
+        font-weight: 500;
+    }
+
+    &__sideNav h3 {
+        color: white;
+    }
+
+    &__sideNav p {
+        color: white;
+        margin-bottom: 20px;
+    }
+
+    &__sideNav a {
+        text-decoration: none;
+    }
+
+    &__sideNav a:hover, &__sideNav a:focus {
+        text-decoration: underline;
+    }
+
+    &__button {
+        background-color: white !important;
+        color: blue;
+        width: 205px;
+        height: 65px;
+        text-decoration: none;
+    }
+
+    &__button:hover,
+    &__button:focus {
+        color: blue;
+        font-weight: bold;
+    }
+}

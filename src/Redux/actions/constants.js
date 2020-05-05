@@ -42,3 +42,8 @@ export const SUBMITOPPORTUNITY = {
     name: 'SUBMITOPPORTUNITY',
     paramName: 'submitOpportunity'
 }
+
+export const LOADING = {
+    name: 'LOADING',
+    paramName: 'loading'
+}

@@ -76,7 +76,6 @@ class AddMVP extends Component {
                 </div>
             </div>
         ) : '';
-        console.log('mvplist', this.props.mvpList.length > 0 ? this.props.mvpList : '')
         const data = [
             {id: "sdas",mvpName: 'asdas',emergingTechnologies: 'asawe'},
             {id: "asd",mvpName: 'afgdsdas',emergingTechnologies: 'asawerewrwe'},
