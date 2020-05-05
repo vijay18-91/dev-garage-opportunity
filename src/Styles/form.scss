@@ -1,12 +1,12 @@
 .forms {
-  margin: 60px 200px;
-
   &__header {
-    margin-bottom: 50px;
+    margin: 60px 200px 50px 200px;
   }
 }
 
 .accountInformation {
+  margin: 60px 200px 20px 200px;
+
   &__header {
     margin-bottom: 30px;
   }
@@ -19,15 +19,27 @@
 }
 
 .addMVP {
+  margin: 60px 200px 20px 200px;
+
   &__header {
     margin-bottom: 30px;
+  }
+
+  &__table table {
+    width: 50%;
+    margin-bottom: 40px;
+  }
+
+  &__table th,
+  &__table td {
+    background-color: white !important;
   }
 }
 
 .addMVPModal {
-    &__progress-bar {
-        margin-bottom: 30px;
-    }
+  &__progress-bar {
+    margin-bottom: 30px;
+  }
 }
 
 .PeopleCultureOrg {
@@ -41,7 +53,15 @@
   }
 
   & input[type="text"] {
+    width: 270px;
+    background-color: #ffffff;
+  }
+
+  &__radioTextField {
     margin-top: 20px;
+  }
+
+  &__radioTextField div div {
     width: 270px;
   }
 }
@@ -54,6 +74,10 @@
   &__inputField {
     margin-bottom: 25px;
     width: 300px;
+  }
+
+  &__inputField input[type="number"] {
+    background-color: #ffffff !important;
   }
 }
 
@@ -68,19 +92,79 @@
   }
 
   &__inputField {
-    display: inline-block;
     margin: 0 30px 35px 0;
   }
 
+  &__inputField div div {
+    width: 270px;
+  }
+
   &__radioField {
-    
     & input[type="text"] {
-      margin-top: 20px;
       width: 270px;
+      background-color: #ffffff;
     }
   }
 
   &__inputField input {
     width: 270px;
+    background-color: #ffffff;
   }
+
+  &__inputField select {
+    background-color: #ffffff !important;
+  }
+
+  &__radioTextField {
+    margin-top: 20px;
+  }
+
+  &__radioTextField div div {
+    width: 270px;
+  }
+}
+
+.modal {
+  display: block; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  padding-top: 100px; /* Location of the box */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0, 0, 0); /* Fallback color */
+  background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+}
+
+.modal__container {
+  position: relative;
+  margin: auto;
+  border: 1px solid #888;
+  width: 48%;
+}
+
+.close {
+  color: #aaaaaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.footer {
+
+  &__secondary, &__primary {
+    max-width: 100% !important;
+    width: 50%;
+    min-height: 4rem !important;
+  }
+
 }

@@ -2,14 +2,45 @@ import React, { Component } from 'react';
 import { NumberInput } from 'carbon-components-react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import {mvpDetails} from '../../Redux/actions/mvpDetails';
-
+import { updateMvpDetails } from '../../Redux/actions/mvpDetails';
+import { formValid } from '../../Redux/actions/validate';
+import _ from 'lodash';
 
 class TeamStructure extends Component {
 
+    state = {
+        validate: {
+            geoFTEs: false,
+            cicFTEs: false,
+            cicOffshoreFTEs: false
+        },
+        fields: [    
+            'geoFTEs',
+            'cicFTEs',
+            'cicOffshoreFTEs'
+        ]
+    }
+
     onTextChange = event => {
-        this.props.mvpDetails({name: event.target.name, value: event.target.value})
+        this.props.updateMvpDetails({ name: event.target.name, value: event.target.value })
     };
+
+    onBlur = event => {
+        let validate = this.state.validate;
+        validate[event.target.name] = event.target.value == 0 ? true : false;
+        this.setState({ validate })
+        this.isFormValid();
+    };
+
+    isFormValid = () => {
+        const isValid = _.every(this.state.validate, name => name === false),
+            isFormFilled = _.every(this.state.fields , field => this.props.mvpDetails[field] != 0);
+        if (isValid && isFormFilled) {
+            this.props.formValid({name: 'teamStructureValid', value: true});
+        } else {
+            this.props.formValid({name: 'teamStructureValid', value: false});
+        }
+    }
 
     render() {
         return (
@@ -18,7 +49,8 @@ class TeamStructure extends Component {
                     <div className="teamStructure__inputField">
                         <NumberInput
                             id='geoFTEs'
-                            invalid={false}
+                            invalid={this.state.validate.geoFTEs}
+                            onBlur={this.onBlur}
                             invalidText="A value is required"
                             label="No of Geo FTEs"
                             name="geoFTEs"
@@ -32,7 +64,8 @@ class TeamStructure extends Component {
                     <div className="teamStructure__inputField">
                         <NumberInput
                             id='cicFTEs'
-                            invalid={false}
+                            invalid={this.state.validate.cicFTEs}
+                            onBlur={this.onBlur}
                             invalidText="A value is required"
                             label="No of CIClanded FTEs"
                             name="cicFTEs"
@@ -46,7 +79,8 @@ class TeamStructure extends Component {
                     <div className="teamStructure__inputField">
                         <NumberInput
                             id='cicOffshoreFTEs'
-                            invalid={false}
+                            invalid={this.state.validate.cicOffshoreFTEs}
+                            onBlur={this.onBlur}
                             invalidText="A value is required"
                             label="No of CIC offshore FTEs"
                             name="cicOffshoreFTEs"
@@ -70,7 +104,8 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch =>
     bindActionCreators(
         {
-            mvpDetails,
+            updateMvpDetails,
+            formValid
         },
         dispatch,
     );

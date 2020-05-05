@@ -1,14 +1,32 @@
 import React, { Component } from 'react';
-import { FormGroup, RadioButtonGroup, RadioButton, TextInput } from 'carbon-components-react';
+import { FormGroup, RadioButtonGroup, RadioButton, TextInput, Checkbox } from 'carbon-components-react';
 import _ from 'lodash';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import {mvpDetails} from '../../Redux/actions/mvpDetails';
+import { updateMvpDetails, populatePOCData } from '../../Redux/actions/mvpDetails';
+import { formValid } from '../../Redux/actions/validate';
 
 class PeopleCultureOrg extends Component {
 
     state = {
-        
+        validate: {
+            designThinkingApplied: true,
+            devOps: true,
+            hypothesisDrivenDevelopment: true,
+            leanStartup: true,
+            SRE: true,
+            investmentBoard: true,
+            leveragingTShape: true,
+            valuePartner: true,
+            designThinkingAppliedOthers: false,
+            devOpsOthers: false,
+            hypothesisDrivenDevelopmentOthers: false,
+            leanStartupOthers: false,
+            SREOthers: false,
+            investmentBoardOthers: false,
+            leveragingTShapeOthers: false,
+            valuePartnerOthers: false,
+        },
         radioOptions: [
             { name: 'Yes', value: 'yes' },
             { name: 'No', value: 'no' },
@@ -18,29 +36,133 @@ class PeopleCultureOrg extends Component {
             { name: 'Value Partner', value: 'valuePartner' },
             { name: 'Low-cost Provider', value: 'lowCostProvider' },
             { name: 'Others', value: 'others' }
-        ]
+        ],
+        fields: [
+            'designThinkingApplied',
+            'devOps',
+            'hypothesisDrivenDevelopment',
+            'leanStartup',
+            'SRE',
+            'investmentBoard',
+            'leveragingTShape',
+            'valuePartner'
+        ],
+        defaultFields: [
+            'designThinkingApplied',
+            'devOps',
+            'hypothesisDrivenDevelopment',
+            'leanStartup',
+            'SRE',
+            'investmentBoard',
+            'leveragingTShape',
+            'valuePartner',
+            'designThinkingAppliedOthers',
+            'devOpsOthers',
+            'hypothesisDrivenDevelopmentOthers',
+            'leanStartupOthers',
+            'SREOthers',
+            'investmentBoardOthers',
+            'leveragingTShapeOthers',
+            'valuePartnerOthers'
+        ],
+        defaultData: {},
+        mvpDetails: {}
     }
 
+    // static getDerivedStateFromProps(nextProps, prevState) {
+    //     if (JSON.stringify(nextProps.mvpDetails) !== JSON.stringify(prevState.mvpDetails)) {
+    //         return { mvpDetails: nextProps.mvpDetails }
+    //     }
+
+    //     return null;
+    // }
+
+    // componentDidUpdate(prevProps, prevState) {
+    //     if (JSON.stringify(prevProps.mvpDetails) !== JSON.stringify(this.props.mvpDetails)) {
+    //         this.setState({mvpDetails: this.props.mvpDetails})
+    //         this.isFormValid();
+    //     }
+    // }
+
+    onBlur = event => {
+        let validate = this.state.validate;
+        validate[event.target.name || event.target.id] = event.target.value === '' ? true : false;
+        this.setState({ validate })
+        this.isFormValid();
+    };
+
     onChangeRadio = (event, name) => {
-        this.props.mvpDetails({name: name, value: event})
+        let validate = this.state.validate;
+        validate[name] = false;
+        this.setState({ validate })
+        this.props.updateMvpDetails({ name: name, value: event })
+
+        if (event === 'others') {
+            this.state.fields.push(name + 'Others');
+        }
+
+        this.isFormValid();
     }
 
     onTextChange = event => {
-        this.props.mvpDetails({name: event.target.name, value: event.target.value})
+        const mvpDetails = this.state.mvpDetails;
+        mvpDetails[event.target.name] = event.target.value;
+        this.setState({mvpDetails});
+        this.props.updateMvpDetails({ name: event.target.name, value: event.target.value })
     };
 
+    isFormValid = () => {
+        const isValid = _.every(this.state.validate, name => name === false),
+            isFormFilled = _.every(this.state.fields, field => this.props.mvpDetails[field] !== '');
+        if (isValid && isFormFilled) {
+            this.props.formValid({ name: 'peopleCultureOrganisationValid', value: true });
+        } else {
+            this.props.formValid({ name: 'peopleCultureOrganisationValid', value: false });
+        }
+    }
+
+    onCheckBoxClick = event => {
+        const mvpList = this.props.mvpList[0],
+            defaultFields = this.state.defaultFields,
+            mvpDetailsState = this.state.mvpDetails,
+            validate = this.state.validate,
+            mvpDetails = this.props.mvpDetails;
+
+        _.forEach(defaultFields, field => {
+            mvpDetails[field] = mvpList[field];
+            mvpDetailsState[field] = mvpList[field];
+            validate[field] = false;
+        });
+
+        console.log('this is check box ticket', mvpDetails);
+        this.setState({ mvpDetails: mvpDetailsState, validate });
+        this.props.populatePOCData(mvpDetails);
+
+    }
+
     render() {
+        this.isFormValid();
+        let checkBox = '';
+        if (this.props.mvpList.length > 0) {
+            checkBox = (
+                <div className="PeopleCultureOrg__checkbox">
+                    <Checkbox onClick={this.onCheckBoxClick} labelText="Pre-fill information for all MVP's" id="checkbox" />
+                </div>
+            )
+        }
+
         return (
             <div className="PeopleCultureOrg">
                 <div className="PeopleCultureOrg__fields">
+                    {checkBox}
                     <div className="PeopleCultureOrg__fieldRow">
                         <div className="PeopleCultureOrg__field">
                             <FormGroup legendText="Is design thinking applied?">
                                 <RadioButtonGroup
                                     orientation='vertical'
                                     legend="designThinkingApplied"
-                                    defaultSelected=""
                                     name="designThinkingApplied"
+                                    defaultSelected={this.state.mvpDetails.designThinkingApplied}
                                     valueSelected={this.props.mvpDetails.designThinkingApplied}
                                     onChange={event => this.onChangeRadio(event, "designThinkingApplied")}
                                 >
@@ -53,23 +175,27 @@ class PeopleCultureOrg extends Component {
                                             />)
                                     })}
                                 </RadioButtonGroup>
-                                <TextInput
-                                    id='designThinkingAppliedOthers'
-                                    invalid={false}
-                                    invalidText="A value is required"
-                                    labelText=""
-                                    disabled={this.props.mvpDetails.designThinkingApplied === 'others' ? false : true}
-                                    name="designThinkingAppliedOthers"
-                                    onChange={event => this.onTextChange(event)} />
+                                <div className="PeopleCultureOrg__radioTextField">
+                                    <TextInput
+                                        id='designThinkingAppliedOthers'
+                                        invalid={this.state.validate.designThinkingAppliedOthers}
+                                        onBlur={this.onBlur}
+                                        invalidText="A value is required"
+                                        labelText=""
+                                        defaultValue={this.state.mvpDetails.designThinkingAppliedOthers}
+                                        disabled={this.props.mvpDetails.designThinkingApplied === 'others' ? false : true}
+                                        name="designThinkingAppliedOthers"
+                                        onChange={event => this.onTextChange(event)} />
+                                </div>
                             </FormGroup>
                         </div>
                         <div className="PeopleCultureOrg__field">
                             <FormGroup legendText="Are you practicing or starting to adopt DevOps">
                                 <RadioButtonGroup
                                     orientation='vertical'
-                                    defaultSelected=""
                                     legend="devOps"
                                     name="devOps"
+                                    defaultSelected={this.state.mvpDetails.devOps}
                                     valueSelected={this.props.mvpDetails.devOps}
                                     onChange={event => this.onChangeRadio(event, "devOps")}
                                 >
@@ -82,14 +208,18 @@ class PeopleCultureOrg extends Component {
                                             />)
                                     })}
                                 </RadioButtonGroup>
-                                <TextInput
-                                    id='devOpsOthers'
-                                    invalid={false}
-                                    invalidText="A value is required"
-                                    labelText=""
-                                    disabled={this.props.mvpDetails.devOps === 'others' ? false : true}
-                                    name="devOpsOthers"
-                                    onChange={event => this.onTextChange(event)} />
+                                <div className="PeopleCultureOrg__radioTextField">
+                                    <TextInput
+                                        id='devOpsOthers'
+                                        invalid={this.state.validate.devOpsOthers}
+                                        onBlur={this.onBlur}
+                                        invalidText="A value is required"
+                                        labelText=""
+                                        defaultValue={this.state.mvpDetails.devOpsOthers}
+                                        disabled={this.props.mvpDetails.devOps === 'others' ? false : true}
+                                        name="devOpsOthers"
+                                        onChange={event => this.onTextChange(event)} />
+                                </div>
                             </FormGroup>
                         </div>
                     </div>
@@ -101,6 +231,7 @@ class PeopleCultureOrg extends Component {
                                 <RadioButtonGroup orientation='vertical'
                                     legend="Group Legend"
                                     name="hypothesisDrivenDevelopment"
+                                    defaultSelected={this.state.mvpDetails.hypothesisDrivenDevelopment}
                                     valueSelected={this.props.mvpDetails.hypothesisDrivenDevelopment}
                                     onChange={event => this.onChangeRadio(event, "hypothesisDrivenDevelopment")}
                                 >
@@ -113,14 +244,18 @@ class PeopleCultureOrg extends Component {
                                             />)
                                     })}
                                 </RadioButtonGroup>
-                                <TextInput
-                                    id='hypothesisDrivenDevelopmentOthers'
-                                    invalid={false}
-                                    invalidText="A value is required"
-                                    labelText=""
-                                    disabled={this.props.mvpDetails.hypothesisDrivenDevelopment === 'others' ? false : true}
-                                    name="hypothesisDrivenDevelopmentOthers"
-                                    onChange={event => this.onTextChange(event)} />
+                                <div className="PeopleCultureOrg__radioTextField">
+                                    <TextInput
+                                        id='hypothesisDrivenDevelopmentOthers'
+                                        invalid={this.state.validate.hypothesisDrivenDevelopmentOthers}
+                                        onBlur={this.onBlur}
+                                        invalidText="A value is required"
+                                        labelText=""
+                                        defaultValue={this.state.mvpDetails.hypothesisDrivenDevelopmentOthers}
+                                        disabled={this.props.mvpDetails.hypothesisDrivenDevelopment === 'others' ? false : true}
+                                        name="hypothesisDrivenDevelopmentOthers"
+                                        onChange={event => this.onTextChange(event)} />
+                                </div>
                             </FormGroup>
                         </div>
                         <div className="PeopleCultureOrg__field">
@@ -130,6 +265,7 @@ class PeopleCultureOrg extends Component {
                                 <RadioButtonGroup orientation='vertical'
                                     legend="Group Legend"
                                     name="leanStartup"
+                                    defaultSelected={this.state.mvpDetails.leanStartup}
                                     valueSelected={this.props.mvpDetails.leanStartup}
                                     onChange={event => this.onChangeRadio(event, "leanStartup")}
                                 >
@@ -142,14 +278,18 @@ class PeopleCultureOrg extends Component {
                                             />)
                                     })}
                                 </RadioButtonGroup>
-                                <TextInput
-                                    id='leanStartupOthers'
-                                    invalid={false}
-                                    invalidText="A value is required"
-                                    labelText=""
-                                    disabled={this.props.mvpDetails.leanStartup === 'others' ? false : true}
-                                    name="leanStartupOthers"
-                                    onChange={event => this.onTextChange(event)} />
+                                <div className="PeopleCultureOrg__radioTextField">
+                                    <TextInput
+                                        id='leanStartupOthers'
+                                        invalid={this.state.validate.leanStartupOthers}
+                                        onBlur={this.onBlur}
+                                        invalidText="A value is required"
+                                        labelText=""
+                                        defaultValue={this.state.mvpDetails.leanStartupOthers}
+                                        disabled={this.props.mvpDetails.leanStartup === 'others' ? false : true}
+                                        name="leanStartupOthers"
+                                        onChange={event => this.onTextChange(event)} />
+                                </div>
                             </FormGroup>
                         </div>
                     </div>
@@ -161,6 +301,7 @@ class PeopleCultureOrg extends Component {
                                 <RadioButtonGroup orientation='vertical'
                                     legend="Group Legend"
                                     name="SRE"
+                                    defaultSelected={this.state.mvpDetails.SRE}
                                     valueSelected={this.props.mvpDetails.SRE}
                                     onChange={event => this.onChangeRadio(event, "SRE")}
                                 >
@@ -173,14 +314,18 @@ class PeopleCultureOrg extends Component {
                                             />)
                                     })}
                                 </RadioButtonGroup>
-                                <TextInput
-                                    id='SREOthers'
-                                    invalid={false}
-                                    invalidText="A value is required"
-                                    labelText=""
-                                    disabled={this.props.mvpDetails.SRE === 'others' ? false : true}
-                                    name="SREOthers"
-                                    onChange={event => this.onTextChange(event)} />
+                                <div className="PeopleCultureOrg__radioTextField">
+                                    <TextInput
+                                        id='SREOthers'
+                                        invalid={this.state.validate.SREOthers}
+                                        onBlur={this.onBlur}
+                                        invalidText="A value is required"
+                                        labelText=""
+                                        defaultValue={this.state.mvpDetails.SREOthers}
+                                        disabled={this.props.mvpDetails.SRE === 'others' ? false : true}
+                                        name="SREOthers"
+                                        onChange={event => this.onTextChange(event)} />
+                                </div>
                             </FormGroup>
                         </div>
                         <div className="PeopleCultureOrg__field">
@@ -190,6 +335,7 @@ class PeopleCultureOrg extends Component {
                                 <RadioButtonGroup orientation='vertical'
                                     legend="Group Legend"
                                     name="investmentBoard"
+                                    defaultSelected={this.state.mvpDetails.investmentBoard}
                                     valueSelected={this.props.mvpDetails.investmentBoard}
                                     onChange={event => this.onChangeRadio(event, "investmentBoard")}
                                 >
@@ -202,14 +348,18 @@ class PeopleCultureOrg extends Component {
                                             />)
                                     })}
                                 </RadioButtonGroup>
-                                <TextInput
-                                    id='investmentBoardOthers'
-                                    invalid={false}
-                                    invalidText="A value is required"
-                                    labelText=""
-                                    disabled={this.props.mvpDetails.investmentBoard === 'others' ? false : true}
-                                    name="investmentBoardOthers"
-                                    onChange={event => this.onTextChange(event)} />
+                                <div className="PeopleCultureOrg__radioTextField">
+                                    <TextInput
+                                        id='investmentBoardOthers'
+                                        invalid={this.state.validate.investmentBoardOthers}
+                                        onBlur={this.onBlur}
+                                        invalidText="A value is required"
+                                        labelText=""
+                                        defaultValue={this.state.mvpDetails.investmentBoardOthers}
+                                        disabled={this.props.mvpDetails.investmentBoard === 'others' ? false : true}
+                                        name="investmentBoardOthers"
+                                        onChange={event => this.onTextChange(event)} />
+                                </div>
                             </FormGroup>
                         </div>
                     </div>
@@ -221,6 +371,7 @@ class PeopleCultureOrg extends Component {
                                 <RadioButtonGroup orientation='vertical'
                                     legend="Group Legend"
                                     name="leveragingTShape"
+                                    defaultSelected={this.state.mvpDetails.leveragingTShape}
                                     valueSelected={this.props.mvpDetails.leveragingTShape}
                                     onChange={event => this.onChangeRadio(event, "leveragingTShape")}
                                 >
@@ -233,14 +384,18 @@ class PeopleCultureOrg extends Component {
                                             />)
                                     })}
                                 </RadioButtonGroup>
-                                <TextInput
-                                    id='leveragingTShapeOthers'
-                                    invalid={false}
-                                    invalidText="A value is required"
-                                    labelText=""
-                                    disabled={this.props.mvpDetails.leveragingTShape === 'others' ? false : true}
-                                    name="leveragingTShapeOthers"
-                                    onChange={event => this.onTextChange(event)} />
+                                <div className="PeopleCultureOrg__radioTextField">
+                                    <TextInput
+                                        id='leveragingTShapeOthers'
+                                        invalid={this.state.validate.leveragingTShapeOthers}
+                                        onBlur={this.onBlur}
+                                        invalidText="A value is required"
+                                        labelText=""
+                                        defaultValue={this.state.mvpDetails.leveragingTShapeOthers}
+                                        disabled={this.props.mvpDetails.leveragingTShape === 'others' ? false : true}
+                                        name="leveragingTShapeOthers"
+                                        onChange={event => this.onTextChange(event)} />
+                                </div>
                             </FormGroup>
                         </div>
                         <div className="PeopleCultureOrg__field">
@@ -250,6 +405,7 @@ class PeopleCultureOrg extends Component {
                                 <RadioButtonGroup orientation='vertical'
                                     legend="Group Legend"
                                     name="valuePartner"
+                                    defaultSelected={this.state.mvpDetails.valuePartner}
                                     valueSelected={this.props.mvpDetails.valuePartner}
                                     onChange={event => this.onChangeRadio(event, "valuePartner")}
                                 >
@@ -262,14 +418,18 @@ class PeopleCultureOrg extends Component {
                                             />)
                                     })}
                                 </RadioButtonGroup>
-                                <TextInput
-                                    id='valuePartnerOthers'
-                                    invalid={false}
-                                    invalidText="A value is required"
-                                    labelText=""
-                                    disabled={this.props.mvpDetails.valuePartner === 'others' ? false : true}
-                                    name="valuePartnerOthers"
-                                    onChange={event => this.onTextChange(event)} />
+                                <div className="PeopleCultureOrg__radioTextField">
+                                    <TextInput
+                                        id='valuePartnerOthers'
+                                        invalid={this.state.validate.valuePartnerOthers}
+                                        onBlur={this.onBlur}
+                                        invalidText="A value is required"
+                                        labelText=""
+                                        defaultValue={this.state.mvpDetails.valuePartnerOthers}
+                                        disabled={this.props.mvpDetails.valuePartner === 'others' ? false : true}
+                                        name="valuePartnerOthers"
+                                        onChange={event => this.onTextChange(event)} />
+                                </div>
                             </FormGroup>
                         </div>
                     </div>
@@ -280,13 +440,16 @@ class PeopleCultureOrg extends Component {
 }
 
 const mapStateToProps = state => ({
-    mvpDetails: state.MvpDetails
+    mvpDetails: state.MvpDetails,
+    mvpList: state.MVP
 });
 
 const mapDispatchToProps = dispatch =>
     bindActionCreators(
         {
-            mvpDetails,
+            updateMvpDetails,
+            formValid,
+            populatePOCData
         },
         dispatch,
     );
