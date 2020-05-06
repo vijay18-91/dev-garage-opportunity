@@ -21,13 +21,30 @@ class TeamStructure extends Component {
         ]
     }
 
+    onClick = (event, name) => {
+        // let validate = this.state.validate,
+        //     mvpData = this.props.mvpDetails;
+
+        // if (event.target.className.indexOf('up') > -1) {
+        //     mvpData[name]++;
+        // } else {
+        //     mvpData[name] = mvpData[name] > 0 ? mvpData[name]-- : mvpData[name];
+        // }
+        // validate[name] = mvpData == 0 ? true : false;
+        // this.setState({ validate })
+        // this.isFormValid();
+    }
+
     onTextChange = event => {
-        this.props.updateMvpDetails({ name: event.target.name, value: event.target.value })
+        this.props.updateMvpDetails({ name: event.target.name || event.imaginaryTarget.name, value: event.target.value || event.imaginaryTarget.value })
+        this.onBlur(event);
     };
 
     onBlur = event => {
+        console.log('data', event.target.name, event.target.name);
+        if(event.target.name == undefined) return
         let validate = this.state.validate;
-        validate[event.target.name] = event.target.value == 0 ? true : false;
+        validate[event.target.name || event.imaginaryTarget.name] = (event.target.value || event.imaginaryTarget.value ) == 0 ? true : false;
         this.setState({ validate })
         this.isFormValid();
     };
@@ -35,6 +52,8 @@ class TeamStructure extends Component {
     isFormValid = () => {
         const isValid = _.every(this.state.validate, name => name === false),
             isFormFilled = _.every(this.state.fields , field => this.props.mvpDetails[field] != 0);
+
+        // console.log('data', isValid, isFormFilled, this.state.validate, this.props.mvpDetails);
         if (isValid && isFormFilled) {
             this.props.formValid({name: 'teamStructureValid', value: true});
         } else {
@@ -58,6 +77,7 @@ class TeamStructure extends Component {
                             value={this.props.mvpDetails.geoFTEs}
                             min={0}
                             onChange={event => this.onTextChange(event)}
+                            onClick={(event) => this.onClick(event, 'geoFTEs')}
                             onKeyPress={this.onKeyPress}
                         />
                     </div>
@@ -73,6 +93,7 @@ class TeamStructure extends Component {
                             value={this.props.mvpDetails.cicFTEs}
                             min={0}
                             onChange={event => this.onTextChange(event)}
+                            onClick={(event) => this.onClick(event, 'cicFTEs')}
                             onKeyPress={this.onKeyPress}
                         />
                     </div>
@@ -88,6 +109,7 @@ class TeamStructure extends Component {
                             value={this.props.mvpDetails.cicOffshoreFTEs}
                             min={0}
                             onChange={event => this.onTextChange(event)}
+                            onClick={(event) => this.onClick(event, 'cicOffshoreFTEs')}
                             onKeyPress={this.onKeyPress}
                         />
                     </div>

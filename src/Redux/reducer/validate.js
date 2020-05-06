@@ -15,7 +15,7 @@ const mvpDetails = (state = initialState, actions) => {
             };
 
         case RESETFORMVALID.name:
-            return initialState;
+            return {...initialState};
 
         default:
             return state;

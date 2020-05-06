@@ -1,0 +1,55 @@
+CREATE TABLE `garageDb`.`opportunity` (
+  `opportunityId` INT NOT NULL AUTO_INCREMENT,
+  `accountName` VARCHAR(45) NOT NULL,
+  `sector` VARCHAR(45) NOT NULL,
+  `industry` VARCHAR(45) NOT NULL,
+  `practice` VARCHAR(45) NOT NULL,
+  `deliveredBy` VARCHAR(225) NOT NULL,
+  `iot` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`idopportunity`),
+  UNIQUE INDEX `idopportunity_UNIQUE` (`idopportunity` ASC) VISIBLE);
+
+
+  CREATE TABLE `garageDb`.`mvp` (
+  `mvpName` VARCHAR(45) NOT NULL,
+  `emergingTechnologies` VARCHAR(45) NOT NULL,
+  `weeksRequired` VARCHAR(45) NOT NULL,
+  `parallelSquads` VARCHAR(45) NOT NULL,
+  `transformationType` VARCHAR(45) NOT NULL,
+  `transformationTypeOthers` VARCHAR(45) NOT NULL,
+  `isMVPHardned` VARCHAR(45) NOT NULL,
+  `isMVPHardnedOthers` VARCHAR(45) NOT NULL,
+  `isMVPReliability` VARCHAR(45) NOT NULL,
+  `isMVPReliabilityOthers` VARCHAR(45) NOT NULL,
+  `isMVPMonitored` VARCHAR(45) NOT NULL,
+  `isMVPMonitoredOthers` VARCHAR(45) NOT NULL,
+  `isMVPDevopsed` VARCHAR(45) NOT NULL,
+  `isMVPDevopsedOthers` VARCHAR(45) NOT NULL,
+  `mvpStage` VARCHAR(45) NOT NULL,
+  `geoFTEs` VARCHAR(45) NOT NULL,
+  `cicFTEs` VARCHAR(45) NOT NULL,
+  `cicOffshoreFTEs` VARCHAR(45) NOT NULL,
+  `designThinkingApplied` VARCHAR(45) NOT NULL,
+  `devOps` VARCHAR(45) NOT NULL,
+  `hypothesisDrivenDevelopment` VARCHAR(45) NOT NULL,
+  `leanStartup` VARCHAR(45) NOT NULL,
+  `SRE` VARCHAR(45) NOT NULL,
+  `investmentBoard` VARCHAR(45) NOT NULL,
+  `leveragingTShape` VARCHAR(45) NOT NULL,
+  `valuePartner` VARCHAR(45) NOT NULL,
+  `designThinkingAppliedOthers` VARCHAR(45) NOT NULL,
+  `devOpsOthers` VARCHAR(45) NOT NULL,
+  `hypothesisDrivenDevelopmentOthers` VARCHAR(45) NOT NULL,
+  `leanStartupOthers` VARCHAR(45) NOT NULL,
+  `SREOthers` VARCHAR(45) NOT NULL,
+  `investmentBoardOthers` VARCHAR(45) NOT NULL,
+  `leveragingTShapeOthers` VARCHAR(45) NOT NULL,
+  `valuePartnerOthers` VARCHAR(45) NOT NULL,
+  `opportunityId` INT NOT NULL,
+  PRIMARY KEY (`mvpName`),
+  INDEX `opportunityId_idx` (`opportunityId` ASC) VISIBLE,
+  CONSTRAINT `opportunityId`
+    FOREIGN KEY (`opportunityId`)
+    REFERENCES `garageDb`.`opportunity` (`opportunityId`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION);

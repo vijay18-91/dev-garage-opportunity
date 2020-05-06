@@ -28,6 +28,11 @@ export const MVP = {
     paramName: 'mvp'
 }
 
+export const DELETEMVP = {
+    name: 'DELETEMVP',
+    paramName: 'deleteMvp'
+}
+
 export const POPULATEPOCDATA = {
     name: 'POPULATEPOCDATA',
     paramName: 'populatePOC'

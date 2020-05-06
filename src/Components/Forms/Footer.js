@@ -16,7 +16,6 @@ class Footer extends Component {
     }
 
     render() {
-        console.log('submitOpportunity', this.props.submitOpportunityData)
         let isFormValid = true;
         if (this.props.mvpList.length > 0 && _.every(this.props.accountInformationDetails, data => data !== '')) {
             isFormValid = false;

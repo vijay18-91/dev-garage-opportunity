@@ -47,7 +47,7 @@ const mvpDetails = (state = initialState, actions) => {
                 id: actions.data.name == 'mvpName' ? actions.data.value : state.id,
             };
         case POPULATEPOCDATA.name:
-            return actions.data;
+            return {...actions.data};
         case RESETMVPDETAILS.name:
             return {
                 ...initialState

@@ -4,7 +4,7 @@ import AddMVPModal from '../../Containers/AddMVPModal';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { resetMvpDetails } from '../../Redux/actions/mvpDetails';
-import { mvp } from '../../Redux/actions/mvp';
+import { mvp, deleteMvp } from '../../Redux/actions/mvp';
 import { resetFormValid } from '../../Redux/actions/validate';
 
 class AddMVP extends Component {
@@ -20,7 +20,9 @@ class AddMVP extends Component {
             { header: 'Technologies Used', key: 'emergingTechnologies' },
             { header: '', key: 'editAction' },
             { header: '', key: 'deleteAction' }
-        ]
+        ],
+        editSvg: <svg focusable="false" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect width="28" height="2" x="2" y="26"></rect><path d="M25.4,9c0.8-0.8,0.8-2,0-2.8c0,0,0,0,0,0l-3.6-3.6c-0.8-0.8-2-0.8-2.8,0c0,0,0,0,0,0l-15,15V24h6.4L25.4,9z M20.4,4L24,7.6	l-3,3L17.4,7L20.4,4z M6,22v-3.6l10-10l3.6,3.6l-10,10H6z"></path><title>Edit</title></svg>,
+        deleteSvg: <svg focusable="false" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><path d="M16,4c6.6,0,12,5.4,12,12s-5.4,12-12,12S4,22.6,4,16S9.4,4,16,4 M16,2C8.3,2,2,8.3,2,16s6.3,14,14,14s14-6.3,14-14	S23.7,2,16,2z"></path><rect width="16" height="2" x="8" y="15"></rect><title>Subtract alt</title></svg>
     }
 
     onHandleSubmit = () => {
@@ -50,7 +52,19 @@ class AddMVP extends Component {
         this.props.resetFormValid();
     }
 
+    editMVP = (event, index, row) => {
+        console.log('in edit mvp', event, index, row);
+    }
+
+    deleteMVP = (event, index, row) => {
+        console.log('in delete mvp', event, index, row);
+        const mvpList = this.props.mvpList;
+        mvpList.splice(index, 1);
+        this.props.deleteMvp(mvpList);
+    }
+
     render() {
+        console.log('in mvp lis', this.props.mvpList);
         const modal = this.state.modalOpen ? (
             <div className="modal">
                 <div className="modal__container bx--modal-container">
@@ -76,12 +90,7 @@ class AddMVP extends Component {
                 </div>
             </div>
         ) : '';
-        const data = [
-            {id: "sdas",mvpName: 'asdas',emergingTechnologies: 'asawe'},
-            {id: "asd",mvpName: 'afgdsdas',emergingTechnologies: 'asawerewrwe'},
-            {id: "ewq",mvpName: 'asddfgdfas',emergingTechnologies: 'werwer'},
-            {id: "ew",mvpName: 'dfgdfg',emergingTechnologies: 'werewr'}
-        ]
+        
         const tableData = this.props.mvpList.length > 0 ? (
                 <DataTable
                     rows={this.props.mvpList}
@@ -99,11 +108,14 @@ class AddMVP extends Component {
                                     </TableRow>
                                 </TableHead>
                                 <TableBody>
-                                    {rows.map(row => (
+                                    {rows.map((row, index) => (
                                         <TableRow key={row.id}>
-                                            {row.cells.map(cell => (
-                                                <TableCell key={cell.id}>{cell.value}</TableCell>
-                                            ))}
+                                            {/* {row.cells.map(cell => ( */}
+                                                <TableCell key={row.cells[0].id}>{row.cells[0].value}</TableCell>
+                                                <TableCell key={row.cells[1].id}>{row.cells[1].value}</TableCell>
+                                                <TableCell key={row.cells[2].id} onClick={(event) => this.editMVP(event, index, row)} className="tableEditIcon">{this.state.editSvg}</TableCell>
+                                                <TableCell key={row.cells[3].id} onClick={(event) => this.deleteMVP(event, index, row)} className="tableDeleteIcon">{this.state.deleteSvg}</TableCell>
+                                            {/* ))} */}
                                         </TableRow>
                                     ))}
                                 </TableBody>
@@ -141,7 +153,8 @@ const mapDispatchToProps = dispatch =>
         {
             resetMvpDetails,
             mvp,
-            resetFormValid
+            resetFormValid,
+            deleteMvp,
         },
         dispatch,
     );

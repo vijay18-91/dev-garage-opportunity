@@ -1,46 +1,120 @@
 .home {
-    &__sideNav {
-        background-color: blue;
-        max-width: 25rem !important;
-        width: 25rem !important;
-        padding-left: 50px;
-        padding-top: 100px;
+  &__sideNav {
+    background-color: blue;
+    max-width: 25rem !important;
+    width: 25rem !important;
+    padding-left: 50px;
+    padding-top: 100px;
+  }
+
+  &__sideNav h1 {
+    color: white;
+    margin-bottom: 20px;
+    font-weight: 500;
+  }
+
+  &__sideNav h3 {
+    color: white;
+  }
+
+  &__sideNav p {
+    color: white;
+    margin-bottom: 20px;
+  }
+
+  &__sideNav a {
+    text-decoration: none;
+  }
+
+  &__sideNav a:hover,
+  &__sideNav a:focus {
+    text-decoration: underline;
+  }
+
+  &__button {
+    background-color: white !important;
+    color: blue;
+    width: 205px;
+    height: 65px;
+    text-decoration: none;
+  }
+
+  &__button:hover,
+  &__button:focus {
+    color: blue;
+    font-weight: bold;
+  }
+
+  &__content {
+    margin-left: 26rem;
+    padding-top: 100px;
+  }
+
+  &__instructions {
+    margin-left: 5%;
+    width: 60%;
+    margin-bottom: 36px;
+
+    &--header {
+      color: blue;
+      font-weight: 900;
+      font-size: 20px;
     }
 
-    &__sideNav h1 {
-        color: white;
-        margin-bottom: 20px;
-        font-weight: 500;
+    &--para {
+        font-weight: 400;
     }
+  }
 
-    &__sideNav h3 {
-        color: white;
-    }
+  &__scenario1 {
+    margin-left: 5%;
+    width: 60%;
+    margin-bottom: 36px;
 
-    &__sideNav p {
-        color: white;
-        margin-bottom: 20px;
-    }
-
-    &__sideNav a {
-        text-decoration: none;
-    }
-
-    &__sideNav a:hover, &__sideNav a:focus {
-        text-decoration: underline;
-    }
-
-    &__button {
-        background-color: white !important;
+    &--header1 {
         color: blue;
-        width: 205px;
-        height: 65px;
-        text-decoration: none;
+        font-weight: 900;
     }
 
-    &__button:hover,
-    &__button:focus {
+    &--para {
         color: blue;
-        font-weight: bold;
+        font-weight: 400;
+        margin-bottom: 20px;
     }
+
+    &--header2 {
+        font-size: 14px;
+    }
+
+    &--list-item {
+        font-weight: 300;
+        font-size: 12px;
+    }
+  }
+
+  &__scenario2 {
+    margin-left: 5%;
+    width: 60%;
+    margin-bottom: 36px;
+
+    &--header1 {
+        color: blue;
+        font-weight: 900;
+    }
+
+    &--para {
+        color: blue;
+        font-weight: 400;
+        margin-bottom: 20px;
+    }
+
+    &--header2 {
+        font-size: 14px;
+    }
+
+    &--list-item {
+        font-weight: 300;
+        font-size: 12px;
+    }
+  }
 }

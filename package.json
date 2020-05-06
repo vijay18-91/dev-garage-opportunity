@@ -21,6 +21,7 @@
     "carbon-components-react": "^7.11.3",
     "carbon-icons": "^7.0.7",
     "case-sensitive-paths-webpack-plugin": "2.3.0",
+    "concurrently": "^5.2.0",
     "css-loader": "3.4.2",
     "dotenv": "8.2.0",
     "dotenv-expand": "5.1.0",
@@ -32,6 +33,7 @@
     "eslint-plugin-jsx-a11y": "6.2.3",
     "eslint-plugin-react": "7.19.0",
     "eslint-plugin-react-hooks": "^1.6.1",
+    "express": "^4.17.1",
     "file-loader": "4.3.0",
     "fs-extra": "^8.1.0",
     "html-webpack-plugin": "4.0.0-beta.11",
@@ -43,6 +45,7 @@
     "lodash": "^4.17.15",
     "material-table": "^1.57.2",
     "mini-css-extract-plugin": "0.9.0",
+    "npm-watch": "^0.6.0",
     "optimize-css-assets-webpack-plugin": "5.0.3",
     "pnp-webpack-plugin": "1.6.4",
     "postcss-flexbugs-fixes": "4.1.0",
@@ -67,6 +70,7 @@
     "terser-webpack-plugin": "2.3.5",
     "ts-pnp": "1.1.6",
     "url-loader": "2.3.0",
+    "watch": "^1.0.2",
     "webpack": "4.42.0",
     "webpack-dev-server": "3.10.3",
     "webpack-manifest-plugin": "2.2.0",
@@ -75,7 +79,10 @@
   "scripts": {
     "start": "node scripts/start.js",
     "build": "node scripts/build.js",
-    "test": "node scripts/test.js"
+    "test": "node scripts/test.js",
+    "server": "node server/app.js",
+    "watch": "npm-watch",
+    "dev": "concurrently --kill-others-on-fail \"npm run server\" \"npm run watch\""
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -146,5 +153,13 @@
     "presets": [
       "react-app"
     ]
+  },
+  "watch": {
+    "build": {
+      "patterns": [
+        "src"
+      ],
+      "extensions": "js,jsx"
+    }
   }
 }
