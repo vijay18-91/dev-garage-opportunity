@@ -11,6 +11,7 @@ class AddMVP extends Component {
 
     state = {
         primaryButtonText: 'Next',
+        secondaryButtonText: 'Cancel',
         isDisabled: false,
         currentIndex: 0,
         modalOpen: false,
@@ -28,11 +29,15 @@ class AddMVP extends Component {
     onHandleSubmit = () => {
         let currentIndexValue = this.state.currentIndex;
         if (currentIndexValue === 0) {
-            this.setState({ currentIndex: currentIndexValue + 1 })
+            this.setState({
+                currentIndex: currentIndexValue + 1,
+                secondaryButtonText: 'Back'
+            })
         } else if (currentIndexValue === 1) {
             this.setState({
                 currentIndex: currentIndexValue + 1,
-                primaryButtonText: 'Save'
+                primaryButtonText: 'Save',
+                secondaryButtonText: 'Back'
             })
         } else if (currentIndexValue === 2) {
             this.props.mvp(this.props.mvpDetails)
@@ -41,15 +46,23 @@ class AddMVP extends Component {
         }
     }
 
-    handleClose = () => {
-        this.setState({
-            primaryButtonText: 'Next',
-            isDisabled: false,
-            currentIndex: 0,
-            modalOpen: false
-        })
-        this.props.resetMvpDetails();
-        this.props.resetFormValid();
+    handleClose = (event) => {
+        if (event.target.innerText == 'Back') {
+            let currentIndexValue = this.state.currentIndex;
+            this.setState({
+                secondaryButtonText: currentIndexValue == 1 ? 'Cancel' : 'Back',
+                currentIndex: currentIndexValue - 1
+            })
+        } else {
+            this.setState({
+                primaryButtonText: 'Next',
+                isDisabled: false,
+                currentIndex: 0,
+                modalOpen: false
+            })
+            this.props.resetMvpDetails();
+            this.props.resetFormValid();
+        }
     }
 
     editMVP = (event, index, row) => {
@@ -64,7 +77,6 @@ class AddMVP extends Component {
     }
 
     render() {
-        console.log('in mvp lis', this.props.mvpList);
         const modal = this.state.modalOpen ? (
             <div className="modal">
                 <div className="modal__container bx--modal-container">
@@ -80,49 +92,58 @@ class AddMVP extends Component {
                         <AddMVPModal currentIndex={this.state.currentIndex} />
                     </div>
                     <div className="modal__footer bx--modal-footer">
-                        <button tabIndex="0" className="bx--btn bx--btn--secondary" onClick={this.handleClose} type="button">Cancel</button>
-                        <button tabIndex="0"
+                        <button
+                            tabIndex="0"
+                            className="bx--btn bx--btn--secondary"
+                            onClick={this.handleClose}
+                            type="button">
+                            {this.state.secondaryButtonText}
+                        </button>
+                        <button
+                            tabIndex="0"
                             className="bx--btn bx--btn--primary"
                             onClick={this.onHandleSubmit}
                             type="button"
-                            disabled={!this.props.isValid[this.state.formPattern[this.state.currentIndex]]}>{this.state.primaryButtonText}</button>
+                            disabled={!this.props.isValid[this.state.formPattern[this.state.currentIndex]]}>
+                            {this.state.primaryButtonText}
+                        </button>
                     </div>
                 </div>
             </div>
         ) : '';
-        
+
         const tableData = this.props.mvpList.length > 0 ? (
-                <DataTable
-                    rows={this.props.mvpList}
-                    headers={this.state.columns}
-                    render={({ rows, headers, getHeaderProps }) => (
-                        <TableContainer>
-                            <Table>
-                                <TableHead>
-                                    <TableRow>
-                                        {headers.map(header => (
-                                            <TableHeader {...getHeaderProps({ header })}>
-                                                {header.header}
-                                            </TableHeader>
-                                        ))}
-                                    </TableRow>
-                                </TableHead>
-                                <TableBody>
-                                    {rows.map((row, index) => (
-                                        <TableRow key={row.id}>
-                                            {/* {row.cells.map(cell => ( */}
-                                                <TableCell key={row.cells[0].id}>{row.cells[0].value}</TableCell>
-                                                <TableCell key={row.cells[1].id}>{row.cells[1].value}</TableCell>
-                                                <TableCell key={row.cells[2].id} onClick={(event) => this.editMVP(event, index, row)} className="tableEditIcon">{this.state.editSvg}</TableCell>
-                                                <TableCell key={row.cells[3].id} onClick={(event) => this.deleteMVP(event, index, row)} className="tableDeleteIcon">{this.state.deleteSvg}</TableCell>
-                                            {/* ))} */}
-                                        </TableRow>
+            <DataTable
+                rows={this.props.mvpList}
+                headers={this.state.columns}
+                render={({ rows, headers, getHeaderProps }) => (
+                    <TableContainer>
+                        <Table>
+                            <TableHead>
+                                <TableRow>
+                                    {headers.map(header => (
+                                        <TableHeader {...getHeaderProps({ header })}>
+                                            {header.header}
+                                        </TableHeader>
                                     ))}
-                                </TableBody>
-                            </Table>
-                        </TableContainer>)}
-                />
-            ) : '';
+                                </TableRow>
+                            </TableHead>
+                            <TableBody>
+                                {rows.map((row, index) => (
+                                    <TableRow key={row.id}>
+                                        {/* {row.cells.map(cell => ( */}
+                                        <TableCell key={row.cells[0].id}>{row.cells[0].value}</TableCell>
+                                        <TableCell key={row.cells[1].id}>{row.cells[1].value}</TableCell>
+                                        <TableCell key={row.cells[2].id} onClick={(event) => this.editMVP(event, index, row)} className="tableEditIcon">{this.state.editSvg}</TableCell>
+                                        <TableCell key={row.cells[3].id} onClick={(event) => this.deleteMVP(event, index, row)} className="tableDeleteIcon">{this.state.deleteSvg}</TableCell>
+                                        {/* ))} */}
+                                    </TableRow>
+                                ))}
+                            </TableBody>
+                        </Table>
+                    </TableContainer>)}
+            />
+        ) : '';
 
         return (
             <div className="addMVP">
@@ -130,12 +151,12 @@ class AddMVP extends Component {
                     <h3>2. MVP Information</h3>
                     <p> Some details about this form section</p>
                 </div>
-                <div className="addMVP__table">
-                    {tableData}
-                </div>
                 <div className="addMVP__button">
                     <Button onClick={() => this.setState({ modalOpen: true })}>+ Add MVP</Button>
                     {modal}
+                </div>
+                <div className="addMVP__table">
+                    {tableData}
                 </div>
             </div>
         )

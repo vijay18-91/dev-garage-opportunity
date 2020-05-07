@@ -1,6 +1,15 @@
 .home {
+
+  min-height: 600px;
+  height: 100%;
+  display: inline-block;
+  width: 100%;
+  position: relative;
+
   &__sideNav {
-    background-color: blue;
+    display: inline-block;
+    position: absolute;
+    background-color: #1161FB;
     max-width: 25rem !important;
     width: 25rem !important;
     padding-left: 50px;
@@ -24,6 +33,7 @@
 
   &__sideNav a {
     text-decoration: none;
+    width: 205px;
   }
 
   &__sideNav a:hover,
@@ -33,7 +43,7 @@
 
   &__button {
     background-color: white !important;
-    color: blue;
+    color: #1161FB;
     width: 205px;
     height: 65px;
     text-decoration: none;
@@ -41,7 +51,7 @@
 
   &__button:hover,
   &__button:focus {
-    color: blue;
+    color: #1161FB;
     font-weight: bold;
   }
 
@@ -52,11 +62,11 @@
 
   &__instructions {
     margin-left: 5%;
-    width: 60%;
+    width: 80%;
     margin-bottom: 36px;
 
     &--header {
-      color: blue;
+      color: #1161FB;
       font-weight: 900;
       font-size: 20px;
     }
@@ -68,16 +78,16 @@
 
   &__scenario1 {
     margin-left: 5%;
-    width: 60%;
+    width: 80%;
     margin-bottom: 36px;
 
     &--header1 {
-        color: blue;
+        color: #1161FB;
         font-weight: 900;
     }
 
     &--para {
-        color: blue;
+        color: #1161FB;
         font-weight: 400;
         margin-bottom: 20px;
     }
@@ -94,16 +104,16 @@
 
   &__scenario2 {
     margin-left: 5%;
-    width: 60%;
+    width: 80%;
     margin-bottom: 36px;
 
     &--header1 {
-        color: blue;
+        color: #1161FB;
         font-weight: 900;
     }
 
     &--para {
-        color: blue;
+        color: #1161FB;
         font-weight: 400;
         margin-bottom: 20px;
     }

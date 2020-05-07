@@ -14,7 +14,7 @@ class TeamStructure extends Component {
             cicFTEs: false,
             cicOffshoreFTEs: false
         },
-        fields: [    
+        fields: [
             'geoFTEs',
             'cicFTEs',
             'cicOffshoreFTEs'
@@ -42,22 +42,22 @@ class TeamStructure extends Component {
 
     onBlur = event => {
         console.log('data', event.target.name, event.target.name);
-        if(event.target.name == undefined) return
+        if (event.target.name == undefined) return
         let validate = this.state.validate;
-        validate[event.target.name || event.imaginaryTarget.name] = (event.target.value || event.imaginaryTarget.value ) == 0 ? true : false;
+        validate[event.target.name || event.imaginaryTarget.name] = (event.target.value || event.imaginaryTarget.value) == 0 ? true : false;
         this.setState({ validate })
         this.isFormValid();
     };
 
     isFormValid = () => {
         const isValid = _.every(this.state.validate, name => name === false),
-            isFormFilled = _.every(this.state.fields , field => this.props.mvpDetails[field] != 0);
+            isFormFilled = _.every(this.state.fields, field => this.props.mvpDetails[field] != 0);
 
         // console.log('data', isValid, isFormFilled, this.state.validate, this.props.mvpDetails);
         if (isValid && isFormFilled) {
-            this.props.formValid({name: 'teamStructureValid', value: true});
+            this.props.formValid({ name: 'teamStructureValid', value: true });
         } else {
-            this.props.formValid({name: 'teamStructureValid', value: false});
+            this.props.formValid({ name: 'teamStructureValid', value: false });
         }
     }
 
@@ -65,53 +65,57 @@ class TeamStructure extends Component {
         return (
             <div className="teamStructure">
                 <div className="teamStructure__fields">
-                    <div className="teamStructure__inputField">
-                        <NumberInput
-                            id='geoFTEs'
-                            invalid={this.state.validate.geoFTEs}
-                            onBlur={this.onBlur}
-                            invalidText="A value is required"
-                            label="No of Geo FTEs"
-                            name="geoFTEs"
-                            type="number"
-                            value={this.props.mvpDetails.geoFTEs}
-                            min={0}
-                            onChange={event => this.onTextChange(event)}
-                            onClick={(event) => this.onClick(event, 'geoFTEs')}
-                            onKeyPress={this.onKeyPress}
-                        />
+                    <div className="teamStructure__fieldRow">
+                        <div className="teamStructure__inputField">
+                            <NumberInput
+                                id='geoFTEs'
+                                invalid={this.state.validate.geoFTEs}
+                                onBlur={this.onBlur}
+                                invalidText="A value is required"
+                                label="No of Geo FTEs"
+                                name="geoFTEs"
+                                type="number"
+                                value={this.props.mvpDetails.geoFTEs}
+                                min={0}
+                                onChange={event => this.onTextChange(event)}
+                                onClick={(event) => this.onClick(event, 'geoFTEs')}
+                                onKeyPress={this.onKeyPress}
+                            />
+                        </div>
+                        <div className="teamStructure__inputField">
+                            <NumberInput
+                                id='cicFTEs'
+                                invalid={this.state.validate.cicFTEs}
+                                onBlur={this.onBlur}
+                                invalidText="A value is required"
+                                label="No of CIClanded FTEs"
+                                name="cicFTEs"
+                                type="number"
+                                value={this.props.mvpDetails.cicFTEs}
+                                min={0}
+                                onChange={event => this.onTextChange(event)}
+                                onClick={(event) => this.onClick(event, 'cicFTEs')}
+                                onKeyPress={this.onKeyPress}
+                            />
+                        </div>
                     </div>
-                    <div className="teamStructure__inputField">
-                        <NumberInput
-                            id='cicFTEs'
-                            invalid={this.state.validate.cicFTEs}
-                            onBlur={this.onBlur}
-                            invalidText="A value is required"
-                            label="No of CIClanded FTEs"
-                            name="cicFTEs"
-                            type="number"
-                            value={this.props.mvpDetails.cicFTEs}
-                            min={0}
-                            onChange={event => this.onTextChange(event)}
-                            onClick={(event) => this.onClick(event, 'cicFTEs')}
-                            onKeyPress={this.onKeyPress}
-                        />
-                    </div>
-                    <div className="teamStructure__inputField">
-                        <NumberInput
-                            id='cicOffshoreFTEs'
-                            invalid={this.state.validate.cicOffshoreFTEs}
-                            onBlur={this.onBlur}
-                            invalidText="A value is required"
-                            label="No of CIC offshore FTEs"
-                            name="cicOffshoreFTEs"
-                            type="number"
-                            value={this.props.mvpDetails.cicOffshoreFTEs}
-                            min={0}
-                            onChange={event => this.onTextChange(event)}
-                            onClick={(event) => this.onClick(event, 'cicOffshoreFTEs')}
-                            onKeyPress={this.onKeyPress}
-                        />
+                    <div className="teamStructure__fieldRow">
+                        <div className="teamStructure__inputField">
+                            <NumberInput
+                                id='cicOffshoreFTEs'
+                                invalid={this.state.validate.cicOffshoreFTEs}
+                                onBlur={this.onBlur}
+                                invalidText="A value is required"
+                                label="No of CIC offshore FTEs"
+                                name="cicOffshoreFTEs"
+                                type="number"
+                                value={this.props.mvpDetails.cicOffshoreFTEs}
+                                min={0}
+                                onChange={event => this.onTextChange(event)}
+                                onClick={(event) => this.onClick(event, 'cicOffshoreFTEs')}
+                                onKeyPress={this.onKeyPress}
+                            />
+                        </div>
                     </div>
                 </div>
             </div>
