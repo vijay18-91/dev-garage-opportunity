@@ -1,6 +1,7 @@
 .forms {
   &__header {
     margin: 60px 200px 50px 200px;
+    color: #707070;
   }
 }
 
@@ -9,12 +10,17 @@
 
   &__header {
     margin-bottom: 30px;
+    color: #707070;
   }
 
   &__inputField {
     display: inline-block;
     width: 270px;
     margin: 0 30px 35px 0;
+  }
+
+  &__inputField .bx--label {
+    color: #525252;
   }
 }
 
@@ -23,6 +29,7 @@
 
   &__header {
     margin-bottom: 20px;
+    color: #707070;
   }
 
   &__button {
@@ -91,8 +98,12 @@
 
     input {
       width: 270px;
-      background-color: #ffffff;
+      background-color: #f4f4f4;
     }
+  }
+
+  &__inputField .bx--label {
+    color: #525252;
   }
 
   &__radioField {
@@ -102,8 +113,12 @@
 
     & input[type="text"] {
       width: 270px;
-      background-color: #ffffff;
+      background-color: #f4f4f4;
     }
+  }
+
+  &__radioField .bx--label {
+    color: #525252;
   }
 
   &__selectField {
@@ -111,8 +126,12 @@
     display: inline-block;
 
     select {
-      background-color: #ffffff !important;
+      background-color: #f4f4f4 !important;
     }
+  }
+
+  &__selectField .bx--label {
+    color: #525252;
   }
 
   &__radioTextField {
@@ -135,9 +154,13 @@
     display: inline-block;
   }
 
+  &__inputField .bx--label {
+    color: #525252;
+  }
+
   &__inputField input[type="number"] {
     width: 270px;
-    background-color: #ffffff !important;
+    background-color: #f4f4f4 !important;
   }
 }
 
@@ -158,11 +181,15 @@
 
   & input[type="text"] {
     width: 270px;
-    background-color: #ffffff;
+    background-color: #f4f4f4;
   }
 
   &__radioTextField {
     margin-top: 20px;
+  }
+
+  &__radioField .bx--label {
+    color: #525252;
   }
 
   &__radioTextField div div {
@@ -188,11 +215,16 @@
     margin-bottom: 4rem;
   }
 
+  &__header h3 {
+    color: #707070;
+  }
+
   &__container {
     position: relative;
     margin: auto;
     border: 1px solid #888;
     width: 60%;
+    background-color: #FFFFFF;
   }
 
   &__content {

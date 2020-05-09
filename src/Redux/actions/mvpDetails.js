@@ -9,6 +9,5 @@ export const resetMvpDetails = (data) => {
 };
 
 export const populatePOCData = (data) => {
-    console.log('data in action', data);
     return {type: POPULATEPOCDATA.name, data}
 };

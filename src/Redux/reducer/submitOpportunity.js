@@ -1,4 +1,4 @@
-import { SUBMITOPPORTUNITY, LOADING } from '../actions/constants';
+import { SUBMITOPPORTUNITY, LOADING, RESETSUBMITOPPORTUNITY } from '../actions/constants';
 
 const initialState = {
     isSubmitting: false,
@@ -16,9 +16,11 @@ const submitOpportunity = (state = initialState, actions) => {
             console.log('in submit', actions.response)
             return {
                 isSubmitting: false,
-                submitOpportunity: actions.response
+                submitOpportunity: {...actions.response}
             }
-        default:
+        case RESETSUBMITOPPORTUNITY.name:
+            return {...initialState}
+        default: 
             return state;
 
     }

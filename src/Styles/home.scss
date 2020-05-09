@@ -1,6 +1,6 @@
 .home {
 
-  min-height: 600px;
+  min-height: 720px;
   height: 100%;
   display: inline-block;
   width: 100%;
@@ -22,8 +22,9 @@
     font-weight: 500;
   }
 
-  &__sideNav h3 {
+  &__sideNav h5 {
     color: white;
+    font-weight: 900;
   }
 
   &__sideNav p {
@@ -93,12 +94,14 @@
     }
 
     &--header2 {
-        font-size: 14px;
+        font-size: 16px;
+        font-weight: 900;
     }
 
     &--list-item {
         font-weight: 300;
-        font-size: 12px;
+        font-size: 14px;
+        line-height: 16px;
     }
   }
 
@@ -119,12 +122,14 @@
     }
 
     &--header2 {
-        font-size: 14px;
+        font-size: 16px;
+        font-weight: 900;
     }
 
     &--list-item {
         font-weight: 300;
-        font-size: 12px;
+        font-size: 14px;
+        line-height: 16px;
     }
   }
 }

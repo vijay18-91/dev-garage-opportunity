@@ -1,4 +1,4 @@
-import { SUBMITOPPORTUNITY, LOADING } from './constants';
+import { SUBMITOPPORTUNITY, LOADING, RESETSUBMITOPPORTUNITY } from './constants';
 
 export const submitOpportunity = (data) => {
 
@@ -9,4 +9,8 @@ export const submitOpportunity = (data) => {
         setTimeout(() => dispatch({type: SUBMITOPPORTUNITY.name, response}), 5000);
 
       }
+}
+
+export const resetSubmitOpportunity = () => {
+  return {type: RESETSUBMITOPPORTUNITY.name}
 }

@@ -23,6 +23,11 @@ export const ACCOUNTINFORMATIONDETAILS = {
     paramName: 'accountInformationDetails'
 }
 
+export const RESETACCOUNTINFORMATIONDETAILS = {
+    name: 'RESETACCOUNTINFORMATIONDETAILS',
+    paramName: 'resetAccountInformationDetails'
+}
+
 export const MVP = {
     name: 'MVP',
     paramName: 'mvp'
@@ -46,6 +51,16 @@ export const RESETFORMVALID = {
 export const SUBMITOPPORTUNITY = {
     name: 'SUBMITOPPORTUNITY',
     paramName: 'submitOpportunity'
+}
+
+export const RESETSUBMITOPPORTUNITY = {
+    name: 'RESETSUBMITOPPORTUNITY',
+    paramName: 'resetSubmitOpportunity'
+}
+
+export const RESETMVP = {
+    name: 'RESETMVP',
+    paramName: 'resetMvp'
 }
 
 export const LOADING = {

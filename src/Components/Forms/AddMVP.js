@@ -42,7 +42,7 @@ class AddMVP extends Component {
         } else if (currentIndexValue === 2) {
             this.props.mvp(this.props.mvpDetails)
             this.setState({ modalOpen: false });
-            this.handleClose();
+            this.resetData();
         }
     }
 
@@ -51,18 +51,23 @@ class AddMVP extends Component {
             let currentIndexValue = this.state.currentIndex;
             this.setState({
                 secondaryButtonText: currentIndexValue == 1 ? 'Cancel' : 'Back',
+                primaryButtonText: 'Next',
                 currentIndex: currentIndexValue - 1
             })
         } else {
-            this.setState({
-                primaryButtonText: 'Next',
-                isDisabled: false,
-                currentIndex: 0,
-                modalOpen: false
-            })
-            this.props.resetMvpDetails();
-            this.props.resetFormValid();
+            this.resetData();
         }
+    }
+
+    resetData = () => {
+        this.setState({
+            primaryButtonText: 'Next',
+            isDisabled: false,
+            currentIndex: 0,
+            modalOpen: false
+        })
+        this.props.resetMvpDetails();
+        this.props.resetFormValid();
     }
 
     editMVP = (event, index, row) => {

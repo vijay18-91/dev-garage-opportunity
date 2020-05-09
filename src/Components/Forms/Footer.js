@@ -15,6 +15,10 @@ class Footer extends Component {
         this.props.submitOpportunity(formData);
     }
 
+    handleClose = event => {
+        
+    }
+
     render() {
         let isFormValid = true;
         if (this.props.mvpList.length > 0 && _.every(this.props.accountInformationDetails, data => data !== '')) {

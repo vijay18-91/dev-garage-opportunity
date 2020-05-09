@@ -42,7 +42,8 @@ class ScenarioInformation extends Component {
             isMVPDevopsed: true,
             isMVPDevopsedOthers: false,
         },
-        fields: ['mvpName',
+        fields: [
+            'mvpName',
             'mvpStage',
             'emergingTechnologies',
             'weeksRequired',
@@ -51,7 +52,12 @@ class ScenarioInformation extends Component {
             'isMVPHardned',
             'isMVPReliability',
             'isMVPMonitored',
-            'isMVPDevopsed']
+            'isMVPDevopsed'
+        ]
+    }
+
+    componentDidMount() {
+        this.perpopulate();
     }
 
     static getDerivedStateFromProps(nextProps, prevState) {
@@ -77,13 +83,18 @@ class ScenarioInformation extends Component {
     }
 
     onChangeRadio = (event, name) => {
-        let validate = this.state.validate;
+        let validate = this.state.validate,
+            fields = this.state.fields;
         validate[name] = false;
         this.setState({ validate })
         this.props.updateMvpDetails({ name: name, value: event })
 
         if (event === 'others') {
-            this.state.fields.push(name + 'Others');
+            fields.push(name + 'Others');
+            this.setState({ fields });
+        } else if ((event !== 'others') && fields.indexOf(name + 'Others') > -1) {
+            _.remove(fields, field => field === name + 'Others')
+            this.setState({ fields });
         }
 
         this.isFormValid();
@@ -104,6 +115,21 @@ class ScenarioInformation extends Component {
         } else {
             this.props.formValid({ name: 'scenarioInformationValid', value: false });
         }
+    }
+
+    perpopulate = () => {
+        const mvpDetails = this.props.mvpDetails,
+            validate = this.state.validate,
+            fields = this.state.fields;
+
+        _.each(fields, field => {
+            if(validate[field] && mvpDetails[field] !== '') {
+                validate[field] = false;
+            }
+        });
+
+        this.setState({validate});
+
     }
 
     render() {

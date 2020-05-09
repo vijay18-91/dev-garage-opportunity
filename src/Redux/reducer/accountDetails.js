@@ -1,4 +1,4 @@
-import { ACCOUNTINFORMATIONDETAILS } from '../actions/constants';
+import { ACCOUNTINFORMATIONDETAILS, RESETACCOUNTINFORMATIONDETAILS } from '../actions/constants';
 
 const initialState = {
     accountName: '',
@@ -16,6 +16,8 @@ const accountDetails = (state = initialState, actions) => {
                 ...state,
                 [actions.data.name]: actions.data.value
             };
+        case RESETACCOUNTINFORMATIONDETAILS.name:
+            return {...initialState};
         default:
             return state;
     }

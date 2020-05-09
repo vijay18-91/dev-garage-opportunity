@@ -10,14 +10,6 @@ class PeopleCultureOrg extends Component {
 
     state = {
         validate: {
-            designThinkingApplied: true,
-            devOps: true,
-            hypothesisDrivenDevelopment: true,
-            leanStartup: true,
-            SRE: true,
-            investmentBoard: true,
-            leveragingTShape: true,
-            valuePartner: true,
             designThinkingAppliedOthers: false,
             devOpsOthers: false,
             hypothesisDrivenDevelopmentOthers: false,
@@ -26,6 +18,14 @@ class PeopleCultureOrg extends Component {
             investmentBoardOthers: false,
             leveragingTShapeOthers: false,
             valuePartnerOthers: false,
+            designThinkingApplied: true,
+            devOps: true,
+            hypothesisDrivenDevelopment: true,
+            leanStartup: true,
+            SRE: true,
+            investmentBoard: true,
+            leveragingTShape: true,
+            valuePartner: true,
         },
         radioOptions: [
             { name: 'Yes', value: 'yes' },
@@ -84,6 +84,10 @@ class PeopleCultureOrg extends Component {
     //     }
     // }
 
+    componentDidMount() {
+        this.prepopulateData();
+    }
+
     onBlur = event => {
         let validate = this.state.validate;
         validate[event.target.name || event.target.id] = event.target.value === '' ? true : false;
@@ -92,14 +96,22 @@ class PeopleCultureOrg extends Component {
     };
 
     onChangeRadio = (event, name) => {
-        let validate = this.state.validate;
-        validate[name] = false;
-        this.setState({ validate })
-        this.props.updateMvpDetails({ name: name, value: event })
+        let validate = this.state.validate,
+            fields = this.state.fields,
+            mvpDetails = this.state.mvpDetails;
 
         if (event === 'others') {
-            this.state.fields.push(name + 'Others');
+            fields.push(name + 'Others');
+        } else if ((event !== 'others') && fields.indexOf(name + 'Others') > -1) {
+            validate[name + 'Others'] = false;
+            _.remove(fields, field => field === name + 'Others')
+            mvpDetails[name + 'Others'] = '';
+            this.props.updateMvpDetails({ name: name + 'Others', value: '' });
         }
+
+        validate[name] = false;
+        this.setState({ validate, fields, mvpDetails });
+        this.props.updateMvpDetails({ name: name, value: event });
 
         this.isFormValid();
     }
@@ -107,14 +119,15 @@ class PeopleCultureOrg extends Component {
     onTextChange = event => {
         const mvpDetails = this.state.mvpDetails;
         mvpDetails[event.target.name] = event.target.value;
-        this.setState({mvpDetails});
+        this.setState({ mvpDetails });
         this.props.updateMvpDetails({ name: event.target.name, value: event.target.value })
     };
 
     isFormValid = () => {
         const isValid = _.every(this.state.validate, name => name === false),
             isFormFilled = _.every(this.state.fields, field => this.props.mvpDetails[field] !== '');
-        if (isValid && isFormFilled) {
+
+            if (isValid && isFormFilled) {
             this.props.formValid({ name: 'peopleCultureOrganisationValid', value: true });
         } else {
             this.props.formValid({ name: 'peopleCultureOrganisationValid', value: false });
@@ -134,10 +147,29 @@ class PeopleCultureOrg extends Component {
             validate[field] = false;
         });
 
-        console.log('this is check box ticket', mvpDetails);
         this.setState({ mvpDetails: mvpDetailsState, validate });
         this.props.populatePOCData(mvpDetails);
 
+    }
+
+    prepopulateData = () => {
+        const defaultFields = this.state.defaultFields,
+            mvpDetailsState = this.state.mvpDetails,
+            validate = this.state.validate,
+            mvpDetails = this.props.mvpDetails;
+
+        _.forEach(defaultFields, field => {
+            if (mvpDetails[field] === 'others') {
+                validate[field] = false;
+                validate[field + 'Others'] = mvpDetails[field] !== "" ? false : true;
+                mvpDetailsState[field] = mvpDetails[field];
+            } else if (mvpDetails[field] !== '') {
+                validate[field] = false;
+                mvpDetailsState[field] = mvpDetails[field];
+            }
+        });
+
+        this.setState({ mvpDetails: mvpDetailsState, validate });
     }
 
     render() {
