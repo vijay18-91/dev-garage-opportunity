@@ -3,7 +3,7 @@ import { FormGroup, RadioButtonGroup, RadioButton, TextInput, Checkbox } from 'c
 import _ from 'lodash';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { updateMvpDetails, populatePOCData } from '../../Redux/actions/mvpDetails';
+import { updateMvpDetails, populateData } from '../../Redux/actions/mvpDetails';
 import { formValid } from '../../Redux/actions/validate';
 
 class PeopleCultureOrg extends Component {
@@ -148,7 +148,7 @@ class PeopleCultureOrg extends Component {
         });
 
         this.setState({ mvpDetails: mvpDetailsState, validate });
-        this.props.populatePOCData(mvpDetails);
+        this.props.populateData(mvpDetails);
 
     }
 
@@ -481,7 +481,7 @@ const mapDispatchToProps = dispatch =>
         {
             updateMvpDetails,
             formValid,
-            populatePOCData
+            populateData
         },
         dispatch,
     );

@@ -38,9 +38,9 @@ export const DELETEMVP = {
     paramName: 'deleteMvp'
 }
 
-export const POPULATEPOCDATA = {
-    name: 'POPULATEPOCDATA',
-    paramName: 'populatePOC'
+export const POPULATEDATA = {
+    name: 'POPULATEDATA',
+    paramName: 'populateData'
 }
 
 export const RESETFORMVALID = {

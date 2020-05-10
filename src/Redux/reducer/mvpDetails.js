@@ -1,6 +1,7 @@
-import { MVPDETAILS, RESETMVPDETAILS, POPULATEPOCDATA } from '../actions/constants';
+import { MVPDETAILS, RESETMVPDETAILS, POPULATEDATA } from '../actions/constants';
 
 const initialState = {
+    row: -1,
     id: '',
     mvpName: '',
     emergingTechnologies: '',
@@ -46,8 +47,8 @@ const mvpDetails = (state = initialState, actions) => {
                 [actions.data.name]: actions.data.value,
                 id: actions.data.name == 'mvpName' ? actions.data.value : state.id,
             };
-        case POPULATEPOCDATA.name:
-            return {...actions.data};
+        case POPULATEDATA.name:
+            return { ...actions.data };
         case RESETMVPDETAILS.name:
             return {
                 ...initialState
