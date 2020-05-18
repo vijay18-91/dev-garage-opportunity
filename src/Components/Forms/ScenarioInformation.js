@@ -25,6 +25,12 @@ class ScenarioInformation extends Component {
             { name: "Option2", value: "option2" },
             { name: "Option3", value: "option3" }
         ],
+        stageInformation: [
+            { name: "Recently Started", value: "recentlyStarted" },
+            { name: "Work in Progress", value: "workInProgress" },
+            { name: "About to be delivered", value: "AboutToBeDelivered" },
+            { name: "Delivered", value: "delivered" },
+        ],
         validate: {
             mvpName: false,
             mvpStage: false,
@@ -58,6 +64,7 @@ class ScenarioInformation extends Component {
 
     componentDidMount() {
         this.perpopulate();
+        this.isFormValid();
     }
 
     static getDerivedStateFromProps(nextProps, prevState) {
@@ -149,6 +156,7 @@ class ScenarioInformation extends Component {
                                 defaultValue={this.props.mvpDetails.mvpName}
                                 onChange={event => this.onTextChange(event)}
                                 onKeyPress={this.onKeyPress}
+                                // disabled={this.props.mvpDetails.type === 'update' ? true : false}
                             />
                         </div>
                         <div className="scenarioInformation__inputField">
@@ -240,7 +248,7 @@ class ScenarioInformation extends Component {
                                 onBlur={this.onBlur}
                                 invalidText="A value is required" >
                                 <SelectItem text="Choose an option" value="" disabled={true} />
-                                {_.map(this.state.selectOptions, option => {
+                                {_.map(this.state.stageInformation, option => {
                                     return (
                                         <SelectItem
                                             text={option.name}

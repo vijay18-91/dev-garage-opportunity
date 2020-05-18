@@ -6,7 +6,9 @@ const initialState = {
     industry: '',
     practice: '',
     deliveredBy: '',
-    iot: ''
+    iot: '',
+    growthPlatform: '',
+    serviceLine: ''
 }
 
 const accountDetails = (state = initialState, actions) => {

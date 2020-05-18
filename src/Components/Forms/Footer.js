@@ -27,7 +27,7 @@ class Footer extends Component {
 
         return (
             <div className="footer">
-                { this.props.submitOpportunityData.status == 200 ? <Redirect to='/home' /> : '' }
+                {/* { this.props.submitOpportunityData.status == 200 ? <Redirect to='/home' /> : '' } */}
                 <Link to={{pathname: '/home'}}>
                     <button tabIndex="0" className="bx--btn bx--btn--secondary footer__secondary" onClick={this.handleClose} type="button">Cancel</button>
                 </Link>

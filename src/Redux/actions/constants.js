@@ -63,6 +63,11 @@ export const RESETMVP = {
     paramName: 'resetMvp'
 }
 
+export const OPPORTUNITIES = {
+    name: 'OPPORTUNITIES',
+    paramName: 'opportunities'
+}
+
 export const LOADING = {
     name: 'LOADING',
     paramName: 'loading'

@@ -48,5 +48,3 @@ app.post('/addOpportunity', addService.addOpportunity(request, response));
 app.get('/*', (req, res) => {
     res.redirect('/home');
 });
-
-export default app;

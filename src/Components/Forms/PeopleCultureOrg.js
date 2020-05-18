@@ -175,10 +175,10 @@ class PeopleCultureOrg extends Component {
     render() {
         this.isFormValid();
         let checkBox = '';
-        if (this.props.mvpList.length > 0) {
+        if (this.props.mvpList.length > 0 && this.props.mvpDetails.type === 'new') {
             checkBox = (
                 <div className="PeopleCultureOrg__checkbox">
-                    <Checkbox onClick={this.onCheckBoxClick} labelText="Pre-fill information for all MVP's" id="checkbox" />
+                    <Checkbox onClick={this.onCheckBoxClick} labelText="Pre-fill this information for all MVP's" id="checkbox" />
                 </div>
             )
         }

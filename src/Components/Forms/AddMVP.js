@@ -6,7 +6,7 @@ import { bindActionCreators } from 'redux';
 import { resetMvpDetails, populateData } from '../../Redux/actions/mvpDetails';
 import { mvp, deleteMvp } from '../../Redux/actions/mvp';
 import { resetFormValid } from '../../Redux/actions/validate';
-import Modal from '../../Containers/Modal';
+import ConfirmationModal from '../Modal/ConfirmationModal';
 import _ from 'lodash';
 
 class AddMVP extends Component {
@@ -48,7 +48,6 @@ class AddMVP extends Component {
             const length = this.props.mvpList.length,
                 data = this.props.mvpDetails;
             console.log('data from on submit1', data);
-            debugger;
             if (data.row == -1) {
                 data.row = length;
             }
@@ -68,9 +67,11 @@ class AddMVP extends Component {
                 currentIndex: currentIndexValue - 1
             })
         } else {
-            if (this.state.currentIndex > 0 || _.some(this.props.mvpDetails, data => { return (data !== '' && data) })) {
+            const keys = _.keys(this.props.mvpDetails);
+            const isFormStale = _.some(keys, key => key !== 'row' && key !== 'type' && this.props.mvpDetails[key] !== '' && this.props.mvpDetails[key]);
+            if (this.state.currentIndex > 0 || isFormStale) {
                 const cancelModal = (
-                    <Modal
+                    <ConfirmationModal
                         header='Cancel Confirmation'
                         message='Cancelling the addition of MVP information will lose the data already added. Are you sure?'
                         onProceed={this.resetData}
@@ -95,7 +96,8 @@ class AddMVP extends Component {
             isDisabled: false,
             currentIndex: 0,
             modalOpen: false,
-            cancelModal: ''
+            cancelModal: '',
+            secondaryButtonText: 'Cancel'
         })
         this.props.resetMvpDetails();
         this.props.resetFormValid();
@@ -104,6 +106,7 @@ class AddMVP extends Component {
     editMVP = (event, index, row) => {
         console.log('in edit mvp', event, index, row);
         const mvpDetails = {...this.props.mvpList[index]}
+        mvpDetails['type'] = 'update';
         console.log('mvpDetails', mvpDetails);
         this.props.populateData(mvpDetails);
         this.setState({modalOpen: true})
@@ -112,7 +115,7 @@ class AddMVP extends Component {
 
     confirmDeletModal = (event, index) => {
         const deleteModal = (
-            <Modal
+            <ConfirmationModal
                 header='Deletion Confirmation'
                 message={"Are you sure you want to delete the MVP '" + this.props.mvpList[index].mvpName +"'?"}
                 onProceed={this.deleteMVP}
@@ -206,7 +209,7 @@ class AddMVP extends Component {
                 {this.state.cancelModal}
                 <div className="addMVP__header">
                     <h3>2. MVP Information</h3>
-                    <p> Some details about this form section</p>
+                    <p> Fill these fields to provide MVP specific information. </p>
                 </div>
                 <div className="addMVP__button">
                     <Button onClick={() => this.setState({ modalOpen: true })}>+ Add MVP</Button>

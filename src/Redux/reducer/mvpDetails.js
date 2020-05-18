@@ -37,6 +37,7 @@ const initialState = {
     investmentBoardOthers: '',
     leveragingTShapeOthers: '',
     valuePartnerOthers: '',
+    type: 'new'
 }
 
 const mvpDetails = (state = initialState, actions) => {

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-class Modal extends Component {
+class ConfirmationModal extends Component {
     render() {
         return (
             <div className="warningModal">
@@ -33,4 +33,4 @@ class Modal extends Component {
     }
 }
 
-export default Modal;
+export default ConfirmationModal;

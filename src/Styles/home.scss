@@ -45,9 +45,13 @@
   &__button {
     background-color: white !important;
     color: #1161FB;
-    width: 205px;
+    width: 225px;
     height: 65px;
     text-decoration: none;
+
+    &--download {
+      margin-top: 2rem;
+    }
   }
 
   &__button:hover,

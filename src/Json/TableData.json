@@ -1,0 +1,53 @@
+[
+    {
+        "accountName": "Juniper",
+        "sector": "distribution",
+        "industry": "retial",
+        "growthPlatform": "cloudApplicationInnovation",
+        "serviceLine": "casAdviseMoveBuild",
+        "practice": "cloudApplicationDevelopment",
+        "deliveredBy": "Vj",
+        "iot": "japan",
+        "mvpList": [
+            {
+                "SRE": "yes",
+                "SREOthers": "",
+                "cicFTEs": "3",
+                "cicOffshoreFTEs": "3",
+                "designThinkingApplied": "yes",
+                "designThinkingAppliedOthers": "",
+                "devOps": "yes",
+                "devOpsOthers": "",
+                "emergingTechnologies": "react",
+                "geoFTEs": "4",
+                "hypothesisDrivenDevelopment": "yes",
+                "hypothesisDrivenDevelopmentOthers": "",
+                "id": 1,
+                "investmentBoard": "yes",
+                "investmentBoardOthers": "",
+                "isMVPDevopsed": "yes",
+                "isMVPDevopsedOthers": "",
+                "isMVPHardned": "no",
+                "isMVPHardnedOthers": "",
+                "isMVPMonitored": "yes",
+                "isMVPMonitoredOthers": "",
+                "isMVPReliability": "no",
+                "isMVPReliabilityOthers": "",
+                "leanStartup": "yes",
+                "leanStartupOthers": "",
+                "leveragingTShape": "yes",
+                "leveragingTShapeOthers": "",
+                "mvpName": "mvp1",
+                "mvpStage": "workInProgress",
+                "parallelSquads": "3",
+                "row": 0,
+                "transformationType": "enhanced",
+                "transformationTypeOthers": "",
+                "type": "new",
+                "valuePartner": "lowCostProvider",
+                "valuePartnerOthers": "",
+                "weeksRequired": "2"
+            }
+        ]
+    }
+]
