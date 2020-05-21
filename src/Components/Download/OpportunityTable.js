@@ -18,6 +18,7 @@ import {
     TableSelectRow,
     TableCell
 } from 'carbon-components-react';
+import '../../Styles/dataTable.scss'
 
 class OpportunityTable extends Component {
 
@@ -99,7 +100,7 @@ class OpportunityTable extends Component {
                                         <TableRow {...getRowProps({ row })}>
                                             <TableSelectRow {...getSelectionProps({ row })} />
                                             {/* {row.cells.map(cell => ( */}
-                                                <TableCell key={row.cells[0].id}>{row.cells[0].value}</TableCell>
+                                            {/* <TableCell key={row.cells[0].id}>{row.cells[0].value}</TableCell>
                                                 <TableCell key={row.cells[1].id}>{row.cells[1].value}</TableCell>
                                                 <TableCell key={row.cells[2].id}>{row.cells[2].value}</TableCell>
                                                 <TableCell key={row.cells[3].id}>{row.cells[3].value}</TableCell>
@@ -109,8 +110,11 @@ class OpportunityTable extends Component {
                                                 {console.log('data in table', row.cells[7])}
                                             {row.cells[7].map(cell => (
                                                 <TableCell key={cell.id}>{cell.value}</TableCell>
-                                            ))}
+                                            ))} */}
                                             {/* ))} */}
+                                            {row.cells.map(cell => (
+                                                <TableCell key={cell.id}>{cell.value}</TableCell>
+                                            ))}
                                         </TableRow>
                                     ))}
                                 </TableBody>
@@ -129,7 +133,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch =>
     bindActionCreators(
         {
-            
+
         },
         dispatch,
     );

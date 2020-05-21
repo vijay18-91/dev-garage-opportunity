@@ -30,11 +30,11 @@ class Home extends Component {
                     }}>
                         <Button className="home__button home__button--start">Lets get started!</Button>
                     </Link>
-                    {/* <Link to={{
+                    <Link to={{
                         pathname: "/downloadTable",
                     }}>
                         <Button className="home__button home__button--download">View All opportunities</Button>
-                    </Link> */}
+                    </Link>
                 </SideNav>
                 <div className="home__content">
                     <div className="home__instructions">

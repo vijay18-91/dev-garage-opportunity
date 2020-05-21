@@ -1,3 +1,5 @@
+CREATE SCHEMA `garageDB` ;
+
 CREATE TABLE `garageDb`.`opportunity` (
   `opportunityId` INT NOT NULL AUTO_INCREMENT,
   `accountName` VARCHAR(45) NOT NULL,
@@ -9,22 +11,21 @@ CREATE TABLE `garageDb`.`opportunity` (
   PRIMARY KEY (`idopportunity`),
   UNIQUE INDEX `idopportunity_UNIQUE` (`idopportunity` ASC) VISIBLE);
 
+ALTER TABLE `garageDB`.`opportunity` 
+ADD COLUMN `growthPlatform` VARCHAR(45) NOT NULL AFTER `iot`,
+ADD COLUMN `serviceLine` VARCHAR(45) NOT NULL AFTER `growthPlatform`,
+ADD COLUMN `opportunitycol` VARCHAR(45) NOT NULL AFTER `serviceLine`;
 
-  CREATE TABLE `garageDb`.`mvp` (
-  `mvpName` VARCHAR(45) NOT NULL,
-  `emergingTechnologies` VARCHAR(45) NOT NULL,
+CREATE TABLE `garageDB`.`mvp` (
+  `mvpName` VARCHAR(225) NOT NULL,
+  `emergingTechnologies` VARCHAR(225) NOT NULL,
   `weeksRequired` VARCHAR(45) NOT NULL,
   `parallelSquads` VARCHAR(45) NOT NULL,
   `transformationType` VARCHAR(45) NOT NULL,
-  `transformationTypeOthers` VARCHAR(45) NOT NULL,
   `isMVPHardned` VARCHAR(45) NOT NULL,
-  `isMVPHardnedOthers` VARCHAR(45) NOT NULL,
   `isMVPReliability` VARCHAR(45) NOT NULL,
-  `isMVPReliabilityOthers` VARCHAR(45) NOT NULL,
   `isMVPMonitored` VARCHAR(45) NOT NULL,
-  `isMVPMonitoredOthers` VARCHAR(45) NOT NULL,
   `isMVPDevopsed` VARCHAR(45) NOT NULL,
-  `isMVPDevopsedOthers` VARCHAR(45) NOT NULL,
   `mvpStage` VARCHAR(45) NOT NULL,
   `geoFTEs` VARCHAR(45) NOT NULL,
   `cicFTEs` VARCHAR(45) NOT NULL,
@@ -37,19 +38,19 @@ CREATE TABLE `garageDb`.`opportunity` (
   `investmentBoard` VARCHAR(45) NOT NULL,
   `leveragingTShape` VARCHAR(45) NOT NULL,
   `valuePartner` VARCHAR(45) NOT NULL,
-  `designThinkingAppliedOthers` VARCHAR(45) NOT NULL,
-  `devOpsOthers` VARCHAR(45) NOT NULL,
-  `hypothesisDrivenDevelopmentOthers` VARCHAR(45) NOT NULL,
-  `leanStartupOthers` VARCHAR(45) NOT NULL,
-  `SREOthers` VARCHAR(45) NOT NULL,
-  `investmentBoardOthers` VARCHAR(45) NOT NULL,
-  `leveragingTShapeOthers` VARCHAR(45) NOT NULL,
-  `valuePartnerOthers` VARCHAR(45) NOT NULL,
-  `opportunityId` INT NOT NULL,
+  `idopportunity` INT NOT NULL,
   PRIMARY KEY (`mvpName`),
-  INDEX `opportunityId_idx` (`opportunityId` ASC) VISIBLE,
-  CONSTRAINT `opportunityId`
-    FOREIGN KEY (`opportunityId`)
-    REFERENCES `garageDb`.`opportunity` (`opportunityId`)
+  INDEX `idopportunity_idx` (`idopportunity` ASC) VISIBLE,
+  CONSTRAINT `idopportunity`
+    FOREIGN KEY (`idopportunity`)
+    REFERENCES `garageDB`.`opportunity` (`idopportunity`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION);
+
+
+
+CREATE TABLE `garageDB`.`accountInformation` (
+  `Global_Client_Name` VARCHAR(225) NOT NULL,
+  `Account_Sector` VARCHAR(225) NOT NULL,
+  `Account_Industry` VARCHAR(225) NOT NULL,
+  PRIMARY KEY (`Global_Client_Name`, `Account_Sector`, `Account_Industry`));

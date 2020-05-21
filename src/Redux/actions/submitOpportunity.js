@@ -1,16 +1,25 @@
 import { SUBMITOPPORTUNITY, LOADING, RESETSUBMITOPPORTUNITY } from './constants';
+import axios from 'axios';
 
 export const submitOpportunity = (data) => {
 
-    return dispatch => {
-        // Async action is starting...
-        dispatch({type: LOADING.name});
-        const response = {status: 200};
-        setTimeout(() => dispatch({type: SUBMITOPPORTUNITY.name, response}), 5000);
+  debugger
+  // Async action is starting...
+  const request = axios.post('/addOpportunity', data);
 
-      }
+  return dispatch => {
+    dispatch({ type: LOADING.name });
+    console.log('in action of OUTSIDE')
+    request.then(res => {
+      console.log('in action of submit', res)
+      dispatch({ type: SUBMITOPPORTUNITY.name, response: res })
+    })
+      .catch(err => {
+        console.log(err)
+      });
+  }
 }
 
 export const resetSubmitOpportunity = () => {
-  return {type: RESETSUBMITOPPORTUNITY.name}
+  return { type: RESETSUBMITOPPORTUNITY.name }
 }

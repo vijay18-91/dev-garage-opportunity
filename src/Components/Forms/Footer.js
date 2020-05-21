@@ -10,7 +10,7 @@ class Footer extends Component {
     handleSubmit = event => {
         const mvpList = this.props.mvpList,
             accountInformationDetails = this.props.accountInformationDetails,
-            formData = {...accountInformationDetails, mvpList: mvpList};
+            formData = {accountInformationDetails: accountInformationDetails, mvpList: mvpList};
 
         this.props.submitOpportunity(formData);
     }

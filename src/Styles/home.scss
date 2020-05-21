@@ -1,5 +1,5 @@
-.home {
-
+.home,
+.uploadExcel {
   min-height: 720px;
   height: 100%;
   display: inline-block;
@@ -9,7 +9,7 @@
   &__sideNav {
     display: inline-block;
     position: absolute;
-    background-color: #1161FB;
+    background-color: #1161fb;
     max-width: 25rem !important;
     width: 25rem !important;
     padding-left: 50px;
@@ -44,7 +44,7 @@
 
   &__button {
     background-color: white !important;
-    color: #1161FB;
+    color: #1161fb;
     width: 225px;
     height: 65px;
     text-decoration: none;
@@ -56,7 +56,7 @@
 
   &__button:hover,
   &__button:focus {
-    color: #1161FB;
+    color: #1161fb;
     font-weight: bold;
   }
 
@@ -71,13 +71,13 @@
     margin-bottom: 36px;
 
     &--header {
-      color: #1161FB;
+      color: #1161fb;
       font-weight: 900;
       font-size: 20px;
     }
 
     &--para {
-        font-weight: 400;
+      font-weight: 400;
     }
   }
 
@@ -87,25 +87,25 @@
     margin-bottom: 36px;
 
     &--header1 {
-        color: #1161FB;
-        font-weight: 900;
+      color: #1161fb;
+      font-weight: 900;
     }
 
     &--para {
-        color: #1161FB;
-        font-weight: 400;
-        margin-bottom: 20px;
+      color: #1161fb;
+      font-weight: 400;
+      margin-bottom: 20px;
     }
 
     &--header2 {
-        font-size: 16px;
-        font-weight: 900;
+      font-size: 16px;
+      font-weight: 900;
     }
 
     &--list-item {
-        font-weight: 300;
-        font-size: 14px;
-        line-height: 16px;
+      font-weight: 300;
+      font-size: 14px;
+      line-height: 16px;
     }
   }
 
@@ -115,25 +115,41 @@
     margin-bottom: 36px;
 
     &--header1 {
-        color: #1161FB;
-        font-weight: 900;
+      color: #1161fb;
+      font-weight: 900;
     }
 
     &--para {
-        color: #1161FB;
-        font-weight: 400;
-        margin-bottom: 20px;
+      color: #1161fb;
+      font-weight: 400;
+      margin-bottom: 20px;
     }
 
     &--header2 {
-        font-size: 16px;
-        font-weight: 900;
+      font-size: 16px;
+      font-weight: 900;
     }
 
     &--list-item {
-        font-weight: 300;
-        font-size: 14px;
-        line-height: 16px;
+      font-weight: 300;
+      font-size: 14px;
+      line-height: 16px;
     }
+  }
+}
+
+.uploadExcel {
+  &__uploader {
+    margin-left: 5%;
+    margin-bottom: 36px;
+
+    button {
+      display: inline-block;
+      margin-top: 15px;
+    }
+  }
+
+  &__instructions {
+    width: 90%;
   }
 }

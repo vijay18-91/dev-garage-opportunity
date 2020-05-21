@@ -1,30 +1,39 @@
 const express = require('express')
 const app = express();
-const port = 3000
+const port = 8080
 const path = require('path');
+const multer = require("multer");
+
 const addService = require('./services/add');
 const deleteService = require('./services/delete');
+const uploadFile = require('./services/upload');
+const details = require('./services/details');
 
-var cookieParser = require("cookie-parser");
-var bodyParser = require("body-parser");
-var expressValidator = require("express-validator");
-var cors = require("cors");
+
+let cookieParser = require("cookie-parser");
+let bodyParser = require("body-parser");
+let expressValidator = require("express-validator");
+let cors = require("cors");
+let upload = multer();
+
+let async = require("async");
+let mysql = require('mysql');
+let connection = mysql.createConnection({
+    host: 'localhost',
+    user: 'root',
+    password: 'vijayanand',
+    database: 'garageDb'
+});
+
+// connection.connect();
 
 app.use('/', express.static('./build', {
   index: "index.html"
 }))
 
-let async = require("async");
-let mysql = require('mysql');
-let connection = mysql.createConnection({
-    host: '127.0.0.1',
-    user: 'root',
-    password: 'root',
-    database: 'garageDb'
-});
 
-app.use(bodyParser.json()); // support json encoded bodies
-app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
+app.use(bodyParser.json({limit: '50mb'})); // support json encoded bodies
+app.use(bodyParser.urlencoded({ extended: true, limit: '50mb', parameterLimit: 1000000 })); // support encoded bodies
 // app.use(expressValidator());
 app.use(cookieParser());
 app.use(cors());
@@ -32,27 +41,30 @@ app.use(cors());
 const indexPath = path.join(__dirname, "./build/index.html");
 
 app.get('/home', (req, res) => {
-    console.log('in home');
     res.sendFile(indexPath);
 });
 
 app.get('/dataTable', (req, res) => {
-    console.log('in datatable');
     res.sendFile(indexPath);
 });
 
 app.get('/forms', (req, res) => {
-    console.log('in forms');
     res.sendFile(indexPath);
 });
 
-app.post('/addOpportunity', (req, res) => addService.addOpportunity(req, res));
+app.post('/addOpportunity', (request,response) => addService.addOpportunity(request, response, connection));
+
+app.post('/uploadExcel', upload.single('fileName'), (request, response) => uploadFile.upload(request, response, connection));
+
+app.get('/getAccountDetails', (request, response) => details.accountDetails(request, response, connection));
 
 app.get('/', (req, res) => {
+    console.log('in empty slash');
     res.redirect('/home');
 });
 
 app.get('/*', (req, res) => {
+    console.log('in others');
     res.redirect('/home');
 });
 

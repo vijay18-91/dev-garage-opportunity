@@ -72,3 +72,13 @@ export const LOADING = {
     name: 'LOADING',
     paramName: 'loading'
 }
+
+export const UPLOADEXCEL = {
+    name: 'UPLOADEXCEL',
+    paramName: 'uploadExcel'
+}
+
+export const ACCOUNTINFORMATIONDATA = {
+    name: 'ACCOUNTINFORMATIONDATA',
+    paramName: 'accounntInformationData'
+}

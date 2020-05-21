@@ -4,6 +4,7 @@ import { TextInput, Select, SelectItem } from 'carbon-components-react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { accountInformationDetails } from '../../Redux/actions/accountDetails';
+import { accountInformationData } from '../../Redux/actions/accountInformationData';
 
 class AccountInformation extends Component {
 
@@ -13,43 +14,44 @@ class AccountInformation extends Component {
             { name: "Option2", value: "option2" },
             { name: "Option3", value: "option3" }
         ],
-        sectorOptions: [
-            { name: "Communication", value: "communication" },
-            { name: "Cross Sector", value: "crossSector" },
-            { name: "Distribution", value: "distribution" },
-            { name: "FSS", value: "fss" },
-            { name: "Industrial", value: "industrial" },
-            { name: "Public Sector", value: "publicSector" },
-        ],
-        communicationOptions: [
-            { name: "Energy and Utilities", value: "Energy and Utilities" },
-            { name: "Telco and Media and Entertainment", value: "Telco and Media and Entertainment" },
-        ],
-        crossSectorOptions: [
-            { name: "Option1", value: "option1" },
-            { name: "Option2", value: "option2" },
-            { name: "Option3", value: "option3" }
-        ],
-        distributionOptions: [
-            { name: "Consumer Industry", value: "Consumer Industry" },
-            { name: "Retail", value: "Retail" },
-            { name: "Travel and Transportation", value: "Travel and Transportation" },
-        ],
-        fssOptions: [
-            { name: "Banking and Financial Markets", value: "Banking and Financial Markets" },
-            { name: "Insurance", value: "Insurance" },
-        ],
-        industrialOptions: [
-            { name: "Auto and Aerospace and Defense", value: "Auto and Aerospace and Defense" },
-            { name: "Chemical and Petroleum", value: "Chemical and Petroleum" },
-            { name: "Electronics", value: "Electronics" },
-            { name: "Industrial Products", value: "Industrial Products" },
-        ],
-        publicSectorOptions: [
-            { name: "Cross Industry", value: "Cross Industry" },
-            { name: "Government", value: "Government" },
-            { name: "Health and Lifesciences", value: "Health and Lifesciences" },
-        ],
+        // sectorOptions: [
+        //     { name: "Communication", value: "communication" },
+        //     { name: "Cross Sector", value: "crossSector" },
+        //     { name: "Distribution", value: "distribution" },
+        //     { name: "FSS", value: "fss" },
+        //     { name: "Industrial", value: "industrial" },
+        //     { name: "Public Sector", value: "publicSector" },
+        // ],
+        // communicationOptions: [
+        //     { name: "Energy and Utilities", value: "Energy and Utilities" },
+        //     { name: "Telco and Media and Entertainment", value: "Telco and Media and Entertainment" },
+        // ],
+        // crossSectorOptions: [
+        //     { name: "Option1", value: "option1" },
+        //     { name: "Option2", value: "option2" },
+        //     { name: "Option3", value: "option3" }
+        // ],
+        // distributionOptions: [
+        //     { name: "Consumer Industry", value: "Consumer Industry" },
+        //     { name: "Retail", value: "Retail" },
+        //     { name: "Travel and Transportation", value: "Travel and Transportation" },
+        // ],
+        // fssOptions: [
+        //     { name: "Banking and Financial Markets", value: "Banking and Financial Markets" },
+        //     { name: "Insurance", value: "Insurance" },
+        // ],
+        // industrialOptions: [
+        //     { name: "Auto and Aerospace and Defense", value: "Auto and Aerospace and Defense" },
+        //     { name: "Chemical and Petroleum", value: "Chemical and Petroleum" },
+        //     { name: "Electronics", value: "Electronics" },
+        //     { name: "Industrial Products", value: "Industrial Products" },
+        // ],
+        // publicSectorOptions: [
+        //     { name: "Cross Industry", value: "Cross Industry" },
+        //     { name: "Government", value: "Government" },
+        //     { name: "Health and Lifesciences", value: "Health and Lifesciences" },
+        // ],
+        sectorOptions: [],
         industryOptions: [],
         growthPlatformOptions: [
             { name: "Cloud Application Innovation", value: "cloudApplicationInnovation" },
@@ -143,11 +145,46 @@ class AccountInformation extends Component {
         }
     }
 
+    componentDidMount() {
+        this.props.accountInformationData();
+    }
+
     onTextChange = event => {
         this.props.accountInformationDetails({ name: event.target.name, value: event.target.value })
     };
 
     onBlur = event => {
+
+        const accountList = this.props.accountInformation.accountList;
+        const details = this.props.accountInformationDetails;
+
+        if (event.target.name === 'accountName') {
+            const selectedList = _.filter(accountList, account => account.Global_Client_Name === event.target.value);
+            const sectorOptions = _.map(selectedList, list => {
+                return ({ name: list.Account_Sector, value: list.Account_Sector})
+            });
+            const industryOption = _.map(selectedList, list => {
+                return ({ name: list.Account_Industry, value: list.Account_Industry})
+            })
+
+            this.setState({
+                sectorOptions: sectorOptions,
+                industryOptions: industryOption
+            })
+
+            if (details.sector !== '') {
+                this.setState({ sector: true })
+                this.props.accountInformationDetails({ name: 'sector', value: '' })
+            }
+
+            if (details.industry !== '') {
+                this.setState({ industry: true })
+                this.props.accountInformationDetails({ name: 'industry', value: '' })
+            }
+
+
+        }
+
         let validate = this.state.validate;
         validate[event.target.name || event.target.id] = event.target.value === '' ? true : false;
         this.setState({ validate })
@@ -191,16 +228,16 @@ class AccountInformation extends Component {
 
         }
 
-        if (event.target.id === 'sector') {
-            this.setState({
-                industryOptions : this.state[event.target.value + 'Options']
-            })
+        // if (event.target.id === 'sector') {
+        //     this.setState({
+        //         industryOptions: this.state[event.target.value + 'Options']
+        //     })
 
-            if (details.industry !== '') {
-                this.setState({ industry: true })
-                this.props.accountInformationDetails({ name: 'industry', value: '' })
-            }
-        }
+        //     if (details.industry !== '') {
+        //         this.setState({ industry: true })
+        //         this.props.accountInformationDetails({ name: 'industry', value: '' })
+        //     }
+        // }
 
         this.props.accountInformationDetails({ name: event.target.id, value: event.target.value })
     }
@@ -227,7 +264,11 @@ class AccountInformation extends Component {
                                 onChange={event => this.onTextChange(event)}
                                 onBlur={this.onBlur}
                                 onKeyPress={this.onKeyPress}
-                            />
+                                list="browsers"/
+                            >
+                            <datalist id="browsers">
+                                {this.props.accountInformation.accountNameList}
+                            </datalist>
                         </div>
                         <div className="accountInformation__inputField">
                             <Select
@@ -391,13 +432,15 @@ class AccountInformation extends Component {
 }
 
 const mapStateToProps = state => ({
-    accountInformationDetails: state.AccountDetails
+    accountInformationDetails: state.AccountDetails,
+    accountInformation: state.AccountInformationData
 });
 
 const mapDispatchToProps = dispatch =>
     bindActionCreators(
         {
             accountInformationDetails,
+            accountInformationData
         },
         dispatch,
     );
