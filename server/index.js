@@ -8,6 +8,7 @@ const addService = require('./services/add');
 const deleteService = require('./services/delete');
 const uploadFile = require('./services/upload');
 const details = require('./services/details');
+const opportunities = require('./services/opportunities');
 
 
 let cookieParser = require("cookie-parser");
@@ -57,6 +58,8 @@ app.post('/addOpportunity', (request,response) => addService.addOpportunity(requ
 app.post('/uploadExcel', upload.single('fileName'), (request, response) => uploadFile.upload(request, response, connection));
 
 app.get('/getAccountDetails', (request, response) => details.accountDetails(request, response, connection));
+
+app.get('/getOpportunities', (request, response) => opportunities.getOpportunities(request, response, connection));
 
 app.get('/', (req, res) => {
     console.log('in empty slash');

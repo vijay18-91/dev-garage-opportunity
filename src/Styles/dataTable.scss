@@ -11,3 +11,19 @@
 .bx--data-table {
     margin-top: 115px;
 }
+
+.table-row {
+    display: none !important;
+}
+
+.bx--data-table th {
+    min-width: 325px;
+}
+
+.table {
+    width: 100%;
+    margin-top: 30px;
+    &__container {
+        max-height: 600px;
+    }
+}

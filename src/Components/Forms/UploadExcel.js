@@ -3,13 +3,15 @@ import { SideNav, FileUploader, Button } from 'carbon-components-react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import uploadExcel from '../../Redux/actions/uploadExcel';
+import { Redirect } from 'react-router-dom';
 
 class UploadExcel extends Component {
 
     state = {
         file: '',
         isSubmitDisabled: true,
-        inputKey: ''
+        inputKey: '',
+        redirect: false
     }
 
     onFileSelect = event => {
@@ -22,9 +24,14 @@ class UploadExcel extends Component {
         this.props.uploadExcel({ file: this.state.file });
     }
 
+    redirectToHome = event => {
+        this.setState({redirect: true});
+    }
+
     render() {
         return (
             <div className="uploadExcel">
+                { this.state.redirect ? <Redirect to='/home' /> : '' }
                 <SideNav isFixedNav expanded={true} isChildOfHeader={false} aria-label="Side navigation" className="uploadExcel__sideNav" >
                     <h1>IBM Garage Opportunity Qualification Assessment</h1>
                     <h5>Upload excel</h5>
@@ -53,6 +60,7 @@ class UploadExcel extends Component {
                             onChange={this.onFileSelect}
                             key={this.state.inputKey}
                         />
+                        <Button onClick={this.redirectToHome} kind='secondary' className="uploadExcel__homePage">Back to Home Page</Button>
                         <Button onClick={this.onSubmit} disabled={this.state.isSubmitDisabled}>Submit</Button>
                     </div>
                 </div >

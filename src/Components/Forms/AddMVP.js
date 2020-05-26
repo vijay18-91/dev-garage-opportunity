@@ -47,11 +47,9 @@ class AddMVP extends Component {
         } else if (currentIndexValue === 2) {
             const length = this.props.mvpList.length,
                 data = this.props.mvpDetails;
-            console.log('data from on submit1', data);
             if (data.row == -1) {
                 data.row = length;
             }
-            console.log('data from on submit2', data);
             this.props.mvp(data);
             this.setState({ modalOpen: false });
             this.resetData();
@@ -126,9 +124,14 @@ class AddMVP extends Component {
     }
 
     deleteMVP = () => {
-        const mvpList = [...this.props.mvpList];
+        let mvpList = [...this.props.mvpList];
         mvpList.splice(this.state.deleteOnIndex, 1);
-        this.props.deleteMvp(mvpList);
+        mvpList = _.map(mvpList, (mvp, index) => {
+            mvp.row = index;
+            return mvp;
+        })
+        console.log('deleted mvplist', mvpList);
+        this.props.deleteMvp(mvpList); 
         this.setState({ deleteModal: '' });
     }
 

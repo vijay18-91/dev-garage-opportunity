@@ -16,9 +16,13 @@ import {
     TableHeader,
     TableBody,
     TableSelectRow,
-    TableCell
+    TableCell,
+    Pagination
 } from 'carbon-components-react';
-import '../../Styles/dataTable.scss'
+import '../../Styles/dataTable.scss';
+import { opportunities } from '../../Redux/actions/opportunities';
+import HOC from '../../Utility/HOC';
+import TablePagination from '@material-ui/core/TablePagination';
 
 class OpportunityTable extends Component {
 
@@ -31,34 +35,80 @@ class OpportunityTable extends Component {
             { header: 'Service Line', key: 'serviceLine' },
             { header: 'Practice', key: 'practice' },
             { header: 'Delivered By', key: 'deliveredBy' },
-            { header: 'MVP Name', key: 'mvpList.mvpName' },
-            { header: 'What are the emerging technologies that are being used in this MVPs?', key: 'mvpList.emergingTechnologies' },
-            { header: 'How long does it take to deliver this MVP?(in weeks)', key: 'mvpList.weeksRequired' },
-            { header: 'How many squads are running in parallel?', key: 'mvpList.parallelSquads' },
-            { header: 'Is this MVP being scalled, or enhanced or a part of a large transformation?', key: 'mvpList.transformationType' },
-            { header: 'What stage is this MVP in currently', key: 'mvpList.mvpStage' },
-            { header: 'Is this MVP being setup with hardened architecture', key: 'mvpList.isMVPHardned' },
-            { header: 'Is this MVP being setup with reliability, Preventive maintenance systems?', key: 'mvpList.isMVPReliability' },
-            { header: 'Is this MVP being setup with monitoring tools?', key: 'mvpList.isMVPMonitored' },
-            { header: 'Does this MVP established have dev-ops pipeline from continuous business planning to delivery?', key: 'mvpList.isMVPDevopsed' },
-            { header: 'No of Geo FTEs', key: 'mvpList.geoFTEs' },
-            { header: 'No of CIClanded FTEs', key: 'mvpList.cicFTEs' },
-            { header: 'No of CIC offshore FTEs', key: 'mvpList.cicOffshoreFTEs' },
-            { header: 'Is design thinking applied?', key: 'mvpList.designThinkingApplied' },
-            { header: 'Are you practicing or starting to adopt DevOps', key: 'mvpList.devOps' },
-            { header: 'Are you practicing hypothesis-driven development?', key: 'mvpList.hypothesisDrivenDevelopment' },
-            { header: 'Are you practicing or starting to adopt Lean Startup', key: 'mvpList.leanStartup' },
-            { header: 'Are you practicing or starting to adopt Site Reliability Engineering (SRE)', key: 'mvpList.SRE' },
-            { header: 'Does the operating model include an investment board managed by IBM and client teams?', key: 'mvpList.investmentBoard' },
-            { header: 'Are you leveraging T-Shape cross functional skill sets?', key: 'mvpList.leveragingTShape' },
-            { header: 'Does the client perceive IBM as a value partner or low-cost provider?', key: 'mvpList.valuePartner' },
-        ]
+            { header: 'MVP Name', key: 'mvpName' },
+            { header: 'What are the emerging technologies that are being used in this MVPs?', key: 'emergingTechnologies' },
+            { header: 'How long does it take to deliver this MVP?(in weeks)', key: 'weeksRequired' },
+            { header: 'How many squads are running in parallel?', key: 'parallelSquads' },
+            { header: 'Is this MVP being scalled, or enhanced or a part of a large transformation?', key: 'transformationType' },
+            { header: 'What stage is this MVP in currently', key: 'mvpStage' },
+            { header: 'Is this MVP being setup with hardened architecture', key: 'isMVPHardned' },
+            { header: 'Is this MVP being setup with reliability, Preventive maintenance systems?', key: 'isMVPReliability' },
+            { header: 'Is this MVP being setup with monitoring tools?', key: 'isMVPMonitored' },
+            { header: 'Does this MVP established have dev-ops pipeline from continuous business planning to delivery?', key: 'isMVPDevopsed' },
+            { header: 'No of Geo FTEs', key: 'geoFTEs' },
+            { header: 'No of CIClanded FTEs', key: 'cicFTEs' },
+            { header: 'No of CIC offshore FTEs', key: 'cicOffshoreFTEs' },
+            { header: 'Is design thinking applied?', key: 'designThinkingApplied' },
+            { header: 'Are you practicing or starting to adopt DevOps', key: 'devOps' },
+            { header: 'Are you practicing hypothesis-driven development?', key: 'hypothesisDrivenDevelopment' },
+            { header: 'Are you practicing or starting to adopt Lean Startup', key: 'leanStartup' },
+            { header: 'Are you practicing or starting to adopt Site Reliability Engineering (SRE)', key: 'SRE' },
+            { header: 'Does the operating model include an investment board managed by IBM and client teams?', key: 'investmentBoard' },
+            { header: 'Are you leveraging T-Shape cross functional skill sets?', key: 'leveragingTShape' },
+            { header: 'Does the client perceive IBM as a value partner or low-cost provider?', key: 'valuePartner' },
+        ],
+        page: 0,
+        rowsPerPage: 10
+    }
+
+    componentDidMount() {
+        this.props.opportunities();
+    }
+
+    renderRows = (rows, getRowProps, page, rowsPerPage) => {
+        const data = this.props.opportunitiesData;
+        return rows.map((row, index) => {
+            const rowIndex = index,
+                mvpListLength = this.props.opportunitiesData[index].mvpList.length;
+            let rowList = [];
+            _.each(this.props.opportunitiesData[index].mvpList, (mvp, index) => {
+                // let alteredRow = index === 0 ? row : row.splice(0,7);
+                rowList.push((
+                    <TableRow {...getRowProps({ row })}>
+                        {row.cells.map(cell => {
+                            return (
+                                <TableCell
+                                    rowSpan={(data[rowIndex][cell.info.header] && index === 0) ? mvpListLength : 1}
+                                    key={cell.id}
+                                    className={(data[rowIndex][cell.info.header] && index !== 0) ? "table-row" : ""}>
+                                    {data[rowIndex][cell.info.header] || data[rowIndex].mvpList[index][cell.info.header]}
+                                </TableCell>)
+                        })}
+                    </TableRow>
+                ));
+            });
+            return rowList;
+        })
     }
 
     render() {
+        console.log('opportunitiesData', this.props.opportunitiesData);
+        const page = this.state.page;
+        const rowsPerPage = this.state.rowsPerPage;
+
+        const handleChangePage = (event, newPage) => {
+            this.setState({ page: newPage });
+        };
+
+        const handleChangeRowsPerPage = (event) => {
+            this.setState({
+                rowsPerPage: event.target.value,
+                page: 0
+            })
+        };
         return (
             <DataTable
-                rows={this.props.opportnities}
+                rows={this.props.opportunitiesData}
                 headers={this.state.column}
                 render={({ rows,
                     headers,
@@ -68,72 +118,68 @@ class OpportunityTable extends Component {
                     getBatchActionProps,
                     onInputChange,
                     selectedRows, }) => (
-                        <TableContainer title="DataTable with batch actions">
-                            <TableToolbar>
-                                <TableToolbarContent>
-                                    <TableToolbarSearch
-                                        tabIndex={getBatchActionProps().shouldShowBatchActions ? -1 : 0}
-                                        onChange={onInputChange}
-                                    />
-                                    <Button
-                                        tabIndex={getBatchActionProps().shouldShowBatchActions ? -1 : 0}
-                                        onClick={() => console.log('clicked')}
-                                        size="small"
-                                        kind="primary">
-                                        Download
+                        <HOC>
+                            <TableContainer title="Opportunities List">
+                                <TableToolbar>
+                                    <TableToolbarContent>
+                                        <TableToolbarSearch
+                                            tabIndex={getBatchActionProps().shouldShowBatchActions ? -1 : 0}
+                                            onChange={onInputChange}
+                                        />
+                                        <Button
+                                            tabIndex={getBatchActionProps().shouldShowBatchActions ? -1 : 0}
+                                            onClick={() => console.log('clicked')}
+                                            size="small"
+                                            kind="primary">
+                                            Download
                                     </Button>
-                                </TableToolbarContent>
-                            </TableToolbar>
-                            <Table>
-                                <TableHead>
-                                    <TableRow>
-                                        <TableSelectAll {...getSelectionProps()} />
-                                        {headers.map(header => (
-                                            <TableHeader {...getHeaderProps({ header })}>
-                                                {header.header}
-                                            </TableHeader>
-                                        ))}
-                                    </TableRow>
-                                </TableHead>
-                                <TableBody>
-                                    {rows.map(row => (
-                                        <TableRow {...getRowProps({ row })}>
-                                            <TableSelectRow {...getSelectionProps({ row })} />
-                                            {/* {row.cells.map(cell => ( */}
-                                            {/* <TableCell key={row.cells[0].id}>{row.cells[0].value}</TableCell>
-                                                <TableCell key={row.cells[1].id}>{row.cells[1].value}</TableCell>
-                                                <TableCell key={row.cells[2].id}>{row.cells[2].value}</TableCell>
-                                                <TableCell key={row.cells[3].id}>{row.cells[3].value}</TableCell>
-                                                <TableCell key={row.cells[4].id}>{row.cells[4].value}</TableCell>
-                                                <TableCell key={row.cells[5].id}>{row.cells[5].value}</TableCell>
-                                                <TableCell key={row.cells[6].id}>{row.cells[6].value}</TableCell>
-                                                {console.log('data in table', row.cells[7])}
-                                            {row.cells[7].map(cell => (
-                                                <TableCell key={cell.id}>{cell.value}</TableCell>
-                                            ))} */}
-                                            {/* ))} */}
-                                            {row.cells.map(cell => (
-                                                <TableCell key={cell.id}>{cell.value}</TableCell>
+                                    </TableToolbarContent>
+                                </TableToolbar>
+                                <Table>
+                                    <TableHead>
+                                        <TableRow>
+                                            {headers.map(header => (
+                                                <TableHeader {...getHeaderProps({ header })}>
+                                                    {header.header}
+                                                </TableHeader>
                                             ))}
                                         </TableRow>
-                                    ))}
-                                </TableBody>
-                            </Table>
-                        </TableContainer>)}
+                                    </TableHead>
+                                    <TableBody>
+                                        {this.renderRows(rows, getRowProps, page, rowsPerPage)}
+                                    </TableBody>
+                                </Table>
+                            </TableContainer>
+                            <Pagination
+                                backwardText="Previous page"
+                                forwardText="Next page"
+                                itemsPerPageText="Items per page:"
+                                page={1}
+                                pageNumberText="Page Number"
+                                pageSize={10}
+                                pageSizes={[
+                                    10,
+                                    20,
+                                    30,
+                                    40,
+                                    50
+                                ]}
+                                totalItems={rows.length}
+                            />
+                        </HOC>)}
             />
         )
     }
 }
 
-
 const mapStateToProps = state => ({
-    opportnities: state.Opportunities
+    opportunitiesData: state.Opportunities
 });
 
 const mapDispatchToProps = dispatch =>
     bindActionCreators(
         {
-
+            opportunities,
         },
         dispatch,
     );

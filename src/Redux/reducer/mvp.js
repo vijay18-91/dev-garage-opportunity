@@ -6,7 +6,6 @@ const initialState = [];
 const mvp = (state = initialState, actions) => {
     switch (actions.type) {
         case MVP.name:
-            console.log('action', actions.data);
             if (actions.data.row === state.length) {
                 return [...state, actions.data]
             } else {

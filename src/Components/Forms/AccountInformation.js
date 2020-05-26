@@ -54,84 +54,84 @@ class AccountInformation extends Component {
         sectorOptions: [],
         industryOptions: [],
         growthPlatformOptions: [
-            { name: "Cloud Application Innovation", value: "cloudApplicationInnovation" },
-            { name: "Cognitive Process Transformation", value: "cognitiveProcessTransformation" },
-            { name: "Digital Strategy & iX", value: "digitalStrategyIX" },
+            { name: "Cloud Application Innovation", value: "Cloud Application Innovation" },
+            { name: "Cognitive Process Transformation", value: "Cognitive Process Transformation" },
+            { name: "Digital Strategy and iX", value: "Digital Strategy and iX" },
         ],
-        cloudApplicationInnovationOptions: [
-            { name: "CAS Advise, Move & Build", value: "casAdviseMoveBuild" },
-            { name: "CAS Manage", value: "casManage" },
-            { name: "Next Gen EA", value: "nextGenEA" },
+        CloudApplicationInnovationOptions: [
+            { name: "CAS Advise, Move and Build", value: "CAS Advise, Move and Build" },
+            { name: "CAS Manage", value: "CAS Manage" },
+            { name: "Next Gen EA", value: "Next Gen EA" },
         ],
-        cognitiveProcessTransformationOptions: [
-            { name: "CBDS", value: "cbds" },
-            { name: "CPR", value: "cpr" },
-            { name: "CPS", value: "cps" },
+        CognitiveProcessTransformationOptions: [
+            { name: "CBDS", value: "CBDS" },
+            { name: "CPR", value: "CPR" },
+            { name: "CPS", value: "CPS" },
         ],
-        digitalStrategyIXOptions: [
-            { name: "iX", value: "ix" },
-            { name: "Digital Strategy", value: "digitalStrategy" },
+        DigitalStrategyandiXOptions: [
+            { name: "iX", value: "iX" },
+            { name: "Digital Strategy", value: "Digital Strategy" },
         ],
-        casAdviseMoveBuildOptions: [
-            { name: "Cloud Application Development", value: "cloudApplicationDevelopment" },
-            { name: "Complex SI & Architecture", value: "complexSIArchitecture" },
-            { name: "Migration Factory", value: "cigrationFactory" },
+        CASAdviseMoveandBuildOptions: [
+            { name: "Cloud Application Development", value: "Cloud Application Development" },
+            { name: "Complex SI and Architecture", value: "Complex SI and Architecture" },
+            { name: "Migration Factory", value: "Migration Factory" },
 
         ],
-        casManageOptions: [
-            { name: "Automation", value: "automation" },
-            { name: "Custom AMS", value: "customAMS" },
-            { name: "Dev Sec Ops", value: "devSecOps" },
-            { name: "iGNITE (Test Innovation)", value: "iGNITETestInnovation" },
-            { name: "Microsoft AMS", value: "microsoftAMS" },
-            { name: "Oracle AMS", value: "oracleAMS" },
-            { name: "SAP AMS", value: "sapAMS" },
-            { name: "ServiceNow", value: "serviceNow" },
+        CASManageOptions: [
+            { name: "Automation", value: "Automation" },
+            { name: "Custom AMS", value: "Custom AMS" },
+            { name: "Dev Sec Ops", value: "Dev Sec Ops" },
+            { name: "iGNITE (Test Innovation)", value: "iGNITE (Test Innovation)" },
+            { name: "Microsoft AMS", value: "Microsoft AMS" },
+            { name: "Oracle AMS", value: "Oracle AMS" },
+            { name: "SAP AMS", value: "SAP AMS" },
+            { name: "ServiceNow", value: "ServiceNow" },
         ],
-        nextGenEAOptions: [
-            { name: "SAP", value: "sap" },
-            { name: "Microsoft", value: "microsoft" },
-            { name: "Oracle", value: "oracle" },
-            { name: "Talent & Transformation Technologies", value: "talentTransformationTechnologies" },
+        NextGenEAOptions: [
+            { name: "SAP", value: "SAP" },
+            { name: "Microsoft", value: "Microsoft" },
+            { name: "Oracle", value: "Oracle" },
+            { name: "Talent and Transformation Technologies", value: "Talent and Transformation Technologies" },
         ],
-        cbdsOptions: [
-            { name: "Cognitive & Analytics", value: "cognitiveAnalytics" },
-            { name: "Data Platform Services", value: "dataPlatformServices" },
-            { name: "Intelligent Connected Operations", value: "intelligentConnectedOperations" },
+        CBDSOptions: [
+            { name: "Cognitive and Analytics", value: "Cognitive and Analytics" },
+            { name: "Data Platform Services", value: "Data Platform Services" },
+            { name: "Intelligent Connected Operations", value: "Intelligent Connected Operations" },
         ],
-        cprOptions: [
-            { name: "Blockchain", value: "blockchain" },
-            { name: "Finance", value: "finance" },
-            { name: "Industry Core Processes", value: "industryCoreProcesses" },
-            { name: "Supply Chain and Procurement", value: "supplyChainAndProcurement" },
-            { name: "Talent & Transformation", value: "talentTransformation" },
+        CPROptions: [
+            { name: "Blockchain", value: "Blockchain" },
+            { name: "Finance", value: "Finance" },
+            { name: "Industry Core Processes", value: "Industry Core Processes" },
+            { name: "Supply Chain and Procurement", value: "Supply Chain and Procurement" },
+            { name: "Talent and Transformation", value: "Talent and Transformation" },
         ],
-        cpsOptions: [
-            { name: "Cognitive Process Automation", value: "cognitiveProcessAutomation" },
-            { name: "Finance Process Services", value: "financeProcessServices" },
-            { name: "Talent & Transformation Process Services", value: "talentTransformationProcessServices" },
+        CPSOptions: [
+            { name: "Cognitive Process Automation", value: "Cognitive Process Automation" },
+            { name: "Finance Process Services", value: "Finance Process Services" },
+            { name: "Talent and Transformation Process Services", value: "Talent and Transformation Process Services" },
         ],
-        ixOptions: [
-            { name: "Customer Engagement & Design", value: "customerEngagementDesign" },
-            { name: "Digital Commerce", value: "digitalCommerce" },
-            { name: "Marketing Platforms", value: "marketingPlatforms" },
-            { name: "Mobile", value: "mobile" },
-            { name: "Salesforce", value: "salesforce" },
+        iXOptions: [
+            { name: "Customer Engagement and Design", value: "Customer Engagement and Design" },
+            { name: "Digital Commerce", value: "Digital Commerce" },
+            { name: "Marketing Platforms", value: "Marketing Platforms" },
+            { name: "Mobile", value: "Mobile" },
+            { name: "Salesforce", value: "Salesforce" },
         ],
-        digitalStrategyOptions: [
-            { name: "Digital Business Strategy", value: "digitalBusinessStrategy" },
-            { name: "Technology & Data Strategy", value: "technologyDataStrategy" },
+        DigitalStrategyOptions: [
+            { name: "Digital Business Strategy", value: "Digital Business Strategy" },
+            { name: "Technology and Data Strategy", value: "Technology and Data Strategy" },
         ],
         serviceLineOpitons: [],
         practiceOptions: [],
         iotOptions: [
-            { name: "ASIA PACIFIC", value: "asiaPacific" },
-            { name: "EUROPE", value: "europe" },
-            { name: "GREATER CHINA GROUP", value: "greatedChinaGroup" },
-            { name: "JAPAN", value: "japan" },
-            { name: "LATIN AMERICA", value: "latinAmerica" },
-            { name: "MEA", value: ",mea" },
-            { name: "NORTH AMERICA", value: "northAmerica" },
+            { name: "ASIA PACIFIC", value: "ASIA PACIFIC" },
+            { name: "EUROPE", value: "EUROPE" },
+            { name: "GREATER CHINA GROUP", value: "GREATER CHINA GROUP" },
+            { name: "JAPAN", value: "JAPAN" },
+            { name: "LATIN AMERICA", value: "LATIN AMERICA" },
+            { name: "MEA", value: ",MEA" },
+            { name: "NORTH AMERICA", value: "NORTH AMERICA" },
         ],
         validate: {
             accountName: false,
@@ -149,7 +149,7 @@ class AccountInformation extends Component {
         this.props.accountInformationData();
     }
 
-    onTextChange = event => {
+    onTextChange = event => { 
         this.props.accountInformationDetails({ name: event.target.name, value: event.target.value })
     };
 
@@ -198,7 +198,7 @@ class AccountInformation extends Component {
         const details = this.props.accountInformationDetails;
         if (event.target.id === 'growthPlatform') {
             this.setState({
-                serviceLineOpitons: this.state[event.target.value + 'Options']
+                serviceLineOpitons: this.state[event.target.value.replace(/[ ,]/g, "") + 'Options']
             })
             if (details.serviceLine !== '') {
                 this.setState({ serviceLine: true })
@@ -218,7 +218,7 @@ class AccountInformation extends Component {
             }
         } else if (event.target.id === 'serviceLine') {
             this.setState({
-                practiceOptions: this.state[event.target.value + 'Options']
+                practiceOptions: this.state[event.target.value.replace(/[ ,]/g, "") + 'Options']
             })
 
             if (details.practice !== '') {

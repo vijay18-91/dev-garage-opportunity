@@ -6,7 +6,7 @@ exports.addOpportunity = (request, response, connection) => {
         mvpList = request.body.mvpList;
     const accountQueryString = `INSERT INTO 
             opportunity(accountName, sector, industry, practice, deliveredBy, iot, growthPlatform, serviceLine) 
-            VALUES("${accountInformationDetails.accountName}","${accountInformationDetails.sector}","${accountInformationDetails.industry}","${accountInformationDetails.practice}","${accountInformationDetails.deliverdBy}","${accountInformationDetails.iot}","${accountInformationDetails.growthPlatform}","${accountInformationDetails.serviceLine}");`;
+            VALUES("${accountInformationDetails.accountName}","${accountInformationDetails.sector}","${accountInformationDetails.industry}","${accountInformationDetails.practice}","${accountInformationDetails.deliveredBy}","${accountInformationDetails.iot}","${accountInformationDetails.growthPlatform}","${accountInformationDetails.serviceLine}");`;
 
     return connection.query(accountQueryString, (err, rows, fields) => {
         if (err) {

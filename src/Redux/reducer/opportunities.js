@@ -1,13 +1,13 @@
 import { OPPORTUNITIES } from '../actions/constants';
 import data from '../../Json/TableData.json';
 
-const initialState = data;
+const initialState = [];
 
 const opportnities = (state = initialState, actions) => {
     switch (actions.type) {
         case OPPORTUNITIES.name:
             return [
-                ...initialState
+                ...actions.response.data
             ]
         default:
             return state;

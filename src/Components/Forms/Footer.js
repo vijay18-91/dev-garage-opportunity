@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import _ from 'lodash';
-import { Link, Redirect } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { submitOpportunity } from '../../Redux/actions/submitOpportunity';
 
 class Footer extends Component {
