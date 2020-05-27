@@ -12,7 +12,7 @@ const accountInformationData = (state = initialState, actions) => {
         case ACCOUNTINFORMATIONDATA.name:
             const accountNameList = _.map(actions.data, data => {
                 // return { name: data.Global_Client_Name, value: data.Global_Client_Name }
-                return (<option value={data.Global_Client_Name}/>)
+                return (<option key={data.Global_Client_Name} value={data.Global_Client_Name}/>)
             })
             return {
                 ...state,

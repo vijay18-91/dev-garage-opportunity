@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import uploadExcel from '../../Redux/actions/uploadExcel';
 import { Redirect } from 'react-router-dom';
+import ConfirmationModal from '../Modal/ConfirmationModal';
 
 class UploadExcel extends Component {
 
@@ -11,7 +12,9 @@ class UploadExcel extends Component {
         file: '',
         isSubmitDisabled: true,
         inputKey: '',
-        redirect: false
+        redirect: false ,
+        confirmationModalAdded: false,
+        confirmationModal: ''
     }
 
     onFileSelect = event => {
@@ -20,7 +23,7 @@ class UploadExcel extends Component {
     }
 
     onSubmit = event => {
-        this.setState({ inputKey: new Date() })
+        this.setState({ inputKey: new Date(), confirmationModal: '' });
         this.props.uploadExcel({ file: this.state.file });
     }
 
@@ -28,10 +31,31 @@ class UploadExcel extends Component {
         this.setState({redirect: true});
     }
 
+    closeModal = () => {
+        this.setState({confirmationModal: ''});
+    }
+
+    renderConfirmation = () => {
+        const confirmationModal = (
+            <ConfirmationModal
+                header='Success Confirmation'
+                message='The records have been successfully added. To move to home page click Redirect and clicking on OK will stay in the same page.'
+                onProceed={this.closeModal}
+                onCancel={this.redirectToHome}
+                primaryButton='OK'
+                secondaryButton='Back to Home Page'
+                type='primary' />
+        )
+
+        this.setState({ confirmationModal, confirmationModalAdded: true });
+    }
+
     render() {
         return (
             <div className="uploadExcel">
+                {(this.props.uploadExcelStatus == 200 && !this.state.confirmationModalAdded) ? this.renderConfirmation() : ''}
                 { this.state.redirect ? <Redirect to='/home' /> : '' }
+                {this.state.confirmationModal}
                 <SideNav isFixedNav expanded={true} isChildOfHeader={false} aria-label="Side navigation" className="uploadExcel__sideNav" >
                     <h1>IBM Garage Opportunity Qualification Assessment</h1>
                     <h5>Upload excel</h5>
@@ -70,7 +94,7 @@ class UploadExcel extends Component {
 }
 
 const mapStateToProps = state => ({
-    uploadExcelStatus: state.UploadExcel
+    uploadExcelStatus: state.UploadExcel.status
 });
 
 const mapDispatchToProps = dispatch =>

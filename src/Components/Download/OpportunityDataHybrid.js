@@ -120,6 +120,12 @@ class OpportunityTableMaterial extends Component {
                 title="Opportunity Data"
                 columns={this.state.columns}
                 data={this.props.opportunitiesData}
+                localization={{
+                    toolbar: {
+                        searchPlaceholder: 'Only Account Information are searchable',
+                        searchTooltip: 'Account Name, Sector, Industry, Growth Platform, Service Line, Practice, Delivered By And IOT columns are searchable'
+                    }
+                }}
                 options={{
                     pageSize: pageSize,
                     pageSizeOptions: pageOptions,
@@ -127,6 +133,7 @@ class OpportunityTableMaterial extends Component {
                     search: true,
                     exportButton: true,
                     filtering: false,
+                    exportAllData: true,
                     exportCsv: (columns, data) => {
                         let object = [];
                         _.each(data, data => {
@@ -156,7 +163,7 @@ class OpportunityTableMaterial extends Component {
                         return (
                             <TableHead>
                                 <TableRow>
-                                    {_.map(this.state.columns, column => <TableCell key={column.field} style={{ minWidth: column.minWidth }} align={column.align}>{column.title}</TableCell>)}
+                                    {_.map(this.state.columns, column => <TableCell key={column.field} style={{ minWidth: column.minWidth, fontWeight: 900, fontSize: '1rem' }} align={column.align}>{column.title}</TableCell>)}
                                 </TableRow>
                             </TableHead>
                         )

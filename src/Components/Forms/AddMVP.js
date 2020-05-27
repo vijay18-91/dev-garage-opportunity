@@ -73,7 +73,10 @@ class AddMVP extends Component {
                         header='Cancel Confirmation'
                         message='Cancelling the addition of MVP information will lose the data already added. Are you sure?'
                         onProceed={this.resetData}
-                        onCancel={this.closeCancelModal} />
+                        onCancel={this.closeCancelModal}
+                        primaryButton='OK'
+                        secondaryButton='CANCEL'
+                        type='danger' />
                 )
 
                 this.setState({ cancelModal });
@@ -117,7 +120,10 @@ class AddMVP extends Component {
                 header='Deletion Confirmation'
                 message={"Are you sure you want to delete the MVP '" + this.props.mvpList[index].mvpName +"'?"}
                 onProceed={this.deleteMVP}
-                onCancel={this.closeDeletModal} />
+                onCancel={this.closeDeletModal}
+                primaryButton='OK'
+                secondaryButton='CANCEL'
+                type='danger' />
         )
 
         this.setState({ deleteModal, deleteOnIndex: index });

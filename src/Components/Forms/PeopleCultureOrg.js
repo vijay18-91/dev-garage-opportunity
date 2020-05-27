@@ -28,14 +28,14 @@ class PeopleCultureOrg extends Component {
             valuePartner: true,
         },
         radioOptions: [
-            { name: 'Yes', value: 'yes' },
-            { name: 'No', value: 'no' },
-            { name: 'Others', value: 'others' }
+            { name: 'Yes', value: 'Yes' },
+            { name: 'No', value: 'No' },
+            { name: 'Others', value: 'Others' }
         ],
         radioOptionsValuePartner: [
-            { name: 'Value Partner', value: 'valuePartner' },
-            { name: 'Low-cost Provider', value: 'lowCostProvider' },
-            { name: 'Others', value: 'others' }
+            { name: 'Value Partner', value: 'Value Partner' },
+            { name: 'Low-cost Provider', value: 'Low-cost Provider' },
+            { name: 'Others', value: 'Others' }
         ],
         fields: [
             'designThinkingApplied',
@@ -68,21 +68,6 @@ class PeopleCultureOrg extends Component {
         defaultData: {},
         mvpDetails: {}
     }
-
-    // static getDerivedStateFromProps(nextProps, prevState) {
-    //     if (JSON.stringify(nextProps.mvpDetails) !== JSON.stringify(prevState.mvpDetails)) {
-    //         return { mvpDetails: nextProps.mvpDetails }
-    //     }
-
-    //     return null;
-    // }
-
-    // componentDidUpdate(prevProps, prevState) {
-    //     if (JSON.stringify(prevProps.mvpDetails) !== JSON.stringify(this.props.mvpDetails)) {
-    //         this.setState({mvpDetails: this.props.mvpDetails})
-    //         this.isFormValid();
-    //     }
-    // }
 
     componentDidMount() {
         this.prepopulateData();

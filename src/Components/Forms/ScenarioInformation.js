@@ -10,15 +10,15 @@ class ScenarioInformation extends Component {
 
     state = {
         radioOptions: [
-            { name: 'Yes', value: 'yes' },
-            { name: 'No', value: 'no' },
-            { name: 'Others', value: 'others' }
+            { name: 'Yes', value: 'Yes' },
+            { name: 'No', value: 'No' },
+            { name: 'Others', value: 'Others' }
         ],
         mvpTransformation: [
-            { name: 'Scaled', value: 'sacled' },
-            { name: 'Enhanced', value: 'enhanced' },
-            { name: 'Part of larger transformation', value: 'largerTransformation' },
-            { name: 'Others', value: 'others' },
+            { name: 'Scaled', value: 'Scaled' },
+            { name: 'Enhanced', value: 'Enhanced' },
+            { name: 'Part of larger transformation', value: 'Part of larger transformation' },
+            { name: 'Others', value: 'Others' },
         ],
         selectOptions: [
             { name: "Option1", value: "option1" },
@@ -26,10 +26,10 @@ class ScenarioInformation extends Component {
             { name: "Option3", value: "option3" }
         ],
         stageInformation: [
-            { name: "Recently Started", value: "recentlyStarted" },
-            { name: "Work in Progress", value: "workInProgress" },
-            { name: "About to be delivered", value: "AboutToBeDelivered" },
-            { name: "Delivered", value: "delivered" },
+            { name: "Recently Started", value: "Recently Started" },
+            { name: "Work in Progress", value: "Work in Progress" },
+            { name: "About to be delivered", value: "About to be delivered" },
+            { name: "Delivered", value: "Delivered" },
         ],
         validate: {
             mvpName: false,

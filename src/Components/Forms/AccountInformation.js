@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import _ from 'lodash';
-import { TextInput, Select, SelectItem } from 'carbon-components-react';
+import { TextInput, Select, SelectItem, Tooltip } from 'carbon-components-react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { accountInformationDetails } from '../../Redux/actions/accountDetails';
 import { accountInformationData } from '../../Redux/actions/accountInformationData';
+import { messages } from '../../Utility/messages';
 
 class AccountInformation extends Component {
 
@@ -124,6 +125,10 @@ class AccountInformation extends Component {
         ],
         serviceLineOpitons: [],
         practiceOptions: [],
+        deliveredByOptions: [
+            { name: "Sector", value: "Sector" },
+            { name: "Service Line", value: "Service Line" },
+        ],
         iotOptions: [
             { name: "ASIA PACIFIC", value: "ASIA PACIFIC" },
             { name: "EUROPE", value: "EUROPE" },
@@ -149,7 +154,7 @@ class AccountInformation extends Component {
         this.props.accountInformationData();
     }
 
-    onTextChange = event => { 
+    onTextChange = event => {
         this.props.accountInformationDetails({ name: event.target.name, value: event.target.value })
     };
 
@@ -161,10 +166,10 @@ class AccountInformation extends Component {
         if (event.target.name === 'accountName') {
             const selectedList = _.filter(accountList, account => account.Global_Client_Name === event.target.value);
             const sectorOptions = _.map(selectedList, list => {
-                return ({ name: list.Account_Sector, value: list.Account_Sector})
+                return ({ name: list.Account_Sector, value: list.Account_Sector })
             });
             const industryOption = _.map(selectedList, list => {
-                return ({ name: list.Account_Industry, value: list.Account_Industry})
+                return ({ name: list.Account_Industry, value: list.Account_Industry })
             })
 
             this.setState({
@@ -257,18 +262,23 @@ class AccountInformation extends Component {
                                 invalid={this.state.validate.accountName}
                                 invalidText="A value is required"
                                 labelText="Account Name"
-                                placeholder="Placeholder text"
+                                placeholder="Enter Account Name"
                                 name="accountName"
                                 required
                                 defaultValue={this.props.accountInformationDetails.accountName}
                                 onChange={event => this.onTextChange(event)}
                                 onBlur={this.onBlur}
                                 onKeyPress={this.onKeyPress}
-                                list="browsers"/
-                            >
+                                list="browsers"
+                                autoComplete="off" />
                             <datalist id="browsers">
                                 {this.props.accountInformation.accountNameList}
                             </datalist>
+                            <div className="accountInformation__tooltip">
+                                <Tooltip direction="bottom" tabIndex={0}  >
+                                    <p>{messages.accountName}</p>
+                                </Tooltip>
+                            </div>
                         </div>
                         <div className="accountInformation__inputField">
                             <Select
@@ -291,6 +301,11 @@ class AccountInformation extends Component {
                                     )
                                 })}
                             </Select>
+                            <div className="accountInformation__tooltip">
+                                <Tooltip direction="bottom" tabIndex={0}  >
+                                <p>{messages.sector}</p>
+                                </Tooltip>
+                            </div>
                         </div>
                     </div>
                     <div className="accountInformation__inputRow">
@@ -315,6 +330,11 @@ class AccountInformation extends Component {
                                     )
                                 })}
                             </Select>
+                            <div className="accountInformation__tooltip">
+                                <Tooltip direction="bottom" tabIndex={0}  >
+                                <p>{messages.industry}</p>
+                                </Tooltip>
+                            </div>
                         </div>
                         <div className="accountInformation__inputField">
                             <Select
@@ -337,6 +357,11 @@ class AccountInformation extends Component {
                                     )
                                 })}
                             </Select>
+                            <div className="accountInformation__tooltip">
+                                <Tooltip direction="bottom" tabIndex={0}  >
+                                    <p>{messages.growthPlatform}</p>
+                                </Tooltip>
+                            </div>
                         </div>
                     </div>
                     <div className="accountInformation__inputRow">
@@ -361,6 +386,11 @@ class AccountInformation extends Component {
                                     )
                                 })}
                             </Select>
+                            <div className="accountInformation__tooltip">
+                                <Tooltip direction="bottom" tabIndex={0}  >
+                                    <p>{messages.serviceLine}</p>
+                                </Tooltip>
+                            </div>
                         </div>
                         <div className="accountInformation__inputField">
                             <Select
@@ -383,23 +413,49 @@ class AccountInformation extends Component {
                                     )
                                 })}
                             </Select>
+                            <div className="accountInformation__tooltip">
+                                <Tooltip direction="bottom" tabIndex={0}  >
+                                    <p>{messages.practice}</p>
+                                </Tooltip>
+                            </div>
                         </div>
                     </div>
                     <div className="accountInformation__inputRow">
                         <div className="accountInformation__inputField">
-                            <TextInput
+                            {/* <TextInput
                                 id='deliveredBy'
                                 invalid={this.state.validate.deliveredBy}
                                 invalidText="A value is required"
                                 labelText="Delivered By"
-                                placeholder="Placeholder text"
+                                placeholder="Delivered By"
                                 name="deliveredBy"
                                 required
                                 defaultValue={this.props.accountInformationDetails.deliveredBy}
                                 onChange={event => this.onTextChange(event)}
                                 onBlur={this.onBlur}
                                 onKeyPress={this.onKeyPress}
-                            />
+                                autoComplete="off"
+                            /> */}
+                            <Select
+                                id="deliveredBy"
+                                required
+                                onChange={event => this.onChangeSelect(event)}
+                                defaultValue={this.props.accountInformationDetails.deliveredBy}
+                                labelText="Delivered By"
+                                invalid={this.state.validate.deliveredBy}
+                                onBlur={this.onBlur}
+                                invalidText="A value is required" >
+                                <SelectItem text="Choose an option" value="" />
+                                {_.map(this.state.deliveredByOptions, option => {
+                                    return (
+                                        <SelectItem
+                                            text={option.name}
+                                            value={option.value}
+                                            key={option.value}
+                                        />
+                                    )
+                                })}
+                            </Select>
                         </div>
                         <div className="accountInformation__inputField">
                             <Select

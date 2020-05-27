@@ -17,14 +17,14 @@ class ConfirmationModal extends Component {
                             className="bx--btn bx--btn--secondary"
                             onClick={this.props.onCancel}
                             type="button">
-                            CANCEL
+                            {this.props.secondaryButton}
                         </button>
                         <button
                             tabIndex="0"
-                            className="bx--btn bx--btn--danger"
+                            className={this.props.type == 'danger' ? "bx--btn bx--btn--danger" : "bx--btn bx--btn--primary"}
                             onClick={this.props.onProceed}
                             type="button">
-                            OK
+                            {this.props.primaryButton}
                         </button>
                     </div>
                 </div>
