@@ -85,9 +85,9 @@ class PeopleCultureOrg extends Component {
             fields = this.state.fields,
             mvpDetails = this.state.mvpDetails;
 
-        if (event === 'others') {
+        if (event === 'Others') {
             fields.push(name + 'Others');
-        } else if ((event !== 'others') && fields.indexOf(name + 'Others') > -1) {
+        } else if ((event !== 'Others') && fields.indexOf(name + 'Others') > -1) {
             validate[name + 'Others'] = false;
             _.remove(fields, field => field === name + 'Others')
             mvpDetails[name + 'Others'] = '';
@@ -144,7 +144,7 @@ class PeopleCultureOrg extends Component {
             mvpDetails = this.props.mvpDetails;
 
         _.forEach(defaultFields, field => {
-            if (mvpDetails[field] === 'others') {
+            if (mvpDetails[field] === 'Others') {
                 validate[field] = false;
                 validate[field + 'Others'] = mvpDetails[field] !== "" ? false : true;
                 mvpDetailsState[field] = mvpDetails[field];
@@ -200,7 +200,7 @@ class PeopleCultureOrg extends Component {
                                         invalidText="A value is required"
                                         labelText=""
                                         defaultValue={this.state.mvpDetails.designThinkingAppliedOthers}
-                                        disabled={this.props.mvpDetails.designThinkingApplied === 'others' ? false : true}
+                                        disabled={this.props.mvpDetails.designThinkingApplied === 'Others' ? false : true}
                                         name="designThinkingAppliedOthers"
                                         onChange={event => this.onTextChange(event)} />
                                 </div>
@@ -233,7 +233,7 @@ class PeopleCultureOrg extends Component {
                                         invalidText="A value is required"
                                         labelText=""
                                         defaultValue={this.state.mvpDetails.devOpsOthers}
-                                        disabled={this.props.mvpDetails.devOps === 'others' ? false : true}
+                                        disabled={this.props.mvpDetails.devOps === 'Others' ? false : true}
                                         name="devOpsOthers"
                                         onChange={event => this.onTextChange(event)} />
                                 </div>
@@ -269,7 +269,7 @@ class PeopleCultureOrg extends Component {
                                         invalidText="A value is required"
                                         labelText=""
                                         defaultValue={this.state.mvpDetails.hypothesisDrivenDevelopmentOthers}
-                                        disabled={this.props.mvpDetails.hypothesisDrivenDevelopment === 'others' ? false : true}
+                                        disabled={this.props.mvpDetails.hypothesisDrivenDevelopment === 'Others' ? false : true}
                                         name="hypothesisDrivenDevelopmentOthers"
                                         onChange={event => this.onTextChange(event)} />
                                 </div>
@@ -303,7 +303,7 @@ class PeopleCultureOrg extends Component {
                                         invalidText="A value is required"
                                         labelText=""
                                         defaultValue={this.state.mvpDetails.leanStartupOthers}
-                                        disabled={this.props.mvpDetails.leanStartup === 'others' ? false : true}
+                                        disabled={this.props.mvpDetails.leanStartup === 'Others' ? false : true}
                                         name="leanStartupOthers"
                                         onChange={event => this.onTextChange(event)} />
                                 </div>
@@ -339,7 +339,7 @@ class PeopleCultureOrg extends Component {
                                         invalidText="A value is required"
                                         labelText=""
                                         defaultValue={this.state.mvpDetails.SREOthers}
-                                        disabled={this.props.mvpDetails.SRE === 'others' ? false : true}
+                                        disabled={this.props.mvpDetails.SRE === 'Others' ? false : true}
                                         name="SREOthers"
                                         onChange={event => this.onTextChange(event)} />
                                 </div>
@@ -373,7 +373,7 @@ class PeopleCultureOrg extends Component {
                                         invalidText="A value is required"
                                         labelText=""
                                         defaultValue={this.state.mvpDetails.investmentBoardOthers}
-                                        disabled={this.props.mvpDetails.investmentBoard === 'others' ? false : true}
+                                        disabled={this.props.mvpDetails.investmentBoard === 'Others' ? false : true}
                                         name="investmentBoardOthers"
                                         onChange={event => this.onTextChange(event)} />
                                 </div>
@@ -409,7 +409,7 @@ class PeopleCultureOrg extends Component {
                                         invalidText="A value is required"
                                         labelText=""
                                         defaultValue={this.state.mvpDetails.leveragingTShapeOthers}
-                                        disabled={this.props.mvpDetails.leveragingTShape === 'others' ? false : true}
+                                        disabled={this.props.mvpDetails.leveragingTShape === 'Others' ? false : true}
                                         name="leveragingTShapeOthers"
                                         onChange={event => this.onTextChange(event)} />
                                 </div>
@@ -443,7 +443,7 @@ class PeopleCultureOrg extends Component {
                                         invalidText="A value is required"
                                         labelText=""
                                         defaultValue={this.state.mvpDetails.valuePartnerOthers}
-                                        disabled={this.props.mvpDetails.valuePartner === 'others' ? false : true}
+                                        disabled={this.props.mvpDetails.valuePartner === 'Others' ? false : true}
                                         name="valuePartnerOthers"
                                         onChange={event => this.onTextChange(event)} />
                                 </div>

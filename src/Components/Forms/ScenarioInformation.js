@@ -96,10 +96,10 @@ class ScenarioInformation extends Component {
         this.setState({ validate })
         this.props.updateMvpDetails({ name: name, value: event })
 
-        if (event === 'others') {
+        if (event === 'Others') {
             fields.push(name + 'Others');
             this.setState({ fields });
-        } else if ((event !== 'others') && fields.indexOf(name + 'Others') > -1) {
+        } else if ((event !== 'Others') && fields.indexOf(name + 'Others') > -1) {
             _.remove(fields, field => field === name + 'Others')
             this.setState({ fields });
         }
@@ -232,7 +232,7 @@ class ScenarioInformation extends Component {
                                         onBlur={this.onBlur}
                                         invalidText="A value is required"
                                         labelText=""
-                                        disabled={this.props.mvpDetails.transformationType === 'others' ? false : true}
+                                        disabled={this.props.mvpDetails.transformationType === 'Others' ? false : true}
                                         name="transformationTypeOthers"
                                         onChange={event => this.onTextChange(event)} />
                                 </div>
@@ -287,7 +287,7 @@ class ScenarioInformation extends Component {
                                         onBlur={this.onBlur}
                                         invalidText="A value is required"
                                         labelText=""
-                                        disabled={this.props.mvpDetails.isMVPHardned === 'others' ? false : true}
+                                        disabled={this.props.mvpDetails.isMVPHardned === 'Others' ? false : true}
                                         name="isMVPHardnedOthers"
                                         onChange={event => this.onTextChange(event)} />
                                 </div>
@@ -319,7 +319,7 @@ class ScenarioInformation extends Component {
                                         onBlur={this.onBlur}
                                         invalidText="A value is required"
                                         labelText=""
-                                        disabled={this.props.mvpDetails.isMVPReliability === 'others' ? false : true}
+                                        disabled={this.props.mvpDetails.isMVPReliability === 'Others' ? false : true}
                                         name="isMVPReliabilityOthers"
                                         onChange={event => this.onTextChange(event)} />
                                 </div>
@@ -353,7 +353,7 @@ class ScenarioInformation extends Component {
                                         onBlur={this.onBlur}
                                         invalidText="A value is required"
                                         labelText=""
-                                        disabled={this.props.mvpDetails.isMVPMonitored === 'others' ? false : true}
+                                        disabled={this.props.mvpDetails.isMVPMonitored === 'Others' ? false : true}
                                         name="isMVPMonitoredOthers"
                                         onChange={event => this.onTextChange(event)} />
                                 </div>
@@ -385,7 +385,7 @@ class ScenarioInformation extends Component {
                                         onBlur={this.onBlur}
                                         invalidText="A value is required"
                                         labelText=""
-                                        disabled={this.props.mvpDetails.isMVPDevopsed === 'others' ? false : true}
+                                        disabled={this.props.mvpDetails.isMVPDevopsed === 'Others' ? false : true}
                                         name="isMVPDevopsedOthers"
                                         onChange={event => this.onTextChange(event)} />
                                 </div>
