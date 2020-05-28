@@ -147,7 +147,8 @@ class AccountInformation extends Component {
             iot: false,
             growthPlatform: false,
             serviceLine: false
-        }
+        },
+        disabled:true
     }
 
     componentDidMount() {
@@ -174,7 +175,8 @@ class AccountInformation extends Component {
 
             this.setState({
                 sectorOptions: sectorOptions,
-                industryOptions: industryOption
+                industryOptions: industryOption,
+                disabled: false
             })
 
             if (details.sector !== '') {
@@ -281,26 +283,16 @@ class AccountInformation extends Component {
                             </div>
                         </div>
                         <div className="accountInformation__inputField">
-                            <Select
+                            <TextInput
                                 id="sector"
                                 onChange={event => this.onChangeSelect(event)}
-                                defaultValue={this.props.accountInformationDetails.sector}
+                                defaultValue={_.map(this.state.sectorOptions,value=>value.name)}
                                 required
                                 labelText="Sector"
-                                invalid={this.state.validate.sector}
                                 onBlur={this.onBlur}
+                                disabled={this.state.disabled}
                                 invalidText="A value is required" >
-                                <SelectItem text="Choose an option" value="" />
-                                {_.map(this.state.sectorOptions, option => {
-                                    return (
-                                        <SelectItem
-                                            text={option.name}
-                                            value={option.value}
-                                            key={option.value}
-                                        />
-                                    )
-                                })}
-                            </Select>
+                            </TextInput>
                             <div className="accountInformation__tooltip">
                                 <Tooltip direction="bottom" tabIndex={0}  >
                                 <p>{messages.sector}</p>
@@ -310,26 +302,16 @@ class AccountInformation extends Component {
                     </div>
                     <div className="accountInformation__inputRow">
                         <div className="accountInformation__inputField">
-                            <Select
+                            <TextInput
                                 id="industry"
                                 required
                                 onChange={event => this.onChangeSelect(event)}
-                                defaultValue={this.props.accountInformationDetails.industry}
+                                defaultValue={_.map(this.state.industryOptions,value=>value.name)}
                                 labelText="Industry"
-                                invalid={this.state.validate.industry}
                                 onBlur={this.onBlur}
+                                disabled={this.state.disabled}
                                 invalidText="A value is required" >
-                                <SelectItem text="Choose an option" value="" />
-                                {_.map(this.state.industryOptions, option => {
-                                    return (
-                                        <SelectItem
-                                            text={option.name}
-                                            value={option.value}
-                                            key={option.value}
-                                        />
-                                    )
-                                })}
-                            </Select>
+                            </TextInput>
                             <div className="accountInformation__tooltip">
                                 <Tooltip direction="bottom" tabIndex={0}  >
                                 <p>{messages.industry}</p>
