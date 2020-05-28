@@ -170,17 +170,9 @@ class AccountInformation extends Component {
             if (selectedList.length == 1){
                 this.props.accountInformationDetails({ name: 'sector', value: selectedList[0].Account_Sector });
                 this.props.accountInformationDetails({ name: 'industry', value: selectedList[0].Account_Industry });
-                this.setState({
-                    sector: selectedList[0].Account_Sector,
-                    industry: selectedList[0].Account_Industry
-                });
             } else {
                 this.props.accountInformationDetails({ name: 'sector', value: '' });
                 this.props.accountInformationDetails({ name: 'industry', value: '' });
-                this.setState({
-                    sector: '',
-                    industry: ''
-                });
             }
 
             // const sectorOptions = _.map(selectedList, list => {
@@ -250,17 +242,6 @@ class AccountInformation extends Component {
 
         }
 
-        // if (event.target.id === 'sector') {
-        //     this.setState({
-        //         industryOptions: this.state[event.target.value + 'Options']
-        //     })
-
-        //     if (details.industry !== '') {
-        //         this.setState({ industry: true })
-        //         this.props.accountInformationDetails({ name: 'industry', value: '' })
-        //     }
-        // }
-
         this.props.accountInformationDetails({ name: event.target.id, value: event.target.value })
     }
 
@@ -304,7 +285,7 @@ class AccountInformation extends Component {
                                 placeholder="Sector"
                                 name="sector"
                                 disabled
-                                defaultValue={this.state.sector} />
+                                defaultValue={this.props.accountInformationDetailsData.sector} />
                             <div className="accountInformation__tooltip">
                                 <Tooltip direction="bottom" tabIndex={0}  >
                                     <p>{messages.sector}</p>
@@ -320,7 +301,7 @@ class AccountInformation extends Component {
                                 placeholder="Industry"
                                 name="industry"
                                 disabled
-                                defaultValue={this.state.industry} />
+                                defaultValue={this.props.accountInformationDetailsData.industry} />
                             <div className="accountInformation__tooltip">
                                 <Tooltip direction="bottom" tabIndex={0}  >
                                     <p>{messages.industry}</p>
