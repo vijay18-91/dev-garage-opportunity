@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { TextInput, FormGroup, RadioButtonGroup, RadioButton, Select, SelectItem } from 'carbon-components-react';
+import { TextInput, FormGroup, RadioButtonGroup, RadioButton, Select, SelectItem, DatePicker, DatePickerInput } from 'carbon-components-react';
 import _ from 'lodash';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -36,6 +36,7 @@ class ScenarioInformation extends Component {
             mvpStage: false,
             emergingTechnologies: false,
             weeksRequired: false,
+            createdBy: false,
             parallelSquads: false,
             transformationType: true,
             transformationTypeOthers: false,
@@ -53,6 +54,7 @@ class ScenarioInformation extends Component {
             'mvpStage',
             'emergingTechnologies',
             'weeksRequired',
+            'createdBy',
             'parallelSquads',
             'transformationType',
             'isMVPHardned',
@@ -130,12 +132,12 @@ class ScenarioInformation extends Component {
             fields = this.state.fields;
 
         _.each(fields, field => {
-            if(validate[field] && mvpDetails[field] !== '') {
+            if (validate[field] && mvpDetails[field] !== '') {
                 validate[field] = false;
             }
         });
 
-        this.setState({validate});
+        this.setState({ validate });
 
     }
 
@@ -156,7 +158,7 @@ class ScenarioInformation extends Component {
                                 defaultValue={this.props.mvpDetails.mvpName}
                                 onChange={event => this.onTextChange(event)}
                                 onKeyPress={this.onKeyPress}
-                                // disabled={this.props.mvpDetails.type === 'update' ? true : false}
+                            // disabled={this.props.mvpDetails.type === 'update' ? true : false}
                             />
                         </div>
                         <div className="scenarioInformation__inputField">
@@ -175,7 +177,6 @@ class ScenarioInformation extends Component {
                         </div>
                     </div>
                     <div className="scenarioInformation__fieldRow">
-
                         <div className="scenarioInformation__inputField">
                             <TextInput
                                 id='weeksRequired'
@@ -203,6 +204,38 @@ class ScenarioInformation extends Component {
                                 onChange={event => this.onTextChange(event)}
                                 onKeyPress={this.onKeyPress}
                             />
+                        </div>
+                    </div>
+                    <div className="scenarioInformation__fieldRow">
+                        <div className="scenarioInformation__inputField">
+                            <TextInput
+                                id='monthStarting'
+                                invalid={this.state.validate.createdBy}
+                                onBlur={this.onBlur}
+                                invalidText="A value is required"
+                                labelText="Created by"
+                                placeholder="Enter Created by name"
+                                name="createdBy"
+                                defaultValue={this.props.mvpDetails.createdBy}
+                                onChange={event => this.onTextChange(event)}
+                                onKeyPress={this.onKeyPress}
+                            />
+                        </div>
+                        <div className="scenarioInformation__inputField">
+                            <DatePicker dateFormat="M Y" datePickerType="single">
+                                <DatePickerInput
+                                    id="startingMonth"
+                                    placeholder="Please select Month"
+                                    labelText="Starting Month"
+                                    invalid={this.state.validate.startingMonth}
+                                    onBlur={this.onBlur}
+                                    invalidText="A value is required"
+                                    name="startingMonth"
+                                    defaultValue={this.props.mvpDetails.startingMonth}
+                                    onChange={event => this.onTextChange(event)}
+                                    onKeyPress={this.onKeyPress}
+                                />
+                            </DatePicker>
                         </div>
                     </div>
                     <div className="scenarioInformation__fieldRow">

@@ -148,7 +148,7 @@ class AccountInformation extends Component {
             growthPlatform: false,
             serviceLine: false
         },
-        disabled:true
+        disabled: true
     }
 
     componentDidMount() {
@@ -162,33 +162,48 @@ class AccountInformation extends Component {
     onBlur = event => {
 
         const accountList = this.props.accountInformation.accountList;
-        const details = this.props.accountInformationDetails;
+        const details = this.props.accountInformationDetailsData;
 
         if (event.target.name === 'accountName') {
             const selectedList = _.filter(accountList, account => account.Global_Client_Name === event.target.value);
-            const sectorOptions = _.map(selectedList, list => {
-                return ({ name: list.Account_Sector, value: list.Account_Sector })
-            });
-            const industryOption = _.map(selectedList, list => {
-                return ({ name: list.Account_Industry, value: list.Account_Industry })
-            })
 
-            this.setState({
-                sectorOptions: sectorOptions,
-                industryOptions: industryOption,
-                disabled: false
-            })
-
-            if (details.sector !== '') {
-                this.setState({ sector: true })
-                this.props.accountInformationDetails({ name: 'sector', value: '' })
+            if (selectedList.length == 1){
+                this.props.accountInformationDetails({ name: 'sector', value: selectedList[0].Account_Sector });
+                this.props.accountInformationDetails({ name: 'industry', value: selectedList[0].Account_Industry });
+                this.setState({
+                    sector: selectedList[0].Account_Sector,
+                    industry: selectedList[0].Account_Industry
+                });
+            } else {
+                this.props.accountInformationDetails({ name: 'sector', value: '' });
+                this.props.accountInformationDetails({ name: 'industry', value: '' });
+                this.setState({
+                    sector: '',
+                    industry: ''
+                });
             }
 
-            if (details.industry !== '') {
-                this.setState({ industry: true })
-                this.props.accountInformationDetails({ name: 'industry', value: '' })
-            }
+            // const sectorOptions = _.map(selectedList, list => {
+            //     return ({ name: list.Account_Sector, value: list.Account_Sector })
+            // });
+            // const industryOption = _.map(selectedList, list => {
+            //     return ({ name: list.Account_Industry, value: list.Account_Industry })
+            // })
 
+            // this.setState({
+            //     sectorOptions: sectorOptions,
+            //     industryOptions: industryOption
+            // })
+
+            // if (details.sector !== '') {
+            //     this.setState({ sector: true })
+            //     this.props.accountInformationDetails({ name: 'sector', value: '' })
+            // }
+
+            // if (details.industry !== '') {
+            //     this.setState({ industry: true })
+            //     this.props.accountInformationDetails({ name: 'industry', value: '' })
+            // }
 
         }
 
@@ -202,7 +217,7 @@ class AccountInformation extends Component {
     }
 
     onChangeSelect = event => {
-        const details = this.props.accountInformationDetails;
+        const details = this.props.accountInformationDetailsData;
         if (event.target.id === 'growthPlatform') {
             this.setState({
                 serviceLineOpitons: this.state[event.target.value.replace(/[ ,]/g, "") + 'Options']
@@ -267,7 +282,7 @@ class AccountInformation extends Component {
                                 placeholder="Enter Account Name"
                                 name="accountName"
                                 required
-                                defaultValue={this.props.accountInformationDetails.accountName}
+                                defaultValue={this.props.accountInformationDetailsData.accountName}
                                 onChange={event => this.onTextChange(event)}
                                 onBlur={this.onBlur}
                                 onKeyPress={this.onKeyPress}
@@ -284,18 +299,15 @@ class AccountInformation extends Component {
                         </div>
                         <div className="accountInformation__inputField">
                             <TextInput
-                                id="sector"
-                                onChange={event => this.onChangeSelect(event)}
-                                defaultValue={_.map(this.state.sectorOptions,value=>value.name)}
-                                required
+                                id='sector'
                                 labelText="Sector"
-                                onBlur={this.onBlur}
-                                disabled={this.state.disabled}
-                                invalidText="A value is required" >
-                            </TextInput>
+                                placeholder="Sector"
+                                name="sector"
+                                disabled
+                                defaultValue={this.state.sector} />
                             <div className="accountInformation__tooltip">
                                 <Tooltip direction="bottom" tabIndex={0}  >
-                                <p>{messages.sector}</p>
+                                    <p>{messages.sector}</p>
                                 </Tooltip>
                             </div>
                         </div>
@@ -303,18 +315,15 @@ class AccountInformation extends Component {
                     <div className="accountInformation__inputRow">
                         <div className="accountInformation__inputField">
                             <TextInput
-                                id="industry"
-                                required
-                                onChange={event => this.onChangeSelect(event)}
-                                defaultValue={_.map(this.state.industryOptions,value=>value.name)}
+                                id='industry'
                                 labelText="Industry"
-                                onBlur={this.onBlur}
-                                disabled={this.state.disabled}
-                                invalidText="A value is required" >
-                            </TextInput>
+                                placeholder="Industry"
+                                name="industry"
+                                disabled
+                                defaultValue={this.state.industry} />
                             <div className="accountInformation__tooltip">
                                 <Tooltip direction="bottom" tabIndex={0}  >
-                                <p>{messages.industry}</p>
+                                    <p>{messages.industry}</p>
                                 </Tooltip>
                             </div>
                         </div>
@@ -323,7 +332,7 @@ class AccountInformation extends Component {
                                 id="growthPlatform"
                                 required
                                 onChange={event => this.onChangeSelect(event)}
-                                defaultValue={this.props.accountInformationDetails.growthPlatform}
+                                defaultValue={this.props.accountInformationDetailsData.growthPlatform}
                                 labelText="Growth Platform"
                                 invalid={this.state.validate.growthPlatform}
                                 onBlur={this.onBlur}
@@ -352,7 +361,7 @@ class AccountInformation extends Component {
                                 id="serviceLine"
                                 required
                                 onChange={event => this.onChangeSelect(event)}
-                                defaultValue={this.props.accountInformationDetails.serviceLine}
+                                defaultValue={this.props.accountInformationDetailsData.serviceLine}
                                 labelText="Service Line"
                                 invalid={this.state.validate.serviceLine}
                                 onBlur={this.onBlur}
@@ -379,7 +388,7 @@ class AccountInformation extends Component {
                                 id="practice"
                                 required
                                 onChange={event => this.onChangeSelect(event)}
-                                defaultValue={this.props.accountInformationDetails.practice}
+                                defaultValue={this.props.accountInformationDetailsData.practice}
                                 labelText="Practice"
                                 invalid={this.state.validate.practice}
                                 onBlur={this.onBlur}
@@ -412,7 +421,7 @@ class AccountInformation extends Component {
                                 placeholder="Delivered By"
                                 name="deliveredBy"
                                 required
-                                defaultValue={this.props.accountInformationDetails.deliveredBy}
+                                defaultValue={this.props.accountInformationDetailsData.deliveredBy}
                                 onChange={event => this.onTextChange(event)}
                                 onBlur={this.onBlur}
                                 onKeyPress={this.onKeyPress}
@@ -422,7 +431,7 @@ class AccountInformation extends Component {
                                 id="deliveredBy"
                                 required
                                 onChange={event => this.onChangeSelect(event)}
-                                defaultValue={this.props.accountInformationDetails.deliveredBy}
+                                defaultValue={this.props.accountInformationDetailsData.deliveredBy}
                                 labelText="Delivered By"
                                 invalid={this.state.validate.deliveredBy}
                                 onBlur={this.onBlur}
@@ -444,7 +453,7 @@ class AccountInformation extends Component {
                                 id="iot"
                                 required
                                 onChange={event => this.onChangeSelect(event)}
-                                defaultValue={this.props.accountInformationDetails.iot}
+                                defaultValue={this.props.accountInformationDetailsData.iot}
                                 labelText="IOT"
                                 invalid={this.state.validate.iot}
                                 onBlur={this.onBlur}
@@ -470,7 +479,7 @@ class AccountInformation extends Component {
 }
 
 const mapStateToProps = state => ({
-    accountInformationDetails: state.AccountDetails,
+    accountInformationDetailsData: state.AccountDetails,
     accountInformation: state.AccountInformationData
 });
 

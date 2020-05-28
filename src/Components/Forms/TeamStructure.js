@@ -34,7 +34,6 @@ class TeamStructure extends Component {
     onBlur = event => {
         if (!(event.target ||  event.imaginaryTarget) && !(event.target.name || event.imaginaryTarget.name)) return
         let validate = this.state.validate;
-        debugger
         validate[event.target.name || event.imaginaryTarget.name] = ((event.target && event.target.value) || (event.imaginaryTarget && event.imaginaryTarget.value)) == 0 ? true : false;
         this.setState({ validate })
         this.isFormValid();

@@ -26,6 +26,10 @@
     display: inline-block;
     width: 270px;
     margin: 0 30px 35px 0;
+
+    #sector, #industry {
+      color: #161616;
+    }
   }
 
   &__inputField .bx--label {
